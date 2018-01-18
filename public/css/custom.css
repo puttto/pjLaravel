@@ -1,0 +1,35 @@
+.glyphicon.glyphicon-ok.check-mark{
+  display: none !important;
+}
+ul.dropdown-menu{
+  font-size: small !important;
+}
+ul.dropdown-menu.inner li.selected{
+  background-color: rgb(170, 207, 182) !important;
+}
+
+/* nav.navbar.navbar-expand-lg.navbar-light.fixed-top{
+  background-color: #495057 !important;
+}
+nav.navbar.navbar-expand-lg.navbar-light.fixed-top.navbar-shrink{
+  background-color: :#00000000 !important;
+} */
+
+div.btn-group.bootstrap-select.show-tick.form-control.dropup button.btn.dropdown-toggle.btn-info span.filter-option.pull-left{
+  font-size: small !important;
+}
+
+@media only screen and (max-width : 770px) {
+    .navbar-toggle {
+        margin-top: -80px;
+        !important
+    }
+}
+
+
+/* span.addedOption span.addedOptiob span.clickable.removeOption{
+  .glyphicon-remove:before {
+    content: "\e014"
+  } */
+
+}
