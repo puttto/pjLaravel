@@ -65,7 +65,7 @@ class DetialController extends Controller
          // $data = array(
          //   'Patient'=>$Patient
          // );
-
+       //test
          if($id !== ''){
             //dd($id);
            $Patient = Patient::Where('id_patients',$id)->get();
