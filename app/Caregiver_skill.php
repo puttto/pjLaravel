@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caregiver_skill extends Model
 {
-  protected $fillable = ['id_special__skills','id_caregivers'];
+  protected $fillable = ['id_caregiver_skills','id_caregivers'];
     //
 }

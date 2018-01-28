@@ -50,11 +50,11 @@
         </script>
         <div class="form-group">
           <label for="Weight_lb">น้ำหนัก:</label>
-          <input type="number" class="form-control" id="Weight_care" name="Weight_care">
+          <input type="number" min="1"class="form-control" id="Weight_care" name="Weight_care">
         </div>
         <div class="form-group">
           <label for="Hight_lb">ส่วนสูง:</label>
-          <input type="number" class="form-control" id="Hight_care" name="Hight_care">
+          <input type="number" min="1" class="form-control" id="Hight_care" name="Hight_care">
         </div>
         <div class="form-group">
           <label for="Nationality_lb">สัญชาติ:</label>
@@ -85,7 +85,7 @@
           <label for="Lineid_lb">ID-Lind:</label>
           <input type="text" class="form-control" id="Lineid" name="Lineid">
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="Email_lb">Email:</label>
           <input type="text" class="form-control" id="Email" name="Email">
         </div>
@@ -96,10 +96,10 @@
 <div class="form-group">
   <label for="confirmpassword_lb">Password:</label>
   <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
-</div>
+</div> --}}
 <div class="form-group">
   <label for="Year_of_Caregiver_lb">จำนวนปีที่เป็นผู้ดูแล:</label>
-  <input type="number" id="Year_of_Caregiver" class="form-control floating-label" name="Year_of_Caregiver">
+  <input type="number" min="1" id="Year_of_Caregiver" class="form-control floating-label" name="Year_of_Caregiver">
 </div>
 <div class="form-group">
   <label for="Edu_Caregiver_lb">ระดับการศึกษา</label>
@@ -119,7 +119,7 @@
 
         </select>
 </div>
-
+<br>
 <div class="form-group">
   <label for="rest_day_lb">วันหยุดที่ต้องการ (หยุดได้ 1 วัน) </label>
   <div class="form-group">
@@ -139,13 +139,13 @@
     <label for="Sun"> Sun</label>
   </div>
 </div>
-
+<br><br><br><br>
 <div class="form-group">
   <label for="special_skill_lb">เคสพิเศษที่เคยดูแล</label>
 <select class="form-control selectpicker" data-style="btn-info" multiple data-max-options="" data-live-search="true" size="auto" name="Special_skill[]" >
 
 @forelse ($special__skills as $data)
-  <option value="{{$data['id_special__skills']}}">{{$data['special_skill_descption']}}</option>
+  <option value="{{$data['id_special_skills']}}">{{$data['special_skill_descption']}}</option>
 
 @empty
   <option value="0">no data!</option>
@@ -155,7 +155,7 @@
       </select>
       {{-- @forelse ($special_skill as $data)
         <ul>
-          <li>{{$data ['id_special__skills']}}</li>
+          <li>{{$data ['id_special_skills']}}</li>
           <li>{{$data ['special_skill_descption']}}</li>
 
         </ul>
@@ -163,7 +163,7 @@
         <h1>no data!!</h1>
       @endforelse --}}
 </div>
-<br>
+<br><br>
 <div class="form-group">
   <label for="medical_equipment_lb">เครื่องมืออุปกรณ์การแพทย์ที่เคยใช้</label>
 <select class="form-control selectpicker"   data-style="btn-info" multiple data-max-options="" data-live-search="true" size="auto"  name="Medical_equipment[]" >
@@ -178,6 +178,8 @@
 <br>
 
 
+<br>
+<br>
 <br>
 
 

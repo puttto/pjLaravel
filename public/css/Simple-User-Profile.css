@@ -17,8 +17,9 @@
 }
 
 .table-user-information > tbody > tr {
-    border-top: 1px solid rgb(221, 221, 221);
+    border-top: 1px solid rgb(222, 125, 103);
 }
+/* rgb(221, 221, 221) */
 
 .table-user-information > tbody > tr:first-child {
     border-top: 0;

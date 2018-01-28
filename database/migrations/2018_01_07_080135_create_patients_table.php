@@ -21,12 +21,13 @@ class CreatePatientsTable extends Migration
             $table->string('nationality_Pat',50);
             $table->string('race_Pat',50);
             $table->string('religion_Pat',50);
-            $table->date('birthday_Pat')->nullable();
+            $table->date('birthday_Pat');
             $table->integer('weight_Pat');
             $table->integer('hight_Pat');
             $table->string('id_card_Pat',13);
             $table->string('gender_Pat',2);
             $table->string('interesting_Pat',200)->nullable();
+            $table->string('hospital_pat',200)->nullable();
             $table->string('img_name_Pat',50)->nullable();
             $table->timestamps();
 

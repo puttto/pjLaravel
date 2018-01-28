@@ -105,7 +105,7 @@
      </select>
    </div>
 
-   <div class="form-group">
+   {{-- <div class="form-group">
      <label for="food_allergy_lb">ใหม่</label>
      <select  multiple name="allergy[]" id="my-allergy" data-live-search="true">
 
@@ -133,9 +133,9 @@
   background-color: red;
 }
 
-</style>
+</style> --}}
 
-
+<br><br><br>
    <div class="button" style="text-align:right;">
    <button  type="submit" class="btn btn-info" style="width:120px; background-color:rgb(49, 160, 240)">ยืนยัน</button>
 

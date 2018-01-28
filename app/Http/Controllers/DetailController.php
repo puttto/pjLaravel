@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\Pat_sick;
+use App\sickness;
+use App\Equipment;
+use App\Pat_Equipment;
+use App\Allergy;
+Use App\Pat_Allergy;
+
+
+
 
 class DetailController extends Controller
 {
@@ -58,10 +67,38 @@ class DetailController extends Controller
         if($id !== ''){
 
           $keeppat = Patient::Where('id_patients',$id)->get();
+//dd($keeppat);
+
+          $keep_patsick = Pat_sick::Where('id_patients',$id)
+                ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
+                ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
+                ->get();
+
+          $keep_equpment = Pat_Equipment::Where('id_patients',$id)
+                ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+                ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+                ->get();
+
+
+          $keep_allergy = Pat_Allergy::Where('id_patients',$id)
+                ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+                ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+                ->get();
+//dd($keep_patsick);
+           // $keep_patsick = DB:: table('pat_sicks')->select('pat_sicks.id_sickness,pat_sicks.id_patients,sicknesses.id_sickness,sicknesses.sick_name,sicknesses.sick_description FROM pat_sicks INNER JOIN sicknesses ON pat_sicks.id_sickness=sicknesses.id_sickness WHERE`id_patients`=8');
+          //dd($keep_patsick);
+
+
+
           //dd($Patient);
 
-          $data = array('detail'=>$keeppat);
-          //dd($data);
+          $data = array(
+            'detail'=>$keeppat,
+            'show_patsick'=>$keep_patsick,
+            'show_equpment'=>$keep_equpment,
+            'show_allergy'=>$keep_allergy
+          );
+        //  dd($data);
 
         }
           return view('detail',$data);

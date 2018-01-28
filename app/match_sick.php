@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class match_sick extends Model
 {
-  protected $fillable = ['id_sickness','id_special__skills']; 
+  protected $fillable = ['id_sickness','id_special_skills']; 
     //
 }

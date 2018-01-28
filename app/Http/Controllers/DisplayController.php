@@ -31,7 +31,7 @@ class DisplayController extends Controller
         $data = array('display'=>$Patient);
 
 
-        return view('display', $data);
+        return view('dash', $data);
     }
 
     /**
@@ -57,10 +57,10 @@ class DisplayController extends Controller
         // $match_sick= match_sick::where('id_sickness', $request->sickness)->get();
         // $id_get = '';
         // foreach ($match_sick as $data) {
-        //     $id_get=$data['id_special__skills'];
+        //     $id_get=$data['id_special_skills'];
         // }
         //
-        // $caregiver_skill= Caregiver_skill::where('id_special__skills', $id_get)->get();
+        // $caregiver_skill= Caregiver_skill::where('id_special_skills', $id_get)->get();
         // //$data = array('skil'=>$caregiver_skill);
         //
         // $id_get_caregiver = '';
@@ -83,16 +83,16 @@ class DisplayController extends Controller
 
         //$match_sick = new match_sick;
         //$match_sick->id_sickness = $request->sickness;
-        $match_sick= match_sick::where('id_sickness', $request->sickness)->get();
-        $id_get = '';
-        foreach ($match_sick as $data) {
-            $id_get=$data['id_special__skills'];
-        }
-
-        $caregiver_skill= Caregiver_skill::where('id_special__skills', $id_get)
-                                            ->join('caregivers', 'caregiver_skills.id_caregivers', '=', 'caregivers.id_caregivers')
-                                            ->select('caregivers.*')
-                                            ->get();
+        // $match_sick= match_sick::where('id_sickness', $request->sickness)->get();
+        // $id_get = '';
+        // foreach ($match_sick as $data) {
+        //     $id_get=$data['id_special_skills'];
+        // }
+        //
+        // $caregiver_skill= Caregiver_skill::where('id_special_skills', $id_get)
+        //                                     ->join('caregivers', 'caregiver_skills.id_caregivers', '=', 'caregivers.id_caregivers')
+        //                                     ->select('caregivers.*')
+        //                                     ->get();
         //$data = array('skil'=>$caregiver_skill);
 
         // $id_get_caregiver = '';
@@ -105,10 +105,10 @@ class DisplayController extends Controller
         // foreach ($caregiver as $data) {
         //    $id_get_name=$data['name_care'];
         // }
-        $data = array('Display'=>$caregiver_skill);
+        //$data = array('Display'=>$caregiver_skill);
 
 
-        return view('display', $data);
+        return view('dash', $data);
     }
 
     /**

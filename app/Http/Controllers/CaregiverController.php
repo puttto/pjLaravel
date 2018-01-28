@@ -115,7 +115,7 @@ class CaregiverController extends Controller
           # code...
             $s_skill = new Caregiver_skill;
             $s_skill->id_caregivers = $caregiver->id;
-            $s_skill->id_special__skills = $s_s[$i];
+            $s_skill->id_special_skills = $s_s[$i];
             $s_skill->save();
         }//Caregiver_skill
 

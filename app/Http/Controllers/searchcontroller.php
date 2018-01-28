@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Pat_sick;
 use App\match_sick;
 use App\Caregiver_skill;
-Use App\Caregiver;
+use App\Caregiver;
 
 class searchcontroller extends Controller
 {
@@ -50,26 +50,28 @@ class searchcontroller extends Controller
      */
     public function show($id)
     {
-
-      if($id !== ''){
-         //dd($id);
-        $patsick = Pat_sick::Where('id_patients','=',$id)
-                  ->join('match_sicks','pat_sicks.id_sickness','=','match_sicks.id_sickness')
-                  ->join('caregiver_skills','match_sicks.id_special__skills','=','caregiver_skills.id_special__skills')
-                  ->join('caregivers','caregiver_skills.id_caregivers','=','caregivers.id_caregivers')
+        if ($id !== '') {
+            //dd($id);
+            $patsick = Pat_sick::Where('id_patients', '=', $id)
+                  ->join('match_sicks', 'pat_sicks.id_sickness', '=', 'match_sicks.id_sickness')
+                  ->join('caregiver_skills', 'match_sicks.id_special_skills', '=', 'caregiver_skills.id_special_skills')
+                  ->join('caregivers', 'caregiver_skills.id_caregivers', '=', 'caregivers.id_caregivers')
                   ->get();
-      //  dd($patsick);
+            //  dd($patsick);
 
+            // select * from `pat_sicks` inner join `match_sicks` on `pat_sicks`.`id_sickness` = `match_sicks`.`id_sickness` inner join `caregiver_skills` on `match_sicks`.`id_special_skills` = `caregiver_skills`.`id_special_skills` inner join `caregivers` on `caregiver_skills`.`id_caregivers` = `caregivers`.`id_caregivers` where `id_patients` = 2
 
-        $data = array('caregiverdata'=>$patsick);
-      //dd($data);
+            // select * from `pat_sicks` inner join `match_sicks` on `pat_sicks`.`id_sickness` = `match_sicks`.`id_sickness` inner join `caregiver_skills` on `match_sicks`.`id_special_skills` = `caregiver_skills`.`id_special_skills` inner join `caregivers` on `caregiver_skills`.`id_caregivers` = `caregivers`.`id_caregivers` where `id_patients` = 10 group by `caregiver_skills`.`id_caregivers`
+
+            $data = array('caregiverdata'=>$patsick);
+            //dd($data);
 
 //       foreach ($patsick as $patsickdata ) {
 // dd($patsickdata);
 //         $matchsick = match_sick:: Where('id_sickness',$patsickdata['id_sickness'])->get();
 // //dd($matchsick);
 //         foreach ($matchsick as $matchsickdata) {
-//           $caregiver_skill= Caregiver_skill:: Where('id_special__skills',$matchsick['id_special__skills'])->get();
+//           $caregiver_skill= Caregiver_skill:: Where('id_special_skills',$matchsick['id_special_skills'])->get();
 //             foreach ($caregiver_skill as $caregiver_skilldata) {
 //               $caregiver = Caregiver:: Where('id_caregivers',$caregiver_skill['id_caregivers']);
 //
@@ -79,9 +81,8 @@ class searchcontroller extends Controller
 //
 //         //dd($data);
 //       }
-
-      }
-        return view('search',$data);
+        }
+        return view('search', $data);
     }
 
     /**
@@ -104,6 +105,7 @@ class searchcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
+
         //
     }
 

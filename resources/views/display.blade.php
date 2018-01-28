@@ -2,6 +2,14 @@
 @section('content')
   <div class="container" style="padding-top:80px;">
 {{Form::open(['url'=>'caregiver'])}}
+<br>
+<h1>รายชื่อผู้ป่วย รอการค้นหาผู้ดูแล</h1>
+<div class="form-group">
+<br>
+<h2>สวัสดี Admin,  {{ Auth::user()->name }}</h2>
+</div>
+
+
 
 @forelse ($display as $show)
   {{-- {{dd($show)}} --}}

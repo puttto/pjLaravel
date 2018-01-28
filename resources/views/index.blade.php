@@ -4,10 +4,15 @@
 <div class="container my-auto">
 <div class="row">
   <div class="col-lg-10 mx-auto">
+    <br>
     <img src="img/logo.png" alt="">
     <br>
     <h1 class="text-uppercase">
-        <strong>บริการดูแลผู้สูงอายุตามบ้าน</strong>
+        <strong>"เพราะครอบครัวเป็นสิ่งสำคัญ"</strong>
+        <br><br>  <br><br>
+          <h2> บริการดูแลผู้สูงอายุตามบ้าน</h2>
+
+
       </h1>
     <hr>
   </div>
@@ -25,13 +30,23 @@
         <h2 class="section-heading text-white">เกี่ยวกับเรา</h2>
         <hr class="light my-4">
         <p class="text-faded mb-4" style="font-size: 17px; color:#fff">ทางเรามีการตรวจสอบประวัติพนักงาน และคัดเลือกพนักงานที่มีใจรักงานด้านบริการ มีความอดทนสูงก่อนจัดส่งไปทำงาน พนักงานดูแลผู้ป่วย-ผู้สูงอายุเป็นผู้หญิงอายุตั้งแต่ 18-55ปี ทุกคนในศูนย์ผ่านการอบรมหลักสูตรในการปฏิบัติหน้าที่ โดยผ่านการอบรมจากเนิร์ซเซอรี่ และมีประสบการณ์การทำงานในโรงพยาบาลมีประสบการณ์ด้านการบริบาลอย่างน้อย 2 ปีจนถึง 10 ปี มีใจรักในงานด้านบริบาล มีความอดทนสูง ใจเย็น สุขภาพร่างกายแข็งแรง พร้อมที่จะปฏิบัติหน้าที่ ก่อนจัดส่งพนักงานทางเรามีการอบรมก่อนจัดส่งไปทำงาน</p>
-        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+        {{-- <a class="btn btn-light btn-xl js-scroll-trigger" href="#services"></a> --}}
       </div>
     </div>
   </div>
 </section>
 
-
+<section class="bg-dark text-white">
+  <div class="container text-center">
+      <i class="fa fa-search fa-3x mb-3 sr-contact"></i>
+      <br><br>
+    <h2 class="mb-4">เริ่มต้นค้นหาผู้ดูแลกัน!</h2>
+    <br>
+    <hr class="light my-4">
+<br>
+    <a class="btn btn-light btn-xl sr-button" href="customer">ค้นหาผู้ดูแล</a>
+  </div>
+</section>
 
 <section id="services">
   <div class="container">
@@ -46,7 +61,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6 text-center">
         <div class="service-box mt-5 mx-auto">
-          <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
+          <i class="fa fa-3x fa-diamond text-primary mb-3 sr-icons"></i>
           <h3 class="mb-3">ประสิทธิภาพ</h3>
           <p class="text-muted mb-0">ผู้ดูแลรู้หน้าที่ของตนเอง มีกิจกรรมกรรมการดูแลอะไรที่ต้องทำอย่างเหมาะสมและครอบคลุม</p>
         </div>
@@ -55,7 +70,7 @@
 
       <div class="col-lg-4 col-md-6 text-center">
         <div class="service-box mt-5 mx-auto">
-          <i class="fa fa-4x fa-heartbeat text-primary mb-3 sr-icons"></i>
+          <i class="fa fa-3x fa-heartbeat text-primary mb-3 sr-icons"></i>
           <h3 class="mb-3">สบายใจ</h3>
           <p class="text-muted mb-0">ลูกค้าต้องได้ผู้ดูแลที่ดีที่สุดไป พนักงานต้องมีประสบการณ์มีความสามารถจริง</p>
         </div>
@@ -64,7 +79,7 @@
 
       <div class="col-lg-4 col-md-6 text-center">
         <div class="service-box mt-5 mx-auto">
-          <i class="fa fa-4x fa-check-square-o text-primary mb-3 sr-icons"></i>
+          <i class="fa fa-3x fa-check-square-o text-primary mb-3 sr-icons"></i>
           <h3 class="mb-3">มาตราฐาน</h3>
           <p class="text-muted mb-0">การทำงานที่มีการวางแผนการดูแลร่วมกับญาติ มีขอบเขตของงานที่ชัดเจน ควบคุมและตรวจสอบได้</p>
         </div>
@@ -81,15 +96,7 @@
   </div>
 </section>
 
-<section class="bg-dark text-white">
-  <div class="container text-center">
-      <i class="fa fa-search fa-3x mb-3 sr-contact"></i>
-    <h2 class="mb-4">เริ่มต้นค้นหาผู้ดูแลกัน!</h2>
-    <hr class="light my-4">
 
-    <a class="btn btn-light btn-xl sr-button" href="customer">ค้นหาผู้ดูแล</a>
-  </div>
-</section>
 
 <section class="p-0" id="portfolio">
   <div class="container-fluid p-0">

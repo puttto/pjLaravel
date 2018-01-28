@@ -29,5 +29,12 @@ Route::resource('sickness','SicknessController');
 Route::resource('display','DisplayController');
 Route::resource('sum','Show_sumController');
 Route::resource('detail','DetailController');
+Route::resource('/dash','DisplayController');
+Route::resource('updatepat','PatientController');
+Route::resource('updatesick','SicknessController');
+
+// Route::get('/dash',function(){
+//   return view('dash');
+// });
 
 //Route::get('/home', 'inddex')->name('home');
