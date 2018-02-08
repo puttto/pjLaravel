@@ -16,10 +16,9 @@ class CreateCaregiverSkillsTable extends Migration
         Schema::create('caregiver_skills', function (Blueprint $table) {
             $table->increments('id_caregiver_skills');
             $table->timestamps();
-
             $table->integer('id_caregivers')->unsigned();
-            $table->integer('id_special_skills')->unsigned();
             $table->foreign('id_caregivers')->references('id_caregivers')->on('caregivers');
+            $table->integer('id_special_skills')->unsigned();
             $table->foreign('id_special_skills')->references('id_special_skills')->on('special__skills');
         });
     }

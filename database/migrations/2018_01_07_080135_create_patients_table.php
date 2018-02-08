@@ -30,6 +30,7 @@ class CreatePatientsTable extends Migration
             $table->string('hospital_pat',200)->nullable();
             $table->string('img_name_Pat',50)->nullable();
             $table->timestamps();
+            $table->string('status',10)->nullable();
 
 
             $table->integer('id_customer')->unsigned();

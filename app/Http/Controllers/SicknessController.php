@@ -91,7 +91,8 @@ class SicknessController extends Controller
            $Patient->hight_Pat = $request->Hight;
            $Patient->interesting_Pat = $request->interesting;
            $Patient->hospital_pat = $request->Hospital;
-           $Patient->id_customer = "20";
+           $Patient->status='request';
+           $Patient->id_customer = $id_cus;
 
 
            $data_id_card_Pat = $request->ID_Card_pat;
@@ -142,20 +143,28 @@ class SicknessController extends Controller
         ->get();
         $deletesick = Pat_sick::Where('id_patients',$id)
         ->update(['status'=>'del']);
-        //->Where('status','wait')
+
+        // $pat_equip = Pat_Equipment::Where('id_patients',$id)
+        // ->get();
+        $delete_equip = Pat_Equipment::Where('id_patients',$id)
+        ->update(['status'=>'del']);
+
+        // $pat_aller = Pat_Allergy::Where('id_patients',$id)
+        // ->get();
+        $delete_aller = Pat_Allergy::Where('id_patients',$id)
+        ->update(['status'=>'del']);
+
+
 
 
         $sickness = Sickness::all();
-        // $data = array(
-        //   'sickness'=>$sickness
-        // );
         $equipment = Equipment::all();
         $allergy = Allergy::all();
         $data = array(
           'sickness'=>$sickness,
           'equipment'=>$equipment,
           'allergy'=>$allergy,
-          'pat'=>$pat_sick
+          'pat_sick'=>$pat_sick,
         );
         //dd($patient);
 
@@ -184,18 +193,9 @@ class SicknessController extends Controller
             $sickness = new Pat_sick;
             $sickness->id_patients = $id;
             $sickness->id_sickness = $sick[$i];
-            $sickness->status = 'wait';
+            $sickness->status = 'request';
             $sickness->save();
         }//sickness
-
-        // $disa = $request->sickness;
-        // for ($i=0; $i < count($disa) ; $i++) {
-        //   # code...
-        //     $sickness = new Pat_sick;
-        //     $sickness->id_patients = $id_pat;
-        //     $sickness->id_sickness = $disa[$i];
-        //     $sickness->save();
-        // }//disabled->sicknesstable
 
         $equip = $request->equipment;
         for ($i=0; $i < count($equip) ; $i++) {
@@ -203,6 +203,7 @@ class SicknessController extends Controller
             $equipment = new Pat_Equipment;
             $equipment->id_patients = $id;
             $equipment->id_equipment = $equip[$i];
+            $equipment->status = 'request';
             $equipment->save();
         }//equipment
 
@@ -212,6 +213,7 @@ class SicknessController extends Controller
             $allergy = new Pat_Allergy;
             $allergy->id_patients = $id;
             $allergy->id_allergies = $aller[$i];
+            $allergy->status = 'request';
             $allergy->save();
         }//allergy
 

@@ -22,6 +22,7 @@ class CreatePatEquipmentsTable extends Migration
 
             $table->integer('id_equipment')->unsigned();
             $table->foreign('id_equipment')->references('id_equipment')->on('equipment');
+            $table->string('status',10)->nullable();
         });
     }
 

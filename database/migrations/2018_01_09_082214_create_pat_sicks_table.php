@@ -22,6 +22,7 @@ class CreatePatSicksTable extends Migration
 
             $table->integer('id_patients')->unsigned();
             $table->foreign('id_patients')->references('id_patients')->on('patients');
+            $table->string('status',10)->nullable();
         });
     }
 

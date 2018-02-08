@@ -3,7 +3,7 @@
  <div class="container" style="padding-top:100px;">
    {{-- {{Form::open(['url'=>'sum'])}} --}}
 
-@foreach ($pat as $test)
+@foreach ($pat_sick as $test)
 
 @endforeach
 
@@ -42,28 +42,7 @@
        </optgroup>
      </select>
    </div>
-{{-- <div class="form-group">
-{{ Form::checkbox('sickness[0]', 1) }}
-{{ Form::label('skin_dis_lb','โรคผิวหนัง') }}
-{{ Form::checkbox('sickness[1]', 2) }}
-{{ Form::label('diabetes_lb','โรคเบาหวาน') }}
-{{ Form::checkbox('sickness[2]', 3) }}
-{{ Form::label('hbp_lb','โรคความดันโลหิตสูง') }}
-{{ Form::checkbox('sickness[3]', 4) }}
-{{ Form::label('dysilpidemia_lb','โรคไขมันในเส้นเลือด') }}
-{{ Form::checkbox('sickness[4]', 5) }}
-{{ Form::label('cardio_vascular_lb','โรคหัวใจ') }}
-{{ Form::checkbox('sickness[5]', 6) }}
-{{ Form::label('renal_and_urological_lb','โรคไตและทางเดินปัสสาวะ') }}
-{{ Form::checkbox('sickness[6]', 7) }}
-{{ Form::label('cancer_lb','โรคมะเร็ง') }}
-{{ Form::checkbox('sickness[7]', 8) }}
-{{ Form::label('stroke_lb','โรคหลอดเลือดสมองและหัวใจ') }}
-{{ Form::checkbox('sickness[8]', 9) }}
-{{ Form::label('parkinson_dis_lb','โรคพากินสัน') }}
-{{ Form::checkbox('sickness[9]', 10) }}
-{{ Form::label('dementia_lb','โรคสมองเสื่อม') }}
-</div> --}}
+
 
    {{-- <div class="form-group">
      <label for="disabled_lb">ความพิการ</label>

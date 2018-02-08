@@ -98,20 +98,34 @@
                   <div class="col-md-12 col-lg-12 col-xs-12">
                     <table class="table table-user-information">
 
-                        <tbody>
-                          <tr>
-                            <td width="30%">โรคที่ป่วย</td>
-                            <td width="70%">
-                            @foreach ($show_patsick as $data )
-                            &nbsp;&nbsp;{{$data['sick_description']}},
-                            @endforeach
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>4</td>
-                          </tr>
-                        </tbody>
+                      <tr>
+                        <br>
+                      </tr>
+
+                      <tbody>
+                        <tr>
+                          <td width="30%">โรคที่ป่วย</td>
+                          <td width="70%">
+                            @foreach ($show_patsick as $data ) &nbsp;&nbsp;{{$data['sick_description']}}, @endforeach
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
+                          <td width="70%">
+                            @foreach ($show_equipment as $data ) &nbsp;&nbsp;{{$data['equipment_description']}}, @endforeach
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%">แพ้อาหารและยา</td>
+                          <td width="70%">
+                            @foreach ($show_allergy as $data ) &nbsp;&nbsp;{{$data['allergy_description']}}, @endforeach
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%"></td>
+                          <td width="70%"></td>
+                        </tr>
+                      </tbody>
                   </table>
 
                 </div>

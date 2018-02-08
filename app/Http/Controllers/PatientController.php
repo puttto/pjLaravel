@@ -260,7 +260,7 @@ class PatientController extends Controller
 
          //Session::put('id_patient',$Patient->id);
 
-         Session::flash('message', 'Successfully updated ');
+        // Session::flash('message', 'Successfully updated ');
             return redirect('updatesick/'.$id.'/edit');
        }
          // return redirect('updatesick/'.$id.'/edit');

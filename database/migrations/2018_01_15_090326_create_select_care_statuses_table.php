@@ -17,9 +17,9 @@ class CreateSelectCareStatusesTable extends Migration
             $table->increments('id_select_care_statuses');
             $table->integer('id_patients');
             $table->integer('id_caregivers');
-            $table->integer('status_care');
+            $table->string('status_care')->nullable();
             $table->timestamps();
-            $table->date('createAt');
+
         });
     }
 

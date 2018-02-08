@@ -18,5 +18,6 @@ class Patient extends Model
   'gender_Pat',
   'interesting_Pat',
   'hospital_pat',
-  'img_name_Pat'];
+  'img_name_Pat',
+  'status'];
 }

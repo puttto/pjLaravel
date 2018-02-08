@@ -22,6 +22,7 @@ class CreatePatAllergiesTable extends Migration
 
           $table->integer('id_allergies')->unsigned();
           $table->foreign('id_allergies')->references('id_allergies')->on('allergies');
+          $table->string('status',10)->nullable();
 
           // $table->integer('id_drug__allergies')->unsigned();
           // $table->foreign('id_drug__allergies')->references('id_drug__allergies')->on('drug__allergies');

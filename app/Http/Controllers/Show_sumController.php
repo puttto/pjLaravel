@@ -25,15 +25,33 @@ class Show_sumController extends Controller
       if($id !== ''){
         $keeppat = Patient::Where('id_patients',$id)->get();
         //dd($Patient);
-        $keep_patsick =  Pat_sick::Where([['id_patients','=',$id],['status','=','wait']])
+        $keep_patsick =  Pat_sick::Where([['id_patients','=',$id],['status','=','request']])
               ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
               ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
               ->get();
+
+
+              $keep_equipment = Pat_Equipment::Where([['id_patients','=',$id],['status','=','request']])
+                    ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+                    ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+                    ->get();
+
+
+              $keep_allergy = Pat_Allergy::Where([['id_patients','=',$id],['status','=','request']])
+                    ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+                    ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+                    ->get();
+
+
 //dd($keep_patsick);
 
         $data = array(
           'pat'=>$keeppat,
-          'show_patsick'=>$keep_patsick
+          'show_patsick'=>$keep_patsick,
+            'show_equipment'=>$keep_equipment,
+              'show_allergy'=>$keep_allergy
+
+
 
       );
         //dd($data);
@@ -69,7 +87,7 @@ class Show_sumController extends Controller
             $sickness = new Pat_sick;
             $sickness->id_patients = $id_pat;
             $sickness->id_sickness = $sick[$i];
-            $sickness->status = 'wait';
+            $sickness->status = 'request';
             $sickness->save();
         }//sickness
 
@@ -88,6 +106,7 @@ class Show_sumController extends Controller
             $equipment = new Pat_Equipment;
             $equipment->id_patients = $id_pat;
             $equipment->id_equipment = $equip[$i];
+            $equipment->status = 'request';
             $equipment->save();
         }//equipment
 
@@ -97,6 +116,7 @@ class Show_sumController extends Controller
             $allergy = new Pat_Allergy;
             $allergy->id_patients = $id_pat;
             $allergy->id_allergies = $aller[$i];
+            $allergy->status = 'request';
             $allergy->save();
         }//allergy
 
@@ -110,9 +130,22 @@ class Show_sumController extends Controller
                 ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
                 ->get();
 
+          $keep_equipment = Pat_Equipment::Where('id_patients',$id)
+                ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+                ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+                ->get();
+
+
+          $keep_allergy = Pat_Allergy::Where('id_patients',$id)
+                ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+                ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+                ->get();
+
           $data = array(
             'pat'=>$keeppat,
-            'show_patsick'=>$keep_patsick
+            'show_patsick'=>$keep_patsick,
+            'show_equipment'=>$keep_equipment,
+            'show_allergy'=>$keep_allergy
 
       );
           //dd($data);
@@ -137,15 +170,27 @@ class Show_sumController extends Controller
       if($id !== ''){
         $keeppat = Patient::Where('id_patients',$id)->get();
 
-        $keep_patsick = Pat_sick::Where([['id_patients','=',$id],['status','!=','del']])
-              ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
-              ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
-              ->get();
-        //dd($Patient);
+              $keep_patsick = Pat_sick::Where([['id_patients','=',$id],['status','!=','del']])
+                    ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
+                    ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
+                    ->get();
+
+              $keep_equipment = Pat_Equipment::Where([['id_patients','=',$id],['status','!=','del']])
+                    ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+                    ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+                    ->get();
+
+
+              $keep_allergy = Pat_Allergy::Where([['id_patients','=',$id],['status','!=','del']])
+                    ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+                    ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+                    ->get();
 
         $data = array(
           'pat'=>$keeppat,
-          'show_patsick'=>$keep_patsick
+          'show_patsick'=>$keep_patsick,
+          'show_equipment'=>$keep_equipment,
+          'show_allergy'=>$keep_allergy
       );
         //dd($data);
 

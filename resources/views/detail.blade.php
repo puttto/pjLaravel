@@ -22,7 +22,7 @@
       <div class="row col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
         <div class="card">
           <div class="card-header text-white" style="background-color:#f05f40;">
-            <h2 class="" style="font-size:25px">{{$data['name_Pat']}} {{$data['lastname_Pat']}}</h2>
+            <h2 class="" style="font-size:25px">{{$data['name_Pat']}} {{$data['lastname_Pat']}} &nbsp;&nbsp; ({{$data['nickname_Pat']}})</h2>
           </div>
           <div class="card-body">
             <div class="row">
@@ -51,6 +51,12 @@
 
                     </tr>
                     <tr>
+                      <td>
+                        เลขประจำตัวประชาชน:
+                      </td>
+                      <td>{{$data['id_card_Pat']}}</td>
+                    </tr>
+                    <tr>
                       <td>เพศ: </td>
                       @if ($data['gender_Pat'] == 'ญ')
                       <td>{{'หญิง'}}</td>
@@ -58,13 +64,21 @@
                       <td>{{'ชาย'}}</td>
                       @endif
                     </tr>
-                    <tr>
+                    {{-- <tr>
                       <td>ชื่อเล่น:</td>
                       <td>{{$data['nickname_Pat']}}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                       <td>เกิดวันที่:</td>
                       <td>{{$data['birthday_Pat']}}</td>
+                    </tr>
+                    <tr>
+                      <td>อายุ</td>
+                      <td>
+                        @foreach ($show_age as $age )
+                        {{$age}}
+                      @endforeach
+                    </td>
                     </tr>
                     <tr>
                       <td>สัญชาติ:</td>
@@ -79,15 +93,14 @@
                       <td>{{$data['religion_Pat']}}</td>
                     </tr>
                     <tr>
-                      <td>น้ำหนัก,ส่วนสูง:</td>
-                      <td>{{$data['weight_Pat']}}กก ,{{$data['hight_Pat']}}ซม</td>
+                      <td>น้ำหนัก:</td>
+                      <td>{{$data['weight_Pat']}} กก</td>
                     </tr>
                     <tr>
-                      <td>
-                        เลขประจำตัวประชาชน:
-                      </td>
-                      <td>{{$data['id_card_Pat']}}</td>
+                      <td>ส่วนสูง:</td>
+                      <td>{{$data['hight_Pat']}} ซม</td>
                     </tr>
+
                     <tr>
                       <td>สิ่งที่ชอบ:</td>
                       <td>{{$data['interesting_Pat']}}</td>
@@ -120,19 +133,19 @@
                     <tr>
                       <td width="30%">โรคที่ป่วย</td>
                       <td width="70%">
-                        @foreach ($show_patsick as $data2 ) &nbsp;&nbsp;{{$data2['sick_description']}}, @endforeach
+                        @foreach ($show_patsick as $data2 ) &nbsp;&nbsp;{{$data2['sick_description']}}<br> @endforeach
                       </td>
                     </tr>
                     <tr>
                       <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
                       <td width="70%">
-                        @foreach ($show_equpment as $data2 ) &nbsp;&nbsp;{{$data2['equipment_description']}}, @endforeach
+                        @foreach ($show_equpment as $data2 ) &nbsp;&nbsp;{{$data2['equipment_description']}}<br> @endforeach
                       </td>
                     </tr>
                     <tr>
                       <td width="30%">แพ้อาหารและยา</td>
                       <td width="70%">
-                        @foreach ($show_allergy as $data2 ) &nbsp;&nbsp;{{$data2['allergy_description']}}, @endforeach
+                        @foreach ($show_allergy as $data2 ) &nbsp;&nbsp;{{$data2['allergy_description']}}<br> @endforeach
                       </td>
                     </tr>
                     <tr>

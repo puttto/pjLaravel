@@ -32,7 +32,21 @@ Route::resource('detail','DetailController');
 Route::resource('/dash','DisplayController');
 Route::resource('updatepat','PatientController');
 Route::resource('updatesick','SicknessController');
-
+Route::resource('cusselect','Cus_select_care_Controller');
+Route::resource('usercustomer','UserCaregiverController');
+Route::resource('usercaregiver','UserCusController');
+Route::resource('dashcustomer','DashcustomerController');
+Route::resource('userplan','UserplanController');
+Route::resource('createplan','CreateplanController');
+Route::resource('dashcaregiver','DashcaregiverController');
+Route::resource('addactivity','AddplanController');
+Route::resource('vitalsign','Vital_signsController');
+Route::resource('suction','SuctionController');
+Route::resource('feeding','FeedingController');
+Route::resource('catheter','CatheterController');
+Route::resource('colostomy','ColostomyController');
+Route::resource('sugar','SugarController');
+Route::resource('','');
 // Route::get('/dash',function(){
 //   return view('dash');
 // });

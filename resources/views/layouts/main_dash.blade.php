@@ -13,6 +13,29 @@
   <link rel="shortcut icon" href={{asset('dashboard/images/favicon.png')}} />
   {{Html::style(('css/Simple-User-Profile.css'))}}
 
+
+  {{Html::script (('dashboard/node_modules/jquery/dist/jquery.min.js'))}}
+  {{Html::script (('dashboard/node_modules/popper.js/dist/umd/popper.min.js'))}}
+  {{Html::script (('dashboard/node_modules/bootstrap/dist/js/bootstrap.min.js'))}}
+  {{Html::script (('dashboard/node_modules/chart.js/dist/Chart.min.js'))}}
+  {{Html::script (('dashboard/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js'))}}
+
+  {{Html::script (('dashboard/js/off-canvas.js'))}}
+  {{Html::script (('dashboard/js/misc.js'))}}
+  {{Html::script (('dashboard/js/hoverable-collapse.js'))}}
+  {{Html::script (('dashboard/js/chart.js'))}}
+  {{Html::script (('dashboard/js/maps.js'))}}
+
+  {{Html::script (('datetime/moment.js'))}}
+  {{Html::style(('datetime/bootstrap-datetimepicker.css'))}}
+  {{Html::script (('datetime/bootstrap-datetimepicker.js'))}}
+
+    {{-- {{Html::script (('datetime/jquery.min.js'))}} --}}
+
+
+
+
+
   <style >
   .img-circle{border-radius:50%}
   .img-responsive{display:block;max-width:100%;height:auto}
@@ -176,17 +199,7 @@
 
 
 </div>
-{{Html::script (('dashboard/node_modules/jquery/dist/jquery.min.js'))}}
-{{Html::script (('dashboard/node_modules/popper.js/dist/umd/popper.min.js'))}}
-{{Html::script (('dashboard/node_modules/bootstrap/dist/js/bootstrap.min.js'))}}
-{{Html::script (('dashboard/node_modules/chart.js/dist/Chart.min.js'))}}
-{{Html::script (('dashboard/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js'))}}
 
-{{Html::script (('dashboard/js/off-canvas.js'))}}
-{{Html::script (('dashboard/js/misc.js'))}}
-{{Html::script (('dashboard/js/hoverable-collapse.js'))}}
-{{Html::script (('dashboard/js/chart.js'))}}
-{{Html::script (('dashboard/js/maps.js'))}}
 
 
   {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5NXz9eVnyJOA81wimI8WYE08kW_JMe8g&callback=initMap" async defer></script> --}}

@@ -8,6 +8,8 @@ use App\Pat_sick;
 use App\match_sick;
 use App\Caregiver_skill;
 use App\Caregiver;
+use App\Select_care_status;
+use Session;
 
 class searchcontroller extends Controller
 {
@@ -38,7 +40,29 @@ class searchcontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   $idpatient =  Session::get('id_patient');
+//loop iddata ตยs ickness ลง db
+
+    $iddata = $request->iddata;
+    $sendiddate = explode(',', $iddata);
+
+    for ($i=0; $i < count($sendiddate) ; $i++) {
+//dd(count($iddata));
+      $Select = new Select_care_status;
+      $Select->id_patients = $idpatient;
+      $Select->id_caregivers = $sendiddate[$i];
+       ////ใส่ตัวแปลหลังลูป
+      $Select->status_care='select'; //แก้ status
+      $Select->save();
+
+    }
+
+
+
+     // $waitstatus = Pat_sick::Where([['id_patients','=',$idpatient],['status','=','request']])
+     // ->update(['status'=>'wait']); //
+
+      return redirect('dash');
         //
     }
 
@@ -51,7 +75,7 @@ class searchcontroller extends Controller
     public function show($id)
     {
         if ($id !== '') {
-            //dd($id);
+            //dd($id); //ต้องใส่มีstatus ที่ว่างอยู่ด้วยของ caregiver
             $patsick = Pat_sick::Where('id_patients', '=', $id)
                   ->join('match_sicks', 'pat_sicks.id_sickness', '=', 'match_sicks.id_sickness')
                   ->join('caregiver_skills', 'match_sicks.id_special_skills', '=', 'caregiver_skills.id_special_skills')
@@ -62,6 +86,10 @@ class searchcontroller extends Controller
             // select * from `pat_sicks` inner join `match_sicks` on `pat_sicks`.`id_sickness` = `match_sicks`.`id_sickness` inner join `caregiver_skills` on `match_sicks`.`id_special_skills` = `caregiver_skills`.`id_special_skills` inner join `caregivers` on `caregiver_skills`.`id_caregivers` = `caregivers`.`id_caregivers` where `id_patients` = 2
 
             // select * from `pat_sicks` inner join `match_sicks` on `pat_sicks`.`id_sickness` = `match_sicks`.`id_sickness` inner join `caregiver_skills` on `match_sicks`.`id_special_skills` = `caregiver_skills`.`id_special_skills` inner join `caregivers` on `caregiver_skills`.`id_caregivers` = `caregivers`.`id_caregivers` where `id_patients` = 10 group by `caregiver_skills`.`id_caregivers`
+foreach ($patsick as $idpatient) {
+        Session::put('id_patient',$idpatient->id_patients);
+}
+
 
             $data = array('caregiverdata'=>$patsick);
             //dd($data);
@@ -92,8 +120,8 @@ class searchcontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {  //dd($id);
+
     }
 
     /**
@@ -105,7 +133,8 @@ class searchcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-
+      dd($id);
+      redirect('search');
         //
     }
 
