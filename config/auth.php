@@ -45,6 +45,24 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'caregiver' => [
+            'driver' => 'session',
+            'provider' => 'caregivers',
+        ],
+
+        'caregiver-api' => [
+            'driver' => 'token',
+            'provider' => 'caregivers',
+        ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
+
+        'customer-api' => [
+            'driver' => 'token',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -69,6 +87,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'caregivers' => [
+            'driver' => 'eloquent',
+            'model' => App\User_caregiver::class,
+        ],
+        'customers' => [
+              'driver' => 'eloquent',
+              'model' => App\User_customer::class,
+          ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -94,6 +120,16 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'caregivers' => [
+            'provider' => 'caregivers',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'customers' => [
+            'provider' => 'customers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

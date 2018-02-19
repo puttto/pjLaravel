@@ -9,6 +9,7 @@ use App\Pat_Allergy;
 Use App\Patient;
 Use App\ Sickness;
 use Session;
+use Carbon\Carbon;
 
 
 class Show_sumController extends Controller
@@ -42,14 +43,25 @@ class Show_sumController extends Controller
                     ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
                     ->get();
 
+                $keepage = Patient::Where('id_patients',$id)
+                    ->select('birthday_Pat')
+                    ->get();
 
+                    $get_age = '';
+                    foreach ($keepage as $id) {
+                        $get_age = $id['birthday_Pat'];
+                    }
+
+                        $age = [Carbon::parse($get_age)->diff(Carbon::now())->format('%y ปี %m เดือน กับอีก %d วัน')];
+                        //dd($age);
 //dd($keep_patsick);
 
         $data = array(
           'pat'=>$keeppat,
           'show_patsick'=>$keep_patsick,
             'show_equipment'=>$keep_equipment,
-              'show_allergy'=>$keep_allergy
+              'show_allergy'=>$keep_allergy,
+              'show_age'=>$age
 
 
 
@@ -57,7 +69,7 @@ class Show_sumController extends Controller
         //dd($data);
 
       }
-      //return redirect('sum',$data);
+
         return view('sum',$data);
     }
 
@@ -120,6 +132,11 @@ class Show_sumController extends Controller
             $allergy->save();
         }//allergy
 
+      //   $patient = new Patient;
+      // $patient->description_pat = $request->description_pat;
+      // $patient->save();
+
+
         $id= Session::get('id_patient');
         //dd($id);
         if($id !== ''){
@@ -141,11 +158,25 @@ class Show_sumController extends Controller
                 ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
                 ->get();
 
-          $data = array(
-            'pat'=>$keeppat,
-            'show_patsick'=>$keep_patsick,
-            'show_equipment'=>$keep_equipment,
-            'show_allergy'=>$keep_allergy
+                $keepage = Patient::Where('id_patients',$id)
+                ->select('birthday_Pat')
+                ->get();
+                $get_age = '';
+                foreach ($keepage as $id) {
+                    $get_age = $id['birthday_Pat'];
+                }
+                $age = [Carbon::parse($get_age)->diff(Carbon::now())->format('%y ปี %m เดือน กับอีก %d วัน')];
+                //dd($age);
+                //dd($keep_patsick);
+
+
+                $data = array(
+                'pat'=>$keeppat,
+                'show_patsick'=>$keep_patsick,
+                'show_equipment'=>$keep_equipment,
+                'show_allergy'=>$keep_allergy,
+                'show_age'=>$age
+
 
       );
           //dd($data);

@@ -37,6 +37,7 @@ class CreateplanController extends Controller
 
           $id_c =  Session::get('id_care');
           $id_p =  Session::get('id_pat');
+
       $selectplan= Plan::where([['id_patients',$id_p],['id_caregivers',$id_c],['status_plan','=','use']])
             ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
             ->get();
@@ -64,6 +65,11 @@ class CreateplanController extends Controller
     public function store(Request $request)
     {
 
+      $this->validate($request,[
+        'set_date'=> 'required',
+      ]);
+
+
       $plan = new Plan;
 
 
@@ -75,7 +81,7 @@ class CreateplanController extends Controller
         $plan->status_plan = 'use';
 
         $plan->set_date = $request->set_date;
-        $plan->until_date = $request->until_date;
+        // $plan->until_date = $request->until_date;
         $plan->save();
 
         $selectplan = plan::all();
@@ -85,7 +91,14 @@ class CreateplanController extends Controller
             }
 
         $plandetail = new Plan_detail;
-        $plandetail->time = $request->when_time;
+
+        if ($request->when_time == 'ตลอดทั้งวัน ทุกๆ :' ) {
+            $plandetail->time = $request->when_time.$request->time."ชั่วโมง";
+        }else {
+          $plandetail->time = $request->when_time;
+        }
+
+
         $plandetail->doing = $request->doing;
         $plandetail->id_plans=$id_plan;
 
@@ -103,24 +116,24 @@ class CreateplanController extends Controller
      */
     public function show($id)
     {
-      $plan_select = Select_care_status::where([['id_select_care_statuses','=',$id],['status_care','=','planning']])
-            ->get();
-
-          foreach ($plan_select as $data) {
-
-               Session::put('id_pat',$data['id_patients']);
-               Session::put('id_care',$data['id_caregivers']);
-
-          }
-          $id_c =  Session::get('id_care');
-          $id_p =  Session::get('id_pat');
-
-          $selectplan= Plan::where([['id_patients',$id_p],['id_caregivers',$id_c],['status_plan','=','use']])
-                ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
-                ->get();
-
-            $data = array('selectplan'=>$selectplan);
-            return view('createplan',$data);
+      // $plan_select = Select_care_status::where([['id_select_care_statuses','=',$id],['status_care','=','planning']])
+      //       ->get();
+      //
+      //     foreach ($plan_select as $data) {
+      //
+      //          Session::put('id_pat',$data['id_patients']);
+      //          Session::put('id_care',$data['id_caregivers']);
+      //
+      //     }
+      //     $id_c =  Session::get('id_care');
+      //     $id_p =  Session::get('id_pat');
+      //
+      //     $selectplan= Plan::where([['id_patients',$id_p],['id_caregivers',$id_c],['status_plan','=','use']])
+      //           ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
+      //           ->get();
+      //
+      //       $data = array('selectplan'=>$selectplan);
+      //       return view('createplan',$data);
 
           // $plan_insert = new Plan;
     }
@@ -138,7 +151,7 @@ class CreateplanController extends Controller
              return redirect('createplan');
         //
     }
-    
+
     /**
      * Update the specified resource in storage.
      *

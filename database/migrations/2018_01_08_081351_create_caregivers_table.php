@@ -27,11 +27,13 @@ class CreateCaregiversTable extends Migration
             $table->string('religion_care',50);
             $table->string('id_line_care',50);
             $table->string('mobilephone_care',15);
-            $table->string('id_card_care',13);
+            $table->string('id_card_care');
             $table->string('address_care',200);
-            $table->integer('status_care')->nullable();
+            $table->string('caregiver_status',10)->nullable();
             $table->string('img_name')->nullable();
             $table->timestamps();
+            $table->integer('id_user_caregivers')->unsigned();
+            $table->foreign('id_user_caregivers')->references('id')->on('user_caregivers');
         });
     }
 

@@ -154,7 +154,7 @@ class SicknessController extends Controller
         $delete_aller = Pat_Allergy::Where('id_patients',$id)
         ->update(['status'=>'del']);
 
-
+        $patient = Patient::Where('id_patients',$id)->get();
 
 
         $sickness = Sickness::all();
@@ -165,6 +165,7 @@ class SicknessController extends Controller
           'equipment'=>$equipment,
           'allergy'=>$allergy,
           'pat_sick'=>$pat_sick,
+          'pat'=>$patient,
         );
         //dd($patient);
 
@@ -216,6 +217,10 @@ class SicknessController extends Controller
             $allergy->status = 'request';
             $allergy->save();
         }//allergy
+      //
+      //   $patient = new Patient;
+      // $patient->description_pat = $request->description_pat;
+      // $patient->save();
 
       //  $id= Session::get('id_patient');
         //dd($id);

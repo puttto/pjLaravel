@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Plan;
+use App\plan;
+use App\plan_detail;
+use App\Patient;
+use App\Caregiver;
+use App\Select_care_status;
 use Session;
 
 class AddplanController extends Controller
@@ -15,14 +19,11 @@ class AddplanController extends Controller
      */
     public function index()
     {
-// Session::put('id_select_care_statuses',$id);
-// Session::get('id_select_care_statuses');
-          $id_c = 10;
-          $id_p = 19;
 
-          Session::put('addplan_care',$id_c);
-          Session::put('addplan_patient',$id_p);
+          $id_c = Session::get('id_care_sess_care');
 
+          $id_p = Session::get('id_pat_sess_care');
+ // dd($id_p);
 
       $selectplan= Plan::where([['id_patients',$id_p],['id_caregivers',$id_c],['status_plan','=','use']])
             ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
@@ -52,7 +53,45 @@ class AddplanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'set_date'=> 'required',
+      ]);
+
+      $plan = new Plan;
+
+
+      $id_c = Session::get('id_care_sess_care');
+      $id_p = Session::get('id_pat_sess_care');
+
+        $plan->id_patients = $id_p;
+        $plan->id_caregivers = $id_c;
+        $plan->status_plan = 'use';
+
+        $plan->set_date = $request->set_date;
+
+        $plan->save();
+
+        $selectplan = plan::all();
+            //dd($selectplan);
+            foreach ($selectplan as $data) {
+              $id_plan = $data['id_plans'];
+            }
+
+        $plandetail = new Plan_detail;
+
+        $plandetail->doing = $request->doing;
+        $plandetail->id_plans=$id_plan;
+
+        if ($request->when_time == 'ตลอดทั้งวัน ทุกๆ :' ) {
+            $plandetail->time = $request->when_time.$request->time."ชั่วโมง";
+        }else {
+          $plandetail->time = $request->when_time;
+        }
+
+
+
+        $plandetail->save();
+        return redirect('authcare/addactivity');
     }
 
     /**

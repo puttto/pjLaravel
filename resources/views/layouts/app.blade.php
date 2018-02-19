@@ -90,31 +90,32 @@
           </li>
 
           <!-- Authentication Links -->
-          @guest
+          @if (!Auth::guard('customer')->check())
 
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a></li>
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('register') }}">Register</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('customer.login.submit')}}">Login</a></li>
+              {{-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('register') }}">Register</a></li> --}}
           @else
               <li class="dropdown nav-item">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                      {{ Auth::user()->name }} <span class="caret"></span>
-                  </a>
+                  {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                      {{ Auth::user()->name }}
+                      <span class="caret"></span>
+                  </a> --}}
 
                   <ul class="dropdown-menu">
                       <li>
-                          <a href="{{ route('logout') }}"
-                              onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
-                              Logout
-                          </a>
+                        <a href="authcus/logout">
+                            {{-- onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();"> --}}
+                            Logout
+                        </a>
 
-                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                               {{ csrf_field() }}
-                          </form>
+                          </form> --}}
                       </li>
                   </ul>
               </li>
-          @endguest
+          @endif
         </ul>
 
       </div>

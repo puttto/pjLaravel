@@ -70,15 +70,7 @@
           @endif
         </div>
 
-        <div class="form-group {{ $errors->has('Email') ? ' has-error' : '' }}">
-          <label for="Email_lb">Email:</label>
-          <input type="text" class="form-control" id="Email" name="Email" required autofocus>
-          @if ($errors->has('Email'))
-              <span class="help-block">
-                  <strong>{{ $errors->first('Email') }}</strong>
-              </span>
-          @endif
-        </div>
+
 
 
 
@@ -118,6 +110,29 @@
           });
         });
         </script>
+
+
+        <div class="form-group {{ $errors->has('Email') ? ' has-error' : '' }}">
+          <label for="Email_lb">Email ที่ใช้สมัคร</label>
+          <input type="text" class="form-control" id="Email" name="Email" required autofocus>
+          @if ($errors->has('Email'))
+              <span class="help-block">
+                  <strong>{{ $errors->first('Email') }}</strong>
+              </span>
+          @endif
+        </div>
+        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <label for="password" class="col-md-4 control-label">Password</label>
+                <input id="password" type="password" class="form-control" name="password" required>
+
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+        </div>
+
+
 
         <br><br>
         <div class="button" style="text-align:right;">

@@ -55,9 +55,9 @@
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block">
+        {{-- <form class="form-inline mt-2 mt-md-0 d-none d-lg-block">
           <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
-        </form>
+        </form> --}}
 
         @guest
           <ul>
@@ -98,35 +98,36 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
-            <img src={{asset('dashboard/images/face.jpg')}} alt="">
-            <p class="name">{{ Auth::user()->name }}</p>
+            {{-- <img src={{asset('dashboard/images/face.jpg')}} alt=""> --}}
+            <br><br><br>
+            <p class="name">Admin : &nbsp;&nbsp;{{ Auth::user()->name }}</p>
             {{-- <p class="designation">Manager</p> --}}
-            <span class="online"></span>
+            <br><br><br> <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="dash">
                 {{-- <img src="dashboard/images/icons/1.png" alt=""> --}}
                 <i class="fa fa-2x fa-home text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">หน้าแรก</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="pages/widgets.html">
+              <a class="nav-link" href="waitselect">
                 {{-- <img src="dashboard/images/icons/2.png" alt=""> --}}
                 <i class="fa fa-2x fa-hourglass-end text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">รอการยืนยัน</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="pages/forms/index.html">
+              <a class="nav-link" href="userplan">
                 <i class="fa fa-2x fa-file-text text-primary mb-3 sr-icons"></i>
                 {{-- <img src="dashboard/images/icons/005-forms.png" alt=""> --}}
                 <span class="menu-title">แผนการดูแล</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="pages/ui-elements/buttons.html">
+              <a class="nav-link" href="">
                 {{-- <img src="dashboard/images/icons/4.png" alt=""> --}}
                 <i class="fa fa-2x fa-ambulance text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">แจ้งเตือนฉุกเฉิน</span>
@@ -162,20 +163,20 @@
               <a class="nav-link" data-toggle="collapse" href="#sample-pages" aria-expanded="false" aria-controls="sample-pages">
                 {{-- <img src="dashboard/images/icons/9.png" alt=""> --}}
                   <i class="fa fa-2x fa-users text-primary mb-3 sr-icons"></i>
-                <span class="menu-title">ข้อมูลบัญชีผู้ใช้ <i class="fa fa-sort-down"></i></span>
+                <span class="menu-title">ข้อมูลบัญชีผู้ใช้<i class="fa fa-sort-down"></i></span>
               </a>
               <div class="collapse" id="sample-pages">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
+                  {{-- <li class="nav-item"> --}}
                     <a class="nav-link" href="">
                       ผู้ดูแล
                     </a>
-                  </li>
-                  <li class="nav-item">
+                  {{-- </li> --}}
+                  {{-- <li class="nav-item"> --}}
                     <a class="nav-link" href="">
                       คนไข้
                     </a>
-                  </li>
+                  {{-- </li> --}}
                 </ul>
               </div>
             </li>

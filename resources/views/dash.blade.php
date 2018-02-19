@@ -52,11 +52,12 @@
                               <table class="table center-aligned-table">
                                 <thead>
                                   <tr class="text-primary">
-                                    <th>เลขที่</th>
+                                    {{-- <th>เลขที่</th> --}}
                                     <th>เพศ</th>
                                     {{-- <th>ชื่อ</th> --}}
                                     <th>ชื่อเล่น</th>
                                     <th>วัน-เดือน-ปีเกิด</th>
+                                    
                                     <th>น้ำหนัก</th>
                                     <th>ส่วนสูง</th>
                                     {{-- <th>สถานะ</th> --}}
@@ -69,7 +70,7 @@
                                 <tbody>
 
                                   <tr class="">
-                                    <td>{{$show['id_patients']}}</td>
+                                    {{-- <td>{{$show['id_patients']}}</td> --}}
 
                                     @if ($show['gender_Pat'] == 'ญ')
                                         <td>{{'หญิง'}}</td>
@@ -79,6 +80,8 @@
                                     {{-- <td>{{$show ['name_Pat']}} {{$show ['lastname_Pat']}}</td> --}}
                                     <td>{{$show['nickname_Pat']}}</td>
                                     <td>{{$show['birthday_Pat']}}</td>
+
+
                                     <td>{{$show['weight_Pat']}} กก.</td>
                                     <td>{{$show['hight_Pat']}} ซม.</td>
                                     {{-- <td><label class="badge badge-success">Approved</label></td> --}}

@@ -9,6 +9,7 @@ use App\Customer;
 use App\match_sick;
 use App\Caregiver_skill;
 use App\Caregiver;
+use Carbon\Carbon;
 
 class DisplayController extends Controller
 {
@@ -20,8 +21,20 @@ class DisplayController extends Controller
     public function index()
     {
         //$Patient = Patient::all();
-        $Patient = Patient::where('status','=','request')->get();
+        $Patient = Patient::where('status','=','request')->orderBy('id_patients', 'desc')->get();
+        $get_id = '';
+        foreach ($Patient as $id) {
+            $get_id = $id['id_patients'];
+        }
 
+        $keepage = Patient::Where('id_patients',$get_id)
+        ->select('birthday_Pat')
+        ->get();
+        $get_age = '';
+        foreach ($keepage as $id) {
+            $get_age = $id['birthday_Pat'];
+        }
+        $age = [Carbon::parse($get_age)->diff(Carbon::now())->format('%y ปี')];
 
       //  dd($Patient);
         // //$Customer= patient
@@ -30,7 +43,9 @@ class DisplayController extends Controller
         //     $id_get=$id['id_patients'];
         // }
         // $Patient= Patient::where('id', $id_get)->get();
-        $data = array('display'=>$Patient);
+        $data = array('display'=>$Patient,
+                      'showage'=>$age
+      );
 
 
         return view('dash', $data);

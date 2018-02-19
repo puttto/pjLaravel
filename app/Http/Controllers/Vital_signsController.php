@@ -15,7 +15,7 @@ class Vital_signsController extends Controller
      */
     public function index()
     {
-      return view('vitalsign');
+      return view('/vitalsign');
         //
     }
 
@@ -43,11 +43,12 @@ class Vital_signsController extends Controller
         'heart_rate'=> 'required',
         'temp'=> 'required',
         'spo2'=>'required',
-        'comment'=> 'max:200',
+        // 'comment'=> 'max:200',
       ]);
 
-      $id_care=Session::get('addplan_care');
-      $id_patient=Session::get('addplan_patient');
+      $id_care=Session::get('id_care_sess_care');
+      $id_patient=Session::get('id_pat_sess_care');
+
 
     //$heart_rate = round($request->heart_rate,0);
     //dd($heart_rate);
@@ -60,14 +61,14 @@ class Vital_signsController extends Controller
       $vitalsign->heart_rate = $request->heart_rate;
       $vitalsign->temp = $request->temp;
       $vitalsign->spo2 = $request->spo2;
-      $vitalsign->comment = $request->comment;
+      // $vitalsign->comment = $request->comment;
       $vitalsign->id_caregivers = $id_care;
       $vitalsign->id_patients = $id_patient;
 //dd($id_care);
       $vitalsign->save();
 
       Session::flash('message', "เพิ่มข้อมูลเรียบร้อย");
-      return redirect('addactivity');
+      return redirect('authcare/addactivity');
 
         //
     }

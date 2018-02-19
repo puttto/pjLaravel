@@ -135,6 +135,17 @@
 
 </style> --}}
 
+{{-- <div class="form-group {{ $errors->has('description_pat') ? ' has-error' : '' }}">
+  <label for="description_pat_lb">อธิบายเกี่ยวกับอาการป่วยเพิ่มเติม</label>
+  <textarea class="form-control" rows="3" id="description_pat" name="description_pat" required autofocus></textarea>
+  @if ($errors->has('description_pat'))
+      <span class="help-block">
+          <strong>{{ $errors->first('description_pat') }}</strong>
+      </span>
+  @endif
+
+</div> --}}
+
 <br><br><br>
    <div class="button" style="text-align:right;">
    <button  type="submit" class="btn btn-info" style="width:120px; background-color:rgb(49, 160, 240)">ยืนยัน</button>

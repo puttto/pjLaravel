@@ -7,6 +7,10 @@ use App\Select_care_status;
 use App\Caregiver;
 use App\Caregiver__details;
 use App\patient;
+use App\Pat_sick;
+use App\Pat_Equipment;
+use App\Pat_Allergy;
+use Session;
 
 class Cus_select_care_Controller extends Controller
 {
@@ -17,9 +21,10 @@ class Cus_select_care_Controller extends Controller
      */
     public function index()
     {
-      $id = 19;
 
-      $cus_select = Select_care_status::where([['id_patients',$id],['select_care_statuses.status_care','=','select']])
+      $id =Session::get('id_pat_sess');
+
+      $cus_select = Select_care_status::where([['id_patients',$id],['select_care_statuses.status_care','=','ad_select']])
             ->join('caregivers','select_care_statuses.id_caregivers','=','caregivers.id_caregivers')
             ->join('caregiver__details','caregivers.id_caregivers','=','caregiver__details.id_caregivers')
             ->get();
@@ -51,22 +56,33 @@ class Cus_select_care_Controller extends Controller
      */
     public function store(Request $request)
     {
-      $idpatient = 19;
+      $idpatient = Session::get('id_pat_sess');
       //Session::get('id_patient');
       $iddata = $request->iddata;
       $sendiddate = explode(',', $iddata);
 
-      $update_finish = Select_care_status::Where([['id_patients','=',$idpatient],['status_care','=','select'],['id_caregivers','=',$sendiddate]])
+      $update_finish = Select_care_status::Where([['id_patients','=',$idpatient],['status_care','=','ad_select'],['id_caregivers','=',$sendiddate]])
                  ->update(['status_care'=>'finish']);
 
 
       $update_notselect = Select_care_status::Where([['id_patients','=',$idpatient],['status_care','!=','finish']])
                  ->update(['status_care'=>'Not_select']);
 
-     $update_patient = patient::Where([['id_patients','=',$idpatient],['status','=','request']])
-                ->update(['status'=>'complete']);           
+      $update_patient = patient::Where([['id_patients','=',$idpatient],['status','=','wait']])
+                ->update(['status'=>'complete']);
+
+      $update_patient = Caregiver::Where('id_caregivers','=',$sendiddate)
+                 ->update(['caregiver_status'=>'work']);
+
+
+                $completestatus_sick = Pat_sick::Where([['id_patients','=',$idpatient],['status','=','wait']])
+                ->update(['status'=>'complete']); //
+                $completestatus_equip = Pat_Equipment::Where([['id_patients','=',$idpatient],['status','=','wait']])
+                ->update(['status'=>'complete']);
+                $completetstatus_allergy = Pat_Allergy::Where([['id_patients','=',$idpatient],['status','=','wait']])
+                ->update(['status'=>'complete']);
       //dd($idpatient);
-      return view('cusselect');
+      return redirect ('authcus/cusselect');
 
 
 

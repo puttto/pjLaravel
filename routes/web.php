@@ -15,9 +15,43 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/index', 'testconroller@index');
+Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+
+Route::prefix('authcare')->group(function() {
+  Route::get('/login', 'Auth\LogincaregiverController@showLoginForm')->name('caregiver.logincare');
+  Route::post('/login', 'Auth\LogincaregiverController@login')->name('caregiver.logincare.submit');
+
+  Route::get('/dashcaregiver', 'DashcaregiverController@index')->name('caregiver.dashboard');
+  Route::resource('addactivity','AddplanController');
+  Route::resource('vitalsign','Vital_signsController');
+  Route::resource('/suction','SuctionController');
+  Route::resource('/feeding','FeedingController');
+  Route::resource('/catheter','CatheterController');
+  Route::resource('/colostomy','ColostomyController');
+  Route::resource('/sugar','SugarController');
+  Route::resource('/otheractivity','OtheractivityController');
+  Route::resource('/notediary','NotediaryController');
+
+  Route::get('/logout', 'Auth\LogincaregiverController@logout')->name('caregiver.logout');
+  // Route::resource('/dashcaregiver','DashcaregiverController');
+});
+
+
+Route::prefix('authcus')->group(function() {
+  Route::get('/login', 'Auth\LogincustomerController@showLoginForm')->name('customer.login');
+  Route::post('/login', 'Auth\LogincustomerController@login')->name('customer.login.submit');
+
+   Route::get('/dashcustomer', 'DashcustomerController@index')->name('customer.dashboard');
+   Route::resource('/cusselect','Cus_select_care_Controller');
+  Route::get('/logout', 'Auth\LogincustomerController@logout')->name('customer.logout');
+  // Route::resource('/dashcaregiver','DashcaregiverController');
+});
+
+
 Auth::routes();
 
-Route::get('/index', 'HomeController@index')->name('index');
+ Route::get('/', 'HomeController@index')->name('index');
 Route::resource('index','testconroller');
 Route::resource ('search','searchcontroller');
 Route::resource('customer','CustomerController');
@@ -32,20 +66,23 @@ Route::resource('detail','DetailController');
 Route::resource('/dash','DisplayController');
 Route::resource('updatepat','PatientController');
 Route::resource('updatesick','SicknessController');
-Route::resource('cusselect','Cus_select_care_Controller');
+// Route::resource('cusselect','Cus_select_care_Controller');
 Route::resource('usercustomer','UserCaregiverController');
 Route::resource('usercaregiver','UserCusController');
-Route::resource('dashcustomer','DashcustomerController');
+// Route::resource('dashcustomer','DashcustomerController');
 Route::resource('userplan','UserplanController');
 Route::resource('createplan','CreateplanController');
-Route::resource('dashcaregiver','DashcaregiverController');
-Route::resource('addactivity','AddplanController');
-Route::resource('vitalsign','Vital_signsController');
-Route::resource('suction','SuctionController');
-Route::resource('feeding','FeedingController');
-Route::resource('catheter','CatheterController');
-Route::resource('colostomy','ColostomyController');
-Route::resource('sugar','SugarController');
+// Route::resource('dashcaregiver','DashcaregiverController');
+// Route::resource('addactivity','AddplanController');
+// Route::resource('vitalsign','Vital_signsController');
+// Route::resource('suction','SuctionController');
+// Route::resource('feeding','FeedingController');
+// Route::resource('catheter','CatheterController');
+// Route::resource('colostomy','ColostomyController');
+// Route::resource('sugar','SugarController');
+Route::resource('waitselect','WaitselectController');
+// Route::resource('otheractivity','OtheractivityController');
+// Route::resource('notediary','NotediaryController');
 Route::resource('','');
 // Route::get('/dash',function(){
 //   return view('dash');

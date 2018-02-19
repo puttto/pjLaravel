@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('passwoำrd') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
@@ -56,9 +56,9 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </form>

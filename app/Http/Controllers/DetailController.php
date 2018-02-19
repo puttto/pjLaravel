@@ -72,17 +72,20 @@ class DetailController extends Controller
 //dd($keeppat);
 
           $keep_patsick = Pat_sick::Where([['id_patients',$id],['status','=','request']])
+                ->orWhere([['id_patients',$id],['status','=','wait']])
                 ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
                 ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
                 ->get();
 
           $keep_equpment = Pat_Equipment::Where([['id_patients',$id],['status','=','request']])
+                ->orWhere([['id_patients',$id],['status','=','wait']])
                 ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
                 ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
                 ->get();
 
 
           $keep_allergy = Pat_Allergy::Where([['id_patients',$id],['status','=','request']])
+                ->orWhere([['id_patients',$id],['status','=','wait']])
                 ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
                 ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
                 ->get();

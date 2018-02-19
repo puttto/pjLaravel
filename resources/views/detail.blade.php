@@ -105,6 +105,10 @@
                       <td>สิ่งที่ชอบ:</td>
                       <td>{{$data['interesting_Pat']}}</td>
                     </tr>
+                    <tr>
+                      <td>ข้อมูลโรงพยาบาล</td>
+                      <td>{{$data['hospital_pat']}}</td>
+                    </tr>
                   </tbody>
                 </table>
 

@@ -45,11 +45,11 @@
               </span>
           @endif
         </div>
-        <div class="form-group {{ $errors->has('Name_pat_e') ? ' has-error' : '' }} ">
+        {{-- <div class="form-group {{ $errors->has('Name_pat_e') ? ' has-error' : '' }} ">
           <label for="name">Name:</label>
-          {{-- {{Form::label('name','ชื่อ:')}} --}}
+
           <input type="text" class="form-control" id="Name_pat_e" name="Name_pat_e" required autofocus>
-          {{-- {{Form::text('Name_pat','',['class'=>'form-control','id'=>'Name_pat','placeholder'=>'ชื่อ'])}} --}}
+
           @if ($errors->has('Name_pat_e'))
               <span class="help-block">
                   <strong>{{ $errors->first('Name') }}</strong>
@@ -64,7 +64,7 @@
                   <strong>{{ $errors->first('Lastname') }}</strong>
               </span>
           @endif
-        </div>
+        </div> --}}
 
         <div class="form-group {{ $errors->has('Nickname_pat') ? ' has-error' : '' }}">
           <label for="nickname">ชื่อเล่น:</label>
@@ -185,7 +185,7 @@
         <div class="form-group {{ $errors->has('interesting') ? ' has-error' : '' }}">
           <label for="interesting">ความชอบ:</label>
           <!-- <input type="text" class="form-control" id="interesting"> -->
-          <textarea class="form-control" rows="5" id="interesting" name="interesting" required autofocus></textarea>
+          <textarea class="form-control" rows="3" id="interesting" name="interesting" required autofocus></textarea>
           @if ($errors->has('interesting'))
               <span class="help-block">
                   <strong>{{ $errors->first('interesting') }}</strong>
@@ -196,7 +196,7 @@
 
         <div class="form-group {{ $errors->has('Hospital') ? ' has-error' : '' }}">
           <label for="hospital_lb">ข้อมูลเกี่ยวกับโรงพยาบาล:</label>
-          <textarea class="form-control" rows="5" id="Hospital" name="Hospital" required autofocus></textarea>
+          <textarea class="form-control" rows="3" id="Hospital" name="Hospital" required autofocus></textarea>
           @if ($errors->has('Hospital'))
               <span class="help-block">
                   <strong>{{ $errors->first('Hospital') }}</strong>

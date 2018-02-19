@@ -2,10 +2,11 @@
 @section('content')
 <div class="content-wrapper">
   <div class="contains">
-    {{Form::open(['url'=>'cusselect'])}}
+    {{Form::open(['url'=>'authcus/cusselect'])}}
     {{-- {{Form::open(['method'=>'put','route'=>['search.update',$id]])}} --}}
     <div class="row">
-      {{-- <span>test</span> --}} {{-- loop --}} @forelse ($cusselect as $show)
+      {{-- <span>test</span> --}} {{-- loop --}}
+      @forelse ($cusselect as $show)
 
 
       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-4 caregivers" data-id="{{$show ['id_caregivers']}}">
@@ -118,7 +119,8 @@
       </div>
 
       @empty
-      <span>ไม่มีข้อมูล</span> @endforelse
+      <span>ไม่มีข้อมูล</span>
+    @endforelse
 
       <input type="text" name="iddata" id="iddata" style="display:none" />
 

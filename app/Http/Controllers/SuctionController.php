@@ -37,14 +37,15 @@ class SuctionController extends Controller
     public function store(Request $request)
     {
       $this->validate($request,[
+        'date'=> 'required',
         'vol'=> 'required',
         'color'=> 'required',
         'spo2'=>'required',
-        'comment'=> 'max:200',
+        //'comment'=> 'max:200',
       ]);
 
-      $id_care=Session::get('addplan_care');
-      $id_patient=Session::get('addplan_patient');
+      $id_care=Session::get('id_care_sess_care');
+      $id_patient=Session::get('id_pat_sess_care');
 
     //$heart_rate = round($request->heart_rate,0);
     //dd($heart_rate);
@@ -55,14 +56,14 @@ class SuctionController extends Controller
       $suction->vol = $request->vol;
       $suction->color = $request->color;
       $suction->spo2 = $request->spo2;
-      $suction->comment = $request->comment;
+      //$suction->comment = $request->comment;
       $suction->id_caregivers = $id_care;
       $suction->id_patients = $id_patient;
-//dd($id_care);
+  //dd($id_care);
       $suction->save();
 
       Session::flash('message', "เพิ่มข้อมูลเรียบร้อย");
-      return redirect('addactivity');
+      return redirect('authcare/addactivity');
     }
 
     /**

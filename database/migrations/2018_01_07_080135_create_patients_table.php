@@ -28,6 +28,7 @@ class CreatePatientsTable extends Migration
             $table->string('gender_Pat',2);
             $table->string('interesting_Pat',200)->nullable();
             $table->string('hospital_pat',200)->nullable();
+            $table->string('description_pat',500)->nullable();
             $table->string('img_name_Pat',50)->nullable();
             $table->timestamps();
             $table->string('status',10)->nullable();

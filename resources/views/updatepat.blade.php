@@ -56,9 +56,9 @@
         </div>
         <div class="form-group {{ $errors->has('Name_pat_e') ? ' has-error' : '' }} ">
           <label for="name">Name:</label>
-          {{-- {{Form::label('name','ชื่อ:')}} --}}
-          <input  type="text" class="form-control" id="Name_pat_e" name="Name_pat_e" required autofocus>
-          {{-- {{Form::text('Name_pat','',['class'=>'form-control','id'=>'Name_pat','placeholder'=>'ชื่อ'])}} --}}
+
+          {{-- <input  type="text" class="form-control" id="Name_pat_e" name="Name_pat_e" required autofocus>
+
           @if ($errors->has('Name_pat_e'))
               <span class="help-block">
                   <strong>{{ $errors->first('Name') }}</strong>
@@ -73,7 +73,7 @@
                   <strong>{{ $errors->first('Lastname') }}</strong>
               </span>
           @endif
-        </div>
+        </div> --}}
 
         <div class="form-group {{ $errors->has('Nickname_pat') ? ' has-error' : '' }}">
           <label for="nickname">ชื่อเล่น:</label>

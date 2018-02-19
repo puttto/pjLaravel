@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-body">
         <h3 class="page-heading mb-4">บันทึกปัสสาวะ</h3>
-        {{Form::open(['url'=>'catheter'])}}
+        {{Form::open(['url'=>'authcare/catheter'])}}
         <div class="form-group">
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
@@ -15,13 +15,13 @@
         </div>
           <div class="form-group">
             <label for="catheter_lb">ปริมาณปัสสาวะ</label>
-            <input type="number" min="1" class="form-control p-input" name="vol" value="" >
+            <input type="number" min="1" class="form-control p-input" name="vol" value="400" >
           </div>
 
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="comment_lb">ความคิดเห็น(ถ้ามี)</label>
             <input type="text" name="comment" class="form-control p-input" value="">
-          </div>
+          </div> --}}
         </div>
         <br>
         <div class="form-group text-right">

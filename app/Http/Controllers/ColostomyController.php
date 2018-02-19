@@ -38,11 +38,11 @@ class ColostomyController extends Controller
     {
       $this->validate($request,[
 
-        'comment'=> 'max:200',
+        //'comment'=> 'max:200',
       ]);
 
-      $id_care=Session::get('addplan_care');
-      $id_patient=Session::get('addplan_patient');
+      $id_care=Session::get('id_care_sess_care');
+      $id_patient=Session::get('id_pat_sess_care');
 
     //$heart_rate = round($request->heart_rate,0);
     //dd($heart_rate);
@@ -51,14 +51,14 @@ class ColostomyController extends Controller
 
       $feces ->date_time = $request->date;
 
-      $feces->comment = $request->comment;
+      //$feces->comment = $request->comment;
       $feces->id_caregivers = $id_care;
       $feces->id_patients = $id_patient;
 //dd($id_care);
       $feces->save();
 
       Session::flash('message', "เพิ่มข้อมูลเรียบร้อย");
-      return redirect('addactivity');
+      return redirect('authcare/addactivity');
     }
 
     /**

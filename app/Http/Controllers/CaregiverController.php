@@ -9,6 +9,7 @@ use App\Special_Skill;
 use App\Caregiver_skill;
 use App\Caregiver_Equipment;
 use App\Medical_equipment;
+use App\User_caregiver;
 use Session;
 
 class CaregiverController extends Controller
@@ -64,9 +65,7 @@ class CaregiverController extends Controller
         'Address_care'=> 'required|max:200',
         'Mobilephone_care'=> 'required|max:15',
         'Lineid'=> 'required|max:50',
-        // 'Email'=> 'required|max:50',
-        // 'Password'=> 'required|max:50',
-        // 'confirmpassword'=> 'required|max:50',
+
         'Year_of_Caregiver'=> 'required|max:50',
         'Edu_Caregiver'=> 'required|max:50',
         'Type_of_living'=> 'required|max:50',
@@ -74,7 +73,20 @@ class CaregiverController extends Controller
         // 'special_skill'=> 'required|max:50',
         // 'medical_equipment'=> 'required|max:50',
 
+        'Email' => 'required|string|email|max:255|unique:users,email',
+        'Password' => 'required|min:6',
+
       ]);
+      $User_caregiver = new User_caregiver;
+      $User_caregiver ->name = $request->Name_care;
+      $User_caregiver ->email = $request->Email;
+
+        $password=$request->Password;
+        $bcryptpass=bcrypt($password);
+
+          $User_caregiver ->password = $bcryptpass;
+          $User_caregiver->save();
+
 
         $caregiver = new caregiver;
 
@@ -90,10 +102,30 @@ class CaregiverController extends Controller
         $caregiver ->religion_care = $request->Religion_care;
         $caregiver ->id_line_care = $request->Lineid;
         $caregiver ->mobilephone_care = $request->Mobilephone_care;
-        $caregiver ->id_card_care = $request->ID_Card_care;
+
+
+      $data_ID_card_care = $request->ID_Card_care;
+
+        $data_ID_card_care_all='';
+        //$iCount = count($data_ID_card_cus);
+        for ($i=0; $i < count($data_ID_card_care) ; $i++) {
+          if(($i+1)===count($data_ID_card_care)){
+            $data_ID_card_care_all .= $data_ID_card_care[$i];
+              $caregiver->id_card_care =$data_ID_card_care_all;
+          }
+          else{
+              $data_ID_card_care_all .= $data_ID_card_care[$i]."-";
+          }
+
+        }
+
+
         $caregiver ->address_care = $request->Address_care;
-        //$caregiver ->status_care = $request->status_care;
+        $caregiver ->caregiver_status ='not_work';
         $caregiver ->img_name = $request->img_name;
+
+        $caregiver->id_user_caregivers= $User_caregiver->id;
+
 
 
 

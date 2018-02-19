@@ -19,7 +19,7 @@ class CreateFeedingsTable extends Migration
             $table->integer('vol');
             $table->integer('water');
             $table->string('comment')->nullable();
-            $table->timestamp('datetime')->nullable();
+            $table->timestamp('date_time')->nullable();
             $table->integer('id_caregivers')->unsigned();
             $table->foreign('id_caregivers')->references('id_caregivers')->on('caregivers');
             $table->integer('id_patients')->unsigned();

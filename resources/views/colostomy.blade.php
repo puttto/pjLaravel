@@ -8,7 +8,7 @@
         <div class="card-body">
         <h3 class="page-heading mb-4">บันทึกอุจจาระ</h3>
         <div class="form-group">
-        {{Form::open(['url'=>'colostomy'])}}
+        {{Form::open(['url'=>'authcare/colostomy'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
           <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
@@ -20,10 +20,10 @@
           </label>
         </div> --}}
 
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="comment_lb">ความคิดเห็น(ถ้ามี)</label>
             <input type="text" name="comment" class="form-control p-input" value="">
-          </div>
+          </div> --}}
         </div>
         <br>
         <div class="form-group text-right">

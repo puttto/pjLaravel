@@ -22,9 +22,14 @@ class CreateCustomersTable extends Migration
             $table->string('address_cus');
             $table->string('lineid_cus', 50);
             $table->string('id_card_cus', 13);
-            $table->string('email_cus', 50);
+            $table->string('email_cus', 50)->nullable();
+
+            $table->integer('id_user_customers')->unsigned();
+            $table->foreign('id_user_customers')->references('id')->on('user_customers');
+
 
             $table->timestamps();
+
         });
     }
 

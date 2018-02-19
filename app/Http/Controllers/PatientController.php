@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Customer;
 use App\Patient;
 Use APP\Sickness;
 use Session;
 use View;
+
+use App\User_customer;
+use App\Http\Controllers\AuthcustomerController;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
 {
@@ -33,17 +41,74 @@ class PatientController extends Controller
         return view('patient', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+
+     /*
+     |--------------------------------------------------------------------------
+     | Register Controller
+     |--------------------------------------------------------------------------
+     |
+     | This controller handles the registration of new users as well as their
+     | validation and creation. By default this controller uses a trait to
+     | provide this functionality without requiring any additional code.
+     |
      */
-    public function create()
-    {
+     use RegistersUsers;
+     /**
+      * Where to redirect users after registration.
+      *
+      * @var string
+      */
+     protected $redirectTo = '';
+     /**
+      * Create a new controller instance.
+      *
+      * @return void
+      */
+     // public function __construct()
+     // {
+     //     $this->middleware('admin.guest');
+     // }
+
+     /**
+      * Get a validator for an incoming registration request.
+      *
+      * @param  array $data
+      * @return \Illuminate\Contracts\Validation\Validator
+      */
+     protected function validator(array $data)
+     {
+         return Validator::make($data, [
+              'Name_pat' => 'required|string|max:255',
+             'Email' => 'required|string|email|max:255|unique:users',
+             'password' => 'required|string|min:6|confirmed',
+         ]);
+
+     }
+     /**
+      * Create a new user instance after a valid registration.
+      *
+      * @param  array $data
+      * @return User
+      */
+     protected function create(array $data)
+     {
+       dd($data);
+         return User_customer::create([
+             'name' => $data['Name_pat'],
+             'email' => $data['Email'],
+             'password' => bcrypt($data['password']),
+         ]);
+     }
+     // public function showRegistrationForm()
+     // {
+     //     return view('admin.auth.register');
+     // }
+     protected function guard()
+     {
+         return Auth::guard('caregiver');
+     }
 
 
-      return view(patient);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -61,15 +126,28 @@ class PatientController extends Controller
         // ]);
 
         $this->validate($request,[
-          'Name'=> 'required|max:50',
+          'Name'=> 'required|string|max:255',
           'Lastname'=> 'required|max:100',
           'Telephone'=> 'required|max:15',
           'Mobilephone'=> 'required|max:15',
           'Address'=> 'required|max:191',
           'Lineid'=> 'required|max:100',
           // 'ID_card_cus'=> 'required|max:13',
-          'Email'=> 'required|email|max:100',
+          //'Email'=> 'required|email|max:100',
+
+          'Email' => 'required|string|email|max:255|unique:users,email',
+          'password' => 'required|min:6',
         ]);
+
+$user_customer = new User_customer;
+  $user_customer ->name = $request->Name;
+    $user_customer ->email = $request->Email;
+
+    $password=$request->password;
+    $bcryptpass=bcrypt($password);
+
+      $user_customer ->password = $bcryptpass;
+        $user_customer->save();
 
      $Customer = new Customer;
 
@@ -83,12 +161,8 @@ class PatientController extends Controller
 
 
 
+
         $data_ID_card_cus = $request->ID_card_cus;
-          //dd($data_ID_card_cus);
-        // foreach ($data_ID_card_cus as $keepid_card ) {
-        //
-        // $Customer->id_card_cus =  $keepid_card;
-        // }
 
         $data_ID_card_cus_all='';
       //$iCount = count($data_ID_card_cus);
@@ -105,8 +179,13 @@ class PatientController extends Controller
               //dd($keepid_card);
         }
 
-        $Customer->email_cus = $request->Email;
+        //$Customer->email_cus = $request->Email;
+        $Customer->id_user_customers = $user_customer->id;
         $Customer->save();
+
+
+
+
         Session::put('customer_id',$Customer->id);
      //    //session(['customer' => '$data->id']);
      //
@@ -277,4 +356,9 @@ class PatientController extends Controller
     {
         //
     }
+
+
+
+
+
 }

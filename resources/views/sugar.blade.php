@@ -8,19 +8,19 @@
         <div class="card-body">
         <h3 class="page-heading mb-4">วัดระดับน้ำตาล</h3>
         <div class="form-group">
-          {{Form::open(['url'=>'sugar'])}}
+          {{Form::open(['url'=>'authcare/sugar'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
           <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
         </div>
         <div class="form-group">
           <label for="sugar_lb">ระดับน้ำตาล (mg/dL)</label>
-          <input type="text" class="form-control p-input" name="sugar_lv" value="" >
+          <input type="text" class="form-control p-input" name="sugar_lv" value="100" >
         </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="comment_lb">ความคิดเห็น (ถ้ามี)</label>
             <input type="text" name="comment" class="form-control p-input" value="">
-          </div>
+          </div> --}}
         </div>
         <br>
         <div class="form-group text-right">

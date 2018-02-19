@@ -18,7 +18,7 @@
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h2 class="panel-title" style="font-size:20px">ชื่อ {{$data['name_Pat']}}  นามสกุล  {{$data['lastname_Pat']}}</h2>
+              <h2 class="panel-title" style="font-size:20px">{{$data['name_Pat']}} {{$data['lastname_Pat']}} &nbsp;&nbsp; ({{$data['nickname_Pat']}})</h2>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -43,6 +43,15 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
+
+                      </tr>
+                      <tr>
+                      <td>
+                        เลขประจำตัวประชาชน:
+                      </td>
+                      <td>{{$data['id_card_Pat']}}</td>
+                    </tr>
+                      <tr>
                         <td>เพศ:</td>
                         @if ($data['gender_Pat'] == 'ญ')
                             <td>{{'หญิง'}}</td>
@@ -51,14 +60,20 @@
                         @endif
 
                       </tr>
-                      <tr>
-                        <td>ชื่อเล่น:</td>
-                        <td>{{$data['nickname_Pat']}}</td>
-                      </tr>
+
                       <tr>
                         <td>เกิดวันที่:</td>
                         <td>{{$data['birthday_Pat']}}</td>
                       </tr>
+                      <tr>
+                        <td>อายุ</td>
+                        <td>
+
+                          @foreach ($show_age as $show )
+                            {{$show}}
+                        @endforeach
+                      </td>
+                    </tr>
                       <tr>
                         <td>สัญชาติ:</td>
                         <td>{{$data['nationality_Pat']}}</td>
@@ -72,20 +87,23 @@
                         <td>{{$data['religion_Pat']}}</td>
                       </tr>
 
+                      <tr>
+                        <td>น้ำหนัก:</td>
+                        <td>{{$data['weight_Pat']}} กก</td>
+                      </tr>
+                      <tr>
+                        <td>ส่วนสูง:</td>
+                        <td>{{$data['hight_Pat']}} ซม</td>
+                      </tr>
 
-                             <tr>
-                        <td>น้ำหนัก,ส่วนสูง:</td>
-                        <td>{{$data['weight_Pat']}}กก ,{{$data['hight_Pat']}}ซม</td>
-                      </tr>
-                        <tr>
-                        <td>
-                          เลขประจำตัวประชาชน:
-                        </td>
-                        <td>{{$data['id_card_Pat']}}</td>
-                      </tr>
                       <tr>
                         <td>สิ่งที่ชอบ:</td>
                         <td>{{$data['interesting_Pat']}}</td>
+                      </tr>
+
+                      <tr>
+                        <td>ข้อมูลโรงพยาบาล</td>
+                        <td>{{$data['hospital_pat']}}</td>
                       </tr>
 
                     </tbody>
@@ -106,19 +124,19 @@
                         <tr>
                           <td width="30%">โรคที่ป่วย</td>
                           <td width="70%">
-                            @foreach ($show_patsick as $data ) &nbsp;&nbsp;{{$data['sick_description']}}, @endforeach
+                            @foreach ($show_patsick as $data ) &nbsp;&nbsp;{{$data['sick_description']}}<br> @endforeach
                           </td>
                         </tr>
                         <tr>
                           <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
                           <td width="70%">
-                            @foreach ($show_equipment as $data ) &nbsp;&nbsp;{{$data['equipment_description']}}, @endforeach
+                            @foreach ($show_equipment as $data ) &nbsp;&nbsp;{{$data['equipment_description']}}<br> @endforeach
                           </td>
                         </tr>
                         <tr>
                           <td width="30%">แพ้อาหารและยา</td>
                           <td width="70%">
-                            @foreach ($show_allergy as $data ) &nbsp;&nbsp;{{$data['allergy_description']}}, @endforeach
+                            @foreach ($show_allergy as $data ) &nbsp;&nbsp;{{$data['allergy_description']}}<br> @endforeach
                           </td>
                         </tr>
                         <tr>
@@ -132,9 +150,12 @@
 
             </div>
                  <div class="panel-footer" style="text-align:right;">
+
+                   {{-- <a type="button" class="btn btn-sm btn-primary">ยืนยันข้อมูล</a> --}}
+
                    {{Html::link('updatepat/'.$data['id_patients'].'/edit','แก้ไขข้อมูล',array('class'=>'btn btn-warning'))}}
-                        {{-- <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
-                        <span class="pull-right">
+                   {{Html::link('/index','ยืนยันข้อมูล',array('class'=>'btn btn-info'))}}
+                        {{-- <span class="pull-right">
                             <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                             <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                         </span> --}}

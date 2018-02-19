@@ -17,35 +17,35 @@
         <div class="card-body">
         <h3 class="page-heading mb-4">วัดชีพจร</h3>
         <div class="form-group">
-          {{Form::open(['url'=>'vitalsign'])}}
+          {{Form::open(['url'=>'authcare/vitalsign'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
           <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
         </div>
           <div class="form-group">
             <label for="sys_lb">Systolic (ค่าแรก)</label>
-            <input type="number" min="1" class="form-control p-input" name="sys" value="" >
+            <input type="number" min="1" class="form-control p-input" name="sys" value="100" >
           </div>
           <div class="form-group">
             <label for="dia_lb">Diastolic (ค่าหลัง)</label>
-            <input type="number" min="1" name="dia" class="form-control p-input" value="">
+            <input type="number" min="1" name="dia" class="form-control p-input" value="90">
           </div>
           <div class="form-group">
             <label for="heart_rate_lb">อัตราการเต้นของหัวใจ (ครั้ง/นาที)</label>
-            <input type="number" min="1" name="heart_rate" class="form-control p-input" value="">
+            <input type="number" min="1" name="heart_rate" class="form-control p-input" value="85">
           </div>
           <div class="form-group">
             <label for="temp_lb">อุณหภูมิร่างกาย (°c)</label>
-            <input type="number" min="1" step="0.1" name="temp" class="form-control p-input" value="" >
+            <input type="number" min="1" step="0.1" name="temp" class="form-control p-input" value="36.5" >
           </div>
           <div class="form-group">
             <label for="spo2_lb">Spo2 (%)</label>
-            <input type="number" min="1" name="spo2" class="form-control p-input" value="">
+            <input type="number" min="1" name="spo2" class="form-control p-input" value="95">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="temp_lb">ความคิดเห็น(ถ้ามี)</label>
             <input type="text" name="comment" class="form-control p-input" value="">
-          </div>
+          </div> --}}
         </div>
         <br>
         <div class="form-group text-right">

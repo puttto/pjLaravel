@@ -8,7 +8,7 @@
         <div class="card-body">
         <h3 class="page-heading mb-4">เคาะปอดดูดเสมหะ</h3>
         <div class="form-group">
-          {{Form::open(['url'=>'suction'])}}
+          {{Form::open(['url'=>'authcare/suction'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
           <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
@@ -35,12 +35,12 @@
           </div>
           <div class="form-group">
             <label for="spo2_lb">Spo2 หลังการดูดเสมหะ(%)</label>
-            <input type="number" min="1" name="spo2" class="form-control p-input" value="">
+            <input type="number" min="1" name="spo2" class="form-control p-input" value="95">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="temp_lb">ความคิดเห็น (ถ้ามี)</label>
             <input type="text" name="comment" class="form-control p-input" value="">
-          </div>
+          </div> --}}
         </div>
         <br>
         <div class="form-group text-right">
