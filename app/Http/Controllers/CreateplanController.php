@@ -10,7 +10,15 @@ use App\Caregiver;
 use App\Select_care_status;
 use Session;
 class CreateplanController extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +50,26 @@ class CreateplanController extends Controller
             ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
             ->get();
 
-        $data = array('selectplan'=>$selectplan);
+            $selectplan_do= Plan::where([['plans.id_patients',$id_p],['plans.id_caregivers',$id_c],['status_plan','=','use']])
+                  ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
+                  ->select('doing')
+                  ->get();
+
+                  $hasdata = 0;
+
+                foreach ($selectplan_do as $data) {
+                  if ($data['doing']=='suction'||$data['doing']=='feeding') {
+                      $hasdata=1;
+                  }else {
+                  $hasdata=0;
+                  }
+
+                }
+                // dd($hasdata);
+
+        $data = array('selectplan'=>$selectplan,
+                      'hasdata'=>$hasdata
+                      );
         return view('createplan',$data);
     }
 

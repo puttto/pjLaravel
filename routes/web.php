@@ -23,7 +23,7 @@ Route::prefix('authcare')->group(function() {
   Route::post('/login', 'Auth\LogincaregiverController@login')->name('caregiver.logincare.submit');
 
   Route::get('/dashcaregiver', 'DashcaregiverController@index')->name('caregiver.dashboard');
-  Route::resource('addactivity','AddplanController');
+  Route::resource('/addactivity','AddplanController');
   Route::resource('vitalsign','Vital_signsController');
   Route::resource('/suction','SuctionController');
   Route::resource('/feeding','FeedingController');
@@ -32,6 +32,7 @@ Route::prefix('authcare')->group(function() {
   Route::resource('/sugar','SugarController');
   Route::resource('/otheractivity','OtheractivityController');
   Route::resource('/notediary','NotediaryController');
+  Route::resource('/emergency','EmergencyController');
 
   Route::get('/logout', 'Auth\LogincaregiverController@logout')->name('caregiver.logout');
   // Route::resource('/dashcaregiver','DashcaregiverController');
@@ -60,15 +61,15 @@ Route::resource('patient','PatientController');
 //Route::resource('patientDB','PatientController@store_pat');
 Route::resource('caregiver','CaregiverController');
 Route::resource('sickness','SicknessController');
-Route::resource('display','DisplayController');
+// Route::resource('display','DisplayController');
 Route::resource('sum','Show_sumController');
 Route::resource('detail','DetailController');
 Route::resource('/dash','DisplayController');
 Route::resource('updatepat','PatientController');
 Route::resource('updatesick','SicknessController');
 // Route::resource('cusselect','Cus_select_care_Controller');
-Route::resource('usercustomer','UserCaregiverController');
-Route::resource('usercaregiver','UserCusController');
+Route::resource('usercustomer','UserCusController');
+Route::resource('usercaregiver','UserCaregiverController');
 // Route::resource('dashcustomer','DashcustomerController');
 Route::resource('userplan','UserplanController');
 Route::resource('createplan','CreateplanController');
@@ -81,6 +82,7 @@ Route::resource('createplan','CreateplanController');
 // Route::resource('colostomy','ColostomyController');
 // Route::resource('sugar','SugarController');
 Route::resource('waitselect','WaitselectController');
+Route::resource('callemergency','CallEmergencyController');
 // Route::resource('otheractivity','OtheractivityController');
 // Route::resource('notediary','NotediaryController');
 Route::resource('','');

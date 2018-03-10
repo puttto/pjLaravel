@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http;
+use App\Http\Middleware\CaregiverRedirectIfNotAuthenticated;
+use App\Http\Middleware\CustomerRedirectIfNotAuthenticated;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -57,5 +59,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth.caregiver' => CaregiverRedirectIfNotAuthenticated::class,
+        'auth.customer' => CustomerRedirectIfNotAuthenticated::class,
     ];
 }

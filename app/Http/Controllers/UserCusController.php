@@ -3,9 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\customer;
+use App\patient;
 
 class UserCusController extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,16 @@ class UserCusController extends Controller
      */
     public function index()
     {
-        return view('usercustomer');
+      $usercus = patient::Where('status','=','request')
+                          ->orWhere('status','=','wait')
+                          ->orWhere('status','=','complete')
+                          ->join('customers','customers.id_customer','=','patients.id_customer')
+                          ->orderBy('id_patients', 'desc')
+                          ->get();
+                          // dd($usercus);
+
+                          $data = array('usercus'=>$usercus);
+        return view('usercustomer',$data);
     }
 
     /**

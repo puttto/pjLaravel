@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Caregiver;
-use App\Patient;
-use App\Select_care_status;
-use App\plan;
+use App\patient;
+use App\customer;
+// use App\Select_care_status;
+use App\emergency;
 use Session;
+use Carbon\Carbon;
 
-class UserplanController extends Controller
+class EmergencyController extends Controller
 {/**
  * Create a new controller instance.
  *
@@ -17,27 +19,52 @@ class UserplanController extends Controller
  */
 public function __construct()
 {
-    $this->middleware('auth');
+    $this->middleware('auth.caregiver');
 }
     /**
-     * Display a listing of the resource.;
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-      $userplan = Select_care_status::Where('select_care_statuses.status_care','=','finish')
-            ->join('patients','select_care_statuses.id_patients','=','patients.id_patients')
-            ->join('caregivers','select_care_statuses.id_caregivers','=','caregivers.id_caregivers')
-            ->get();
+      $id_care=Session::get('id_care_sess_care');
+       $id_patient=Session::get('id_pat_sess_care');
 
-                //dd($userplan);
-                $data = array(
-                  'userplan' => $userplan
-                );
+ // $id_patient='';
 
-      return view('userplan',$data);
-        //
+if ($id_patient=='') {
+
+ $id_patient=0;
+ // dd($id_patient);
+
+}
+
+
+      $findidcus = patient::where('id_patients',$id_patient)->select('id_customer')->get();
+        // dd($findidcus);
+
+// $findidcus='';
+       if ($findidcus=='') {
+        $id_cus=0;
+        // dd($id_cus);
+       }else {
+         $id_cus='';
+         foreach ($findidcus as $getid) {
+         $id_cus =  $getid['id_customer'];
+                }
+            }
+
+       Session::put('id_cus_sess_care',$id_cus);
+
+
+      $get_customer = customer::where('id_customer',$id_cus)->get();
+       // dd($get_customer);
+
+         $data = array('customer'=>$get_customer);
+
+        // dd($data);
+        return view('emergency',$data);
     }
 
     /**
@@ -58,6 +85,21 @@ public function __construct()
      */
     public function store(Request $request)
     {
+      $id_care=Session::get('id_care_sess_care');
+       $id_patient=Session::get('id_pat_sess_care');
+
+      $date_time = Carbon::now();
+      $emergency = new emergency;
+      $emergency ->date_time = $date_time;
+      $emergency->message = $request->message;
+      $emergency->status = 'call';
+      $emergency->id_caregivers = $id_care;
+      $emergency->id_patients = $id_patient;
+      $emergency->save();
+
+      return redirect('authcare/emergency');
+
+
 
         //
     }
@@ -81,23 +123,7 @@ public function __construct()
      */
     public function edit($id)
     {
-      Session::put('id_select_care_statuses',$id);
-      $update_planning = Select_care_status::Where([['id_select_care_statuses','=',$id],['status_care','=','finish']])
-                 ->update(['status_care'=>'planning']);
-
-          // $plan_select = Select_care_status::where([['id_select_care_statuses','=',$id],['status_care','=','planning']])
-          //       ->get();
-          //
-          //     foreach ($plan_select as $data) {
-          //       $id_pat=$data['id_patients'];
-          //         $id_care=$data['id_caregivers'];
-          //     }
-
-              // $plan_insert = new Plan;
-
-                //dd($id_pat);
         //
-        return redirect('createplan');
     }
 
     /**

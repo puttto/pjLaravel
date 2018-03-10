@@ -4,66 +4,297 @@
   <div class="container">
 
     <div class="row mb-2">
-            <div class="col-lg-12">
-              <div class="text-right" >
-                เพิ่มแผนการดูแล
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">&plus;</a>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-4">จัดแผนการดูแลให้คนไข้</h5>
-                  <div class="table-responsive">
-                    <table class="table center-aligned-table">
-                      <thead>
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-8">
+        <div class="text-right mb-4" >
+          เพิ่มแผนการดูแล
+          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">&plus;</a>
+        </div>
+        <div class="card mb-4">
+          <div class="card-body ">
+            <h6 class="text-primary">กิจกรรมตลอดทั้งวัน</h6>
+            <table class="table center-aligned-table">
+              <thead>
 
-                        <tr class="text-primary">
-                          {{-- <th>No</th> --}}
-                          <th>วันเริ่มต้น</th>
-                          {{-- <th>วันสิ้นสุด</th> --}}
-                          <th>ช่วงเวลา</th>
-                          <th>ทำอะไร</th>
-                          <th>ไอคอน</th>
+                <tr class="text-primary2">
 
-                          <th></th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @forelse ($selectplan as $show)
-                          <tr class="">
-                            {{-- <td>{{$show['id_plans']}}</td> --}}
-                            <td>{{$show['set_date']}}</td>
-                            {{-- <td>{{$show['until_date']}}</td> --}}
-                            <td>{{$show['time']}}</td>
-                            <td>{{$show['doing']}}</td>
-                            <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                  <th>ไอคอน</th>
+                  <th>ช่วงเวลา</th>
+                  <th>ทำอะไร</th>
+
+                  <th></th>
+
+              </thead>
+              @forelse ($selectplan as $show)
+              @if ($show['time'] !=='เช้า'&&$show['time'] !=='กลางวัน'&&$show['time'] !=='เช้า,เย็น'&&$show['time'] !=='ก่อนนอน' )
+                <tbody>
+                  <tr class="">
+                    {{-- <td>{{$show['id_plans']}}</td> --}}
+                    <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                    {{-- <td>{{$show['set_date']}}</td>
+                    <td>{{$show['until_date']}}</td> --}}
+                    <td>{{$show['time']}}</td>
+                    <td>{{$show['doing']}}</td>
+                    <td style="text-align:right"><a href="{{$show['doing']}}" class="btn btn-primary btn-sm">บันทึกข้อมูล</a></td>
+                    {{-- <td>{{Html::link('{{$show['doing']}}/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+                    {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
+                  </tr>
+                  </tbody>
+                      @endif
+
+            @empty
+
+            @endforelse
+
+
+             @if ($hasdata==1)
+              <tbody>
+                <tr class="">
+
+                  <td><img width="35px" src="../img/icon/turn.png"/></td>
+
+                  <td>ตลอดทั้งวัน ทุกๆ 2 ซั่วโมง</td>
+                  <td>พลิกตัวผู้ป่วย</td>
+
+                </tr>
+              </tbody>
+            @endif
 
 
 
-                            {{-- <td>{{Html::link('createplan/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+
+            </table>
+          </div>
+          </div>
+
+          <div class="card mb-2">
+          <div class="card-body">
+            กิจกรรมเช้า
+              <table class="table center-aligned-table">
+                <thead>
+
+                  <tr class="text-primary2">
+
+                    <th>ไอคอน</th>
+
+                    <th>ช่วงเวลา</th>
+                    <th></th>
+                    <th>ทำอะไร</th>
 
 
+                    <th></th>
 
-                            {{Form::open([ 'method'  => 'delete', 'route' => [ 'createplan.destroy', $show->id_plans ] ])}}
-                                              <td>  {{ Form::submit('ลบ', ['class' => 'btn btn-danger btn-sm']) }}</td>
-                                            {{ Form::close() }}
+                </thead>
+                <tbody>
+                  <tr class="">
 
-                            {{-- <td>{{Html::link('createplan/'.$show['id_plans'].'/destroy','ลบ',array('class'=>'btn btn-danger btn-sm'))}}</td> --}}
-                          </tr>
-                        @empty
-                            <tr>
-                              <td>ไม่มีข้อมูล</td>
-                            </tr>
-                        @endforelse
+                    <td><img width="35px" src="../img/icon/pills.png"/></td>
 
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+                    <td>เช้า</td>
+                    <td></td>
+                    <td>ป้อนยา</td>
+
+                  </tr>
+                </tbody>
+            @forelse ($selectplan as $show)
+            @if ($show['time'] === 'เช้า'|| $show['time'] ==='เช้า,เย็น' )
+              <tbody>
+                <tr class="">
+                  {{-- <td>{{$show['id_plans']}}</td> --}}
+                  <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                  {{-- <td>{{$show['set_date']}}</td> --}}
+                  {{-- <td>{{$show['until_date']}}</td> --}}
+                  <td>{{$show['time']}}</td>
+                  <td></td>
+                  <td>{{$show['doing']}}</td>
+
+
+                  <td style="text-align:right"><a href="{{$show['doing']}}" class="btn btn-primary btn-sm">บันทึกข้อมูล</a></td>
+                  {{-- <td>{{Html::link('{{$show['doing']}}/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+                  {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
+                </tr>
+              </tbody>
+            @endif
+          @empty
+
+          @endforelse
+        </table>
+          </div>
+          </div>
+
+          <div class="card mb-2">
+          <div class="card-body">
+            กิจกรรมบ่าย
+
+              <table class="table center-aligned-table">
+                <thead>
+
+                  <tr class="text-primary2">
+
+                    <th>ไอคอน</th>
+
+                    <th>ช่วงเวลา</th>
+                    <th></th>
+                    <th>ทำอะไร</th>
+
+
+                    <th></th>
+
+                </thead>
+                <tbody>
+                  <tr class="">
+
+                    <td><img width="35px" src="../img/icon/pills.png"/></td>
+
+                    <td>เช้า</td>
+                    <td></td>
+                    <td>ป้อนยา</td>
+
+                  </tr>
+                </tbody>
+          @forelse ($selectplan as $show)
+          @if ($show['time'] === 'กลางวัน' )
+            <tbody>
+              <tr class="">
+                {{-- <td>{{$show['id_plans']}}</td> --}}
+                <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                {{-- <td>{{$show['set_date']}}</td> --}}
+                {{-- <td>{{$show['until_date']}}</td> --}}
+                <td>{{$show['time']}}</td>
+                <td></td>
+                <td>{{$show['doing']}}</td>
+
+
+                <td style="text-align:right"><a href="{{$show['doing']}}" class="btn btn-primary btn-sm">บันทึกข้อมูล</a></td>
+                {{-- <td>{{Html::link('{{$show['doing']}}/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+                {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
+              </tr>
+            </tbody>
+          @endif
+        @empty
+
+        @endforelse
+      </table>
             </div>
           </div>
+
+          <div class="card mb-2">
+          <div class="card-body">
+            กิจกรรมเย็น
+
+              <table class="table center-aligned-table">
+                <thead>
+
+                  <tr class="text-primary2">
+
+                    <th>ไอคอน</th>
+
+                    <th>ช่วงเวลา</th>
+                    <th></th>
+                    <th>ทำอะไร</th>
+
+
+                    <th></th>
+
+                </thead>
+                <tbody>
+                  <tr class="">
+
+                    <td><img width="35px" src="../img/icon/pills.png"/></td>
+
+                    <td>เช้า</td>
+                    <td></td>
+                    <td>ป้อนยา</td>
+
+                  </tr>
+                </tbody>
+            @forelse ($selectplan as $show)
+            @if ($show['time'] === 'เย็น' ||  $show['time'] ==='เช้า,เย็น')
+            <tbody>
+              <tr class="">
+                {{-- <td>{{$show['id_plans']}}</td> --}}
+                <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                {{-- <td>{{$show['set_date']}}</td> --}}
+                {{-- <td>{{$show['until_date']}}</td> --}}
+                <td>{{$show['time']}}</td>
+                <td></td>
+                <td>{{$show['doing']}}</td>
+
+
+                <td style="text-align:right"><a href="{{$show['doing']}}" class="btn btn-primary btn-sm">บันทึกข้อมูล</a></td>
+                {{-- <td>{{Html::link('{{$show['doing']}}/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+                {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
+              </tr>
+            </tbody>
+            @endif
+            @empty
+
+            @endforelse
+            </table>
+          </div>
+          </div>
+
+          <div class="card mb-2 ">
+
+          <div class="card-body">
+            กิจกรรมก่อนนอน
+
+              <table class="table center-aligned-table">
+                <thead>
+
+                  <tr class="text-primary2">
+
+                    <th>ไอคอน</th>
+
+                    <th>ช่วงเวลา</th>
+                    <th></th>
+                    <th>ทำอะไร</th>
+
+
+                    <th></th>
+
+                </thead>
+                <tbody>
+                  <tr class="">
+
+                    <td><img width="35px" src="../img/icon/pills.png"/></td>
+
+                    <td>เช้า</td>
+                    <td></td>
+                    <td>ป้อนยา</td>
+
+                  </tr>
+                </tbody>
+            @forelse ($selectplan as $show)
+            @if ($show['time'] === 'ก่อนนอน')
+            <tbody>
+              <tr class="">
+                {{-- <td>{{$show['id_plans']}}</td> --}}
+                <td><img width="35px" src="../img/icon/{{$show['doing']}}.png"/></td>
+                {{-- <td>{{$show['set_date']}}</td> --}}
+                {{-- <td>{{$show['until_date']}}</td> --}}
+                <td>{{$show['time']}}</td>
+                <td></td>
+                <td>{{$show['doing']}}</td>
+
+
+                <td style="text-align:right"><a href="{{$show['doing']}}" class="btn btn-primary btn-sm">บันทึกข้อมูล</a></td>
+                {{-- <td>{{Html::link('{{$show['doing']}}/'.$show['id_plans'].'/edit','จัดการ',array('class'=>'btn btn-warning btn-sm'))}}</td> --}}
+                {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
+              </tr>
+            </tbody>
+            @endif
+            @empty
+
+            @endforelse
+            </table>
+          </div>
+          </div>
+
+          </div>
   </div>
+    </div>
 
   {{Form::open(['url'=>'createplan'])}}
   <!-- Modal -->
@@ -158,6 +389,8 @@
                  <label for="evening"> เย็น</label>&nbsp;&nbsp;
                  <input type="radio" id="4" name="when_time" onclick="showMe('div_1')" value="เช้า,เย็น">
                  <label for="m&n"> เช้า,เย็น</label>&nbsp;&nbsp;
+                 <input type="radio" id="6" name="when_time" onclick="showMe('div_1')" value="ก่อนนอน">
+                 <label for="m&n"> ก่อนนอน</label>&nbsp;&nbsp;
                  <input type="radio" id="5" name="when_time" onclick="showMe('div_1')" value="ตลอดทั้งวัน ทุกๆ : ">
                  <label for="allday"> ตลอดทั้งวัน</label>
                  &nbsp;&nbsp;

@@ -3,41 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\emergency;
 use App\Caregiver;
 use App\Patient;
-use App\Select_care_status;
-use App\plan;
-use Session;
+use App\customer;
 
-class UserplanController extends Controller
-{/**
- * Create a new controller instance.
- *
- * @return void
- */
-public function __construct()
+
+class CallEmergencyController extends Controller
 {
-    $this->middleware('auth');
-}
     /**
-     * Display a listing of the resource.;
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-      $userplan = Select_care_status::Where('select_care_statuses.status_care','=','finish')
-            ->join('patients','select_care_statuses.id_patients','=','patients.id_patients')
-            ->join('caregivers','select_care_statuses.id_caregivers','=','caregivers.id_caregivers')
-            ->get();
+      $emergency = emergency::where('emergencies.status','=','call')
+        ->join('caregivers','emergencies.id_caregivers','=','caregivers.id_caregivers')
+        ->join('patients','emergencies.id_patients','=','patients.id_patients')
+        ->join('customers','patients.id_customer','=','customers.id_customer')
+        ->select('id_emergencies','message','emergencies.status','date_time','caregivers.id_caregivers','name_care','lastname_care','mobilephone_care','patients.id_patients','name_Pat','lastname_Pat','customers.id_customer','name_cus','lastname_cus','mobilephone_cus')
+        ->orderBy('id_emergencies', 'desc')
+        ->get();
 
-                //dd($userplan);
-                $data = array(
-                  'userplan' => $userplan
-                );
+        $data = array('emergency'=>$emergency);
 
-      return view('userplan',$data);
         //
+        return view('callemergency',$data);
     }
 
     /**
@@ -58,7 +50,6 @@ public function __construct()
      */
     public function store(Request $request)
     {
-
         //
     }
 
@@ -81,23 +72,7 @@ public function __construct()
      */
     public function edit($id)
     {
-      Session::put('id_select_care_statuses',$id);
-      $update_planning = Select_care_status::Where([['id_select_care_statuses','=',$id],['status_care','=','finish']])
-                 ->update(['status_care'=>'planning']);
-
-          // $plan_select = Select_care_status::where([['id_select_care_statuses','=',$id],['status_care','=','planning']])
-          //       ->get();
-          //
-          //     foreach ($plan_select as $data) {
-          //       $id_pat=$data['id_patients'];
-          //         $id_care=$data['id_caregivers'];
-          //     }
-
-              // $plan_insert = new Plan;
-
-                //dd($id_pat);
         //
-        return redirect('createplan');
     }
 
     /**
@@ -120,6 +95,8 @@ public function __construct()
      */
     public function destroy($id)
     {
-        //
+      $status_comp= emergency::where('status','=','call')
+             ->update(['status'=>'complete']);
+             return redirect('/callemergency');
     }
 }

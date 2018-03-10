@@ -6,7 +6,15 @@ use Illuminate\Http\Request;
 use App\Select_care_status;
 
 class WaitselectController extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -19,13 +27,16 @@ class WaitselectController extends Controller
             ->join('caregivers','select_care_statuses.id_caregivers','=','caregivers.id_caregivers')
             ->join('patients','select_care_statuses.id_patients','=','patients.id_patients')
             ->join('customers','patients.id_customer','=','customers.id_customer')
+            ->select('patients.id_patients'
+            ,'caregivers.id_caregivers','customers.id_customer','name_care','lastname_care','name_Pat','lastname_Pat','name_cus','lastname_cus','mobilephone_cus','id_select_care_statuses'
+          )->distinct()
             ->get();
 
                 //dd($waitselect);
                 $data = array(
                   'waitselect' => $waitselect
                 );
-              //  dd($data);
+                  // dd($data);
         return view('waitselect',$data);
     }
 
@@ -92,6 +103,8 @@ class WaitselectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $select_care_del= Select_care_status::where([['id_select_care_statuses',$id],['status_care','=','ad_select']])
+             ->update(['status_care'=>'ad_del']);
+             return redirect('/waitselect');
     }
 }

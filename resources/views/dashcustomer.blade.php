@@ -1,5 +1,8 @@
 @extends('layouts/main_cus')
 @section('content')
+  <?php
+  use Carbon\Carbon;
+  ?>
   <style>
 .dropbtn {
     background-color: #3498DB;
@@ -37,6 +40,19 @@
 .dropdown a:hover {background-color: #ddd}
 
 .show {display:block;}
+
+.text-display-box {
+/* max-width: 140px; */
+height: 40px;
+color: #282828;
+border: 1px solid #ccc;
+padding: 10px;
+background-color: #f9f9f9;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+border-radius: 5px;
+}
 </style>
 
   <div class="content-wrapper">
@@ -47,15 +63,444 @@
   <h4>รอดำเนินการ</h4>
 @endforelse --}}
   <div class="">
-    {{-- <div class="col-lg-6">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+      <div class="card card-statistics">
+        <div class="card-body mb-4  ">
+            <div class="row px-5">
+              <h4>คนไข้</h4>
+            </div>
+                @forelse ($patient as $show)
 
-      <div class="card">
-        <div class="card-body">
 
-        </div>
+            <div class="row px-5 ">
+              <h5 class="float-left col-xl-9 col-lg-9 col-md-9 col-sm-9 text-primary2">คุณ {{$show ['name_Pat']}} {{$show ['lastname_Pat']}}</h5>
+              <h5 class="float-right col-xl-3 col-lg-3 col-md-3 col-sm-3 " style="text-align:right ;color:#666666 ; " >({{$show ['nickname_Pat']}}) </h5>
+              <br>
+            <hr width=100% size=3 style="background-color:#f05f40 ">
+            </div>
 
+          <div class="clearfix px-5" >
+            <div class="row ">
+
+                <div class="float-left col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                      เพศ : @if ($show['gender_Pat'] == 'ญ')
+                          <td>{{'หญิง'}}</td>
+                        @else
+                          <td>{{'ชาย'}}</td>
+                      @endif
+                    </h6>
+                  </div>
+
+                  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                        {{$show['birthday_Pat']}}
+                    </h6>
+                  </div> --}}
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+
+                      อายุ :
+                        {{Carbon::parse($show['birthday_Pat'])->diff(Carbon::now()) ->format('%y ปี')}}
+
+
+                    </h6>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                      น้ำหนัก : {{$show['weight_Pat']}} กก.
+                    </h6>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                  <h6 class="">
+                    ส่วนสูง : {{$show['hight_Pat']}} ซม.
+                  </h6>
+                  </div>
+
+                  </div>
+
+                </div>
+
+                <div class="float-left col-xl-2 col-lg-2 col-md-2 col-sm-2" style="text-align:right;">
+                  <p class="card-text text-dark"></p>
+                  <h6 class="bold-text">
+
+                    <a href="#" class="btn btn-primary" style="width:100px" data-toggle="modal" data-target="#{{$show['id_patients']}}">ดูรายละเอียด</a>
+                    {{-- {{Html::link('detail/'.$show['id_patients'],'แสดงรายละเอียด',array('class'=>'btn btn-danger btn-sm'))}}
+                  <br><br>  {{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary','style'=>'width:100px'))}} --}}
+                  </h6>
+                </div>
+
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="{{$show['id_patients']}}" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">ชื่อ{{$show['name_Pat']}}  {{$show['lastname_Pat']}}  ({{$show['nickname_Pat']}})</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      {{-- <div class="col-md-3 col-lg-3 col-xs-3 ">
+
+                      </div> --}}
+                      <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
+
+                        <table class="table table-user-information">
+                          <tbody>
+                            <tr>
+
+                            </tr>
+                            <tr>
+                              <td>
+                                เลขประจำตัวประชาชน:
+                              </td>
+                              <td>{{$show['id_card_Pat']}}</td>
+                            </tr>
+
+                            <tr>
+                              <td>เกิดวันที่:</td>
+                              <td>{{$show['birthday_Pat']}}</td>
+                            </tr>
+
+
+                            <tr>
+                              <td>สัญชาติ:</td>
+                              <td>{{$show['nationality_Pat']}}</td>
+                            </tr>
+                            <tr>
+                              <td>เชื้อชาติ:</td>
+                              <td>{{$show['race_Pat']}}</td>
+                            </tr>
+                            <tr>
+                              <td>ศาสนา:</td>
+                              <td>{{$show['religion_Pat']}}</td>
+                            </tr>
+
+
+                            <tr>
+                              <td>สิ่งที่ชอบ:</td>
+                              <td>{{$show['interesting_Pat']}}</td>
+                            </tr>
+                            <tr>
+                              <td>ข้อมูลโรงพยาบาล</td>
+                              <td>{{$show['hospital_pat']}}</td>
+                            </tr>
+
+
+                          </tbody>
+                        </table>
+
+                        {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
+                        <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+
+
+
+                    </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            </div>
+
+<br><br>
+          <div class="row">
+                {{-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+
+                <h5 class="text-primary2">โรคประจำตัว</h5>
+                 <h6 class="" >
+                  @foreach ($patsick as $showpat)
+                  &emsp;-{{$showpat['sick_description']}} <br>
+                  @endforeach
+                </h6>
+                </div> --}}
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <div class="">
+                    <h6 class="text-primary2">โรคประจำตัว</h6>
+                  </div>
+                    @foreach ($patsick as $showsick)
+                            <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                              {{$showsick['sick_description']}}
+                            </div>
+                      @endforeach
+                </div>
+
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <div class="">
+                    <h6 class="text-primary2">อุปกรณ์ติดตัวคนไข้</h6>
+                  </div>
+                    @foreach ($equpment as $showequp)
+
+                            <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                              {{$showequp['equipment_description']}}
+                            </div>
+
+                      @endforeach
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <h6 class="text-primary2">แพ้</h6>
+                  @foreach ($allergy as $showallergy)
+
+                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                            {{$showallergy['allergy_description']}}
+                          </div>
+                    @endforeach
+                </div>
+          </div>
+
+                </div>
+              @empty
+
+
+
+              @endforelse
+            </div>
+
+          </div>
+    </div>
+
+
+    {{-- caregiver --}}.
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+      <div class="card card-statistics">
+        <div class="card-body mb-4  ">
+            <div class="row px-5">
+              <h4>ผู้ดูแล</h4>
+            </div>
+                @forelse ($caregiver as $show)
+
+
+            <div class="row px-5 ">
+              <h5 class="float-left col-xl-9 col-lg-9 col-md-9 col-sm-9 text-primary2">คุณ {{$show ['name_care']}} {{$show ['lastname_care']}}</h5>
+              <h5 class="float-right col-xl-3 col-lg-3 col-md-3 col-sm-3 " style="text-align:right ;color:#666666 ; " >({{$show ['nickname_care']}}) </h5>
+              <br>
+            <hr width=100% size=3 style="background-color:#f05f40 ">
+            </div>
+
+          <div class="clearfix px-5" >
+            <div class="row ">
+
+                <div class="float-left col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                      เพศ : @if ($show['gender_care'] == 'ญ')
+                          <td>{{'หญิง'}}</td>
+                        @else
+                          <td>{{'ชาย'}}</td>
+                      @endif
+                    </h6>
+                  </div>
+
+                  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                        {{$show['birthday_Pat']}}
+                    </h6>
+                  </div> --}}
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+
+                      อายุ :
+                        {{Carbon::parse($show['birthday_care'])->diff(Carbon::now()) ->format('%y ปี')}}
+
+
+                    </h6>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                    ใบรับรอง:   @if ($show['edu_caregiver'] == 0)
+                          {{'ไม่มี แต่มีประสบการณ์'}}
+                        @elseif ($show['edu_caregiver'] == 1)
+                              {{'พนักงานผู้ช่วยพยาบาล (Nurse Aide)'}}
+                            @elseif ($show['edu_caregiver'] == 2)
+                                  {{'ผู้ช่วยพยาบาล (Practical Nurse)'}}
+                        @else
+                          {{'ผู้ช่วยพยาบาล (Registered Nurse)'}}
+                      @endif
+                    </h6>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                  <h6 class="">
+                    ประสบการณ์รวมทั้งหมด : {{$show['year_of_caregiver']}}
+                  </h6>
+                  </div>
+
+                  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <h6 class="">
+                      น้ำหนัก : {{$show['weight_care']}} กก.
+                    </h6>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                  <h6 class="">
+                    ส่วนสูง : {{$show['hight_care']}} ซม.
+                  </h6>
+                  </div> --}}
+
+                  </div>
+
+                </div>
+
+                <div class="float-left col-xl-2 col-lg-2 col-md-2 col-sm-2" style="text-align:right;">
+                  <p class="card-text text-dark"></p>
+                  <h6 class="bold-text">
+
+                    <a href="#" class="btn btn-primary" style="width:100px" data-toggle="modal" data-target="#{{$show['id_caregivers']}}">ดูรายละเอียด</a>
+                    {{-- {{Html::link('detail/'.$show['id_patients'],'แสดงรายละเอียด',array('class'=>'btn btn-danger btn-sm'))}}
+                  <br><br>  {{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary','style'=>'width:100px'))}} --}}
+                  </h6>
+                </div>
+
+
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="{{$show['id_caregivers']}}" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">ชื่อ{{$show['name_care']}}  {{$show['lastname_care']}}  ({{$show['nickname_care']}})</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      {{-- <div class="col-md-3 col-lg-3 col-xs-3 ">
+
+                      </div> --}}
+                      <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
+
+                        <table class="table table-user-information">
+                          <tbody>
+                            <tr>
+
+                            </tr>
+                            <tr>
+                              <td>
+                                เลขประจำตัวประชาชน:
+                              </td>
+                              <td>{{$show['id_card_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                น้ำหนัก:
+                              </td>
+                              <td>{{$show['weight_care']}} กก.</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                ส่วนสูง:
+                              </td>
+                              <td>{{$show['hight_care']}} ซม.</td>
+                            </tr>
+
+                            <tr>
+                              <td>เกิดวันที่:</td>
+                              <td>{{$show['birthday_care']}}</td>
+                            </tr>
+
+
+                            <tr>
+                              <td>สัญชาติ:</td>
+                              <td>{{$show['nationality_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>เชื้อชาติ:</td>
+                              <td>{{$show['race_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>ศาสนา:</td>
+                              <td>{{$show['religion_care']}}</td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+
+                        {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
+                        <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+
+
+
+                    </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            </div>
+
+<br><br>
+  <div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+      <div class="text-primary2">
+        <h6>ทักษะด้านการดูแล</h6>
       </div>
-    </div> --}}
+        @foreach ($careskill as $showskill)
+
+            @if ($showskill['id_caregivers']==$show['id_caregivers'])
+                <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showskill['special_skill_descption']}}">{{$showskill['special_skill_descption']}}</div>
+            @endif
+
+          @endforeach
+
+    </div>
+    <hr width=100% size=3 style="background-color:#f05f40 ">
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+      <div class="text-primary2">
+        <h6>เครื่องมือที่เคยใช้</h6>
+      </div>
+
+           @foreach ($careequip as $showequip)
+            @if ($showequip['id_caregivers']==$show['id_caregivers'])
+                <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title=" {{$showequip['medical_equipment_description']}}">{{$showequip['medical_equipment_description']}}</div>
+            @endif
+
+          @endforeach
+
+
+
+  </div>
+
+  </div>
+
+                </div>
+              @empty
+                  <div class="float-left col-xl-10 col-lg-10 col-md-10 col-sm-10 mb-04">
+                      <h6>คุณยังไม่มีผู้ดูแล!!</h6>
+
+                  </div>
+              @endforelse
+            </div>
+
+          </div>
+    </div>
+    {{-- caregiver --}}
+
+
 
     {{-- vitalsign --}}
 
@@ -750,9 +1195,50 @@
               </div>
             </div>
             </div>
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-<br><br><br>
-</div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+              <div class="card card-statistics">
+                <div class="card-body">
+
+
+
+
+
+               {{-- <div class="form-group"> --}}
+                   <label class="control-label col-md-2">วันที่เริ่มต้นการค้นหา</label>
+                   <div class="col-md-3">
+                       <div class="input-group input-medium date date-picker" data-date-format="yyyy-MM-dd">
+                            <input type="date" name="date_start" Class="form-control" value="">
+                           <span class="input-group-btn">
+                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                           </span>
+                       </div>
+                       <!-- /input-group -->
+                       {{-- <span class="help-block">
+                       </span> --}}
+                   </div>
+
+                   <label class="control-label col-md-2">วันที่สุดท้ายการค้นหา</label>
+                   <di
+                    class="col-md-3">
+                       <div class="input-group input-medium date date-picker" data-date-format="yyyy-MM-dd">
+                          <input type="date" name="date_end" Class="form-control" value="">
+                           <span class="input-group-btn">
+                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                           </span>
+                       </div>
+                       <!-- /input-group -->
+                       {{-- <span class="help-block">
+                       </span> --}}
+                   </div>
+               {{-- </div> --}}
+             </div>
+
+         </div>
+
+
+           </div>
+
 
           <div class="row">
 

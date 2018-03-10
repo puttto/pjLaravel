@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\caregiver;
 
 class UserCaregiverController extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,14 @@ class UserCaregiverController extends Controller
      */
     public function index()
     {
-      return view('usercaregiver');
+      $usercare = caregiver::where('caregiver_status','=','work')
+                            ->orWhere('caregiver_status','=','not_work')
+                            ->orderBy('id_caregivers', 'desc')
+                            ->get();
+                            // dd($usercare);
+
+                            $data = array('usercare'=>$usercare);
+      return view('usercaregiver',$data);
         //
     }
 

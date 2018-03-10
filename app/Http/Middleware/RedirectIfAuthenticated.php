@@ -17,29 +17,17 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-      switch ($guard) {
-        case 'caregiver':
-          if (Auth::guard($guard)->check()) {
-            return redirect()->route('caregiver.dashboard');
-          }
-          // elseif (!Auth::guard($guard)->check()) {
-          //   return redirect()->route('caregiver.logincare');;
+
+          // if (Auth::guard('caregiver')->check()) {
+          //   return redirect()->route('caregiver.dashboard');
           // }
-
-          break;
-          case 'customer':
+          // elseif (Auth::guard('customer')->check()) {
+          //     return redirect()->route('customer.dashboard');
+          //   }
+          //   else
             if (Auth::guard($guard)->check()) {
-              return redirect()->route('customer.dashboard');
-            }
-            break;
-
-        default:
-          if (Auth::guard($guard)->check()) {
               return redirect('/dash');
           }
-          break;
-      }
-
 
         return $next($request);
     }

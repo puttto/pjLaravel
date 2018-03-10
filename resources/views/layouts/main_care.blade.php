@@ -111,7 +111,7 @@
             </li>
 
             <li class="nav-item active">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="emergency">
                 <i class="fa fa-2x fa-ambulance text-primary mb-3 sr-icons"></i>
               {{-- <img src="dashboard/images/icons/005-forms.png" alt=""> --}}
                 <span class="menu-title">แจ้งเตือนฉุกเฉิน</span>

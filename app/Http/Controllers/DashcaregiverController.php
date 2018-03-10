@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Caregiver;
 use App\patient;
+use App\Pat_sick;
+use App\Pat_Equipment;
+use App\Pat_Allergy;
 use App\plan;
 use App\Select_care_status;
 
@@ -25,15 +28,15 @@ use Session;
 
 class DashcaregiverController extends Controller
 {
-  // /**
-  //  * Create a new controller instance.
-  //  *
-  //  * @return void
-  //  */
-  //  public function __construct()
-  //  {
-  //     $this->middleware('guest:caregiver',['except'=>['logout']]);
-  //  }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+      $this->middleware('auth.caregiver');
+  }
 
     /**
      * Display a listing of the resource.
@@ -50,23 +53,25 @@ class DashcaregiverController extends Controller
        // dd($get_id_login);
 // //dd($id_care);
 
-      $id_caregiver = Caregiver::where('id_user_caregivers','=',$get_id_login)->get();
+      $caregiver = Caregiver::where('id_user_caregivers','=',$get_id_login)->get();
+      // dd($id_caregiver);
 
-      foreach ($id_caregiver as $getidcare) {
-      $id_care =  $getidcare['id_caregivers'];
+      foreach ($caregiver as $getidcare) {
+      $id_care = $getidcare['id_caregivers'];
       }
-      //dd($id_care);
+      // dd($id_care);
       Session::put('id_care_sess_care',$id_care);
       $findid = Select_care_status::where([['id_caregivers',$id_care],['status_care','=','planning']])->get();
+      // dd($findid);
 
-
-      $id_pat='';
+      $id_pat=0;
       foreach ($findid as $getid) {
       $id_pat =  $getid['id_patients'];
 
       }
-    //  dd($id_pat);
-      if ($id_pat=='') {
+     // dd($id_pat);
+
+      if (empty($id_pat)) {
 
       //dd('ว่าง');
        $id_pat=0;
@@ -81,7 +86,42 @@ class DashcaregiverController extends Controller
 
       }
       Session::put('id_pat_sess_care',$id_pat);
-      //dd($id_pat);
+
+      // dd($id_pat);
+      $patient = patient::where([['patients.id_patients',$id_pat]
+      // ,['pat_sicks.status','=','complete'],['pat__equipments.status','=','complete'],['pat__allergies.status','=','complete']
+    ])
+      // ->join('pat_sicks','pat_sicks.id_patients','=','patients.id_patients')
+      // ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
+      // ->join('pat__equipments','pat__equipments.id_patients','=','patients.id_patients')
+      // ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+      // ->join('pat__allergies','pat__allergies.id_patients','=','patients.id_patients')
+      // ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+      ->get();
+        // dd($patient);
+
+       $keep_patsick = Pat_sick::Where([['patients.id_patients',$id_pat],['pat_sicks.status','=','complete']])
+             ->join('patients','pat_sicks.id_patients','=','patients.id_patients')
+             //->join('pat_sicks','pat_sicks.id_patients','=','patients.id_patients')
+             ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
+             ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
+             ->get();
+
+       $keep_equpment = Pat_Equipment::Where([['patients.id_patients',$id_pat],['pat__equipments.status','=','complete']])
+              ->join('patients','pat__equipments.id_patients','=','patients.id_patients')
+             //->join('pat__equipments','pat__equipments.id_patients','=','patients.id_patients')
+             ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+             ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+             ->get();
+
+
+       $keep_allergy = Pat_Allergy::Where([['patients.id_patients',$id_pat],['pat__allergies.status','=','complete']])
+              ->join('patients','pat__allergies.id_patients','=','patients.id_patients')
+             //->join('pat__allergies','pat__allergies.id_patients','=','patients.id_patients')
+             ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+             ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+             ->get();
+
 
 
 //dd($id_pat);
@@ -149,6 +189,11 @@ class DashcaregiverController extends Controller
 
             //dd($showactivity);
             $data = array(
+              'patient'=>$patient,
+              'patsick'=>$keep_patsick,
+              'equpment'=>$keep_equpment,
+              'allergy'=>$keep_allergy,
+              'caregiver'=>$caregiver,
               'showvital' =>$showvital,
               'showsuction'=>$showsuction,
               'showsugar'=>$showsugar,

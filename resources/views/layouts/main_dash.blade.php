@@ -106,28 +106,28 @@
           </div>
           <ul class="nav">
             <li class="nav-item active">
-              <a class="nav-link" href="dash">
+              <a class="nav-link" href="/dash">
                 {{-- <img src="dashboard/images/icons/1.png" alt=""> --}}
                 <i class="fa fa-2x fa-home text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">หน้าแรก</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="waitselect">
+              <a class="nav-link" href="/waitselect">
                 {{-- <img src="dashboard/images/icons/2.png" alt=""> --}}
                 <i class="fa fa-2x fa-hourglass-end text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">รอการยืนยัน</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="userplan">
+              <a class="nav-link" href="/userplan">
                 <i class="fa fa-2x fa-file-text text-primary mb-3 sr-icons"></i>
                 {{-- <img src="dashboard/images/icons/005-forms.png" alt=""> --}}
                 <span class="menu-title">แผนการดูแล</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="/callemergency">
                 {{-- <img src="dashboard/images/icons/4.png" alt=""> --}}
                 <i class="fa fa-2x fa-ambulance text-primary mb-3 sr-icons"></i>
                 <span class="menu-title">แจ้งเตือนฉุกเฉิน</span>
@@ -168,12 +168,12 @@
               <div class="collapse" id="sample-pages">
                 <ul class="nav flex-column sub-menu">
                   {{-- <li class="nav-item"> --}}
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/usercaregiver">
                       ผู้ดูแล
                     </a>
                   {{-- </li> --}}
                   {{-- <li class="nav-item"> --}}
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/usercustomer">
                       คนไข้
                     </a>
                   {{-- </li> --}}

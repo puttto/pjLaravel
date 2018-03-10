@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Select_care_status;
 use App\Caregiver;
 use App\Caregiver__details;
+use App\caregiver_skill;
+use App\Caregiver_Equipment;
 use App\patient;
 use App\Pat_sick;
 use App\Pat_Equipment;
@@ -13,7 +15,15 @@ use App\Pat_Allergy;
 use Session;
 
 class Cus_select_care_Controller extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth.customer');
+}
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +38,45 @@ class Cus_select_care_Controller extends Controller
             ->join('caregivers','select_care_statuses.id_caregivers','=','caregivers.id_caregivers')
             ->join('caregiver__details','caregivers.id_caregivers','=','caregiver__details.id_caregivers')
             ->get();
+             // dd($cus_select);
+            $data_cus_select = array();
+            $data_skill = array();
+            $data_equ = array();
 
-        $data = array('cusselect'=>$cus_select);
-        //dd($data);
+            foreach ($cus_select as $datacusselect) {
+
+              array_push($data_cus_select,$datacusselect);
+              $id_care = $datacusselect['id_caregivers'];
+
+
+
+
+// dd($data_cus_select);
+              $getcaregiverskill  = Caregiver_skill::Where('caregiver_skills.id_caregivers','=',$id_care)
+                          ->join('special__skills','caregiver_skills.id_special_skills','=','special__skills.id_special_skills')
+                          ->get();
+                          foreach ($getcaregiverskill as $dataskill ) {
+
+                              array_push($data_skill,$dataskill);
+
+                              }
+              $getcaregiverequ  = Caregiver_Equipment::Where('caregiver__equipments.id_caregivers','=',$id_care)
+                              ->join('medical_equipments','caregiver__equipments.id_medical_equipments','=','medical_equipments.id_medical_equipments')
+
+                                  ->get();
+                                  foreach ($getcaregiverequ as $dataequ ) {
+
+                                              array_push($data_equ,$dataequ);
+                                              }
+            }
+             // dd($data_cus_select);
+
+
+        $data = array('cusselect'=>$data_cus_select,
+                      'careskill'=>$data_skill,
+                      'careequip'=>$data_equ
+      );
+        // dd($data);
         //เรียกมาจาก DB Select_care_status
 
 

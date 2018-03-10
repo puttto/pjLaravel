@@ -11,7 +11,15 @@ use App\Select_care_status;
 use Session;
 
 class AddplanController extends Controller
+{/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
 {
+    $this->middleware('auth.caregiver');
+}
     /**
      * Display a listing of the resource.
      *
@@ -25,11 +33,35 @@ class AddplanController extends Controller
           $id_p = Session::get('id_pat_sess_care');
  // dd($id_p);
 
-      $selectplan= Plan::where([['id_patients',$id_p],['id_caregivers',$id_c],['status_plan','=','use']])
+      $selectplan= Plan::where([['plans.id_patients',$id_p],['plans.id_caregivers',$id_c],['status_plan','=','use']])
+      // ,['pat_sicks.status','=','complete']
             ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
+            // ->join('pat_sicks','pat_sicks.id_patients','=','plans.id_patients')
+            // ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
             ->get();
+// dd($selectplan);
+$selectplan_do= Plan::where([['plans.id_patients',$id_p],['plans.id_caregivers',$id_c],['status_plan','=','use']])
+      ->join('plan_details','plans.id_plans','=','plan_details.id_plans')
+      ->select('doing')
 
-        $data = array('selectplan'=>$selectplan);
+      ->get();
+$hasdata=0;
+    foreach ($selectplan_do as $data) {
+      if ($data['doing']=='suction'||$data['doing']=='feeding') {
+          $hasdata=1;
+      }else {
+      $hasdata=0;
+      }
+
+    }
+
+
+
+
+        $data = array('selectplan'=>$selectplan,
+        'hasdata'=>$hasdata
+
+      );
 
       return view('addactivity',$data);
         //
@@ -82,10 +114,25 @@ class AddplanController extends Controller
         $plandetail->doing = $request->doing;
         $plandetail->id_plans=$id_plan;
 
-        if ($request->when_time == 'ตลอดทั้งวัน ทุกๆ :' ) {
-            $plandetail->time = $request->when_time.$request->time."ชั่วโมง";
+        if ($request->when_time_allday == 'ตลอดทั้งวัน ทุกๆ :' ) {
+            $plandetail->time = $request->when_time_allday.$request->time."ชั่วโมง";
         }else {
-          $plandetail->time = $request->when_time;
+          //$plandetail->time .= $request->when_time;
+          if ($request->when_time_mor != '') {
+            $plandetail->time .= $request->when_time_mor.',';
+          }
+           if ($request->when_time_noon != '') {
+            $plandetail->time .= $request->when_time_noon.',';
+          }
+           if ($request->when_time_eve != '') {
+            $plandetail->time .= $request->when_time_eve.',';
+          }
+           if ($request->when_time_night != '') {
+            $plandetail->time .= $request->when_time_night.',';
+          }
+           if ($request->when_time_night != '') {
+            $plandetail->time .= $request->when_time_night.',';
+          }
         }
 
 
