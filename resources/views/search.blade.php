@@ -124,15 +124,6 @@
                             @endif
                           @endforeach
                         </div>
-
-
-
-                          {{-- <h6>น้ำหนัก:  {{$input['weight_care']}} กก</h6> --}}
-
-                        {{-- <tr>
-                          <td>ส่วนสูง:</td>
-                          <td>{{$input['hight_care']}} ซม</td>
-                        </tr> --}}
                       </div>
                       <br><br>
                       <div class="row">

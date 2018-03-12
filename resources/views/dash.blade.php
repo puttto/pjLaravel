@@ -279,61 +279,8 @@
                   </div>
                   <div class="modal-body">
                     <div class="row">
-                      <div class="col-md-9 col-lg-9 col-xs-9">
-
-
-
-                        {{-- @forelse ($patsick as $showsick)
-                          @if ($show['id_patients']==$showsick['id_patients'])
-                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
-                          <h6 class="" style="border: 2px solid red;
-                            border-radius: 8px;">
-                            {{$showsick['id_patients']}}
-
-                          {{$showsick['sick_description']}}
-                          </h6>
-                          </div>
-                          @endif
-                        @empty
-
-                        @endforelse
-
-                        </div>
-
-                        <div class="col-md-9 col-lg-9 col-xs-9">
-                          @forelse ($equpment as $showequp)
-                            @if ($show['id_patients']==$showequp['id_patients'])
-
-
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
-                            <h6 class="" style="border: 2px solid blue;
-                              border-radius: 8px;">
-                              {{$showequp['id_patients']}}
-                            {{$showequp['equipment_description']}}
-                            </h6>
-                            </div>
-                            @endif
-                          @empty
-
-                          @endforelse
-                            </div>
-                          <div class="col-md-9 col-lg-9 col-xs-9">
-                            @forelse ($allergy as $showallergy)
-                              @if ($show['id_patients']==$showallergy['id_patients'])
-
-
-                              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
-                              <h6 class="" style="border: 2px solid green;
-                                border-radius: 8px;">
-                                {{$showallergy['id_patients']}}
-                              {{$showallergy['allergy_description']}}
-                              </h6>
-                              </div>
-                              @endif
-                            @empty
-
-                            @endforelse
-                          </div> --}}
+                    
+                      <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
 
                         <table class="table table-user-information">
                           <tbody>
@@ -341,17 +288,38 @@
 
                             </tr>
                             <tr>
-                              <td>เพศ: </td>
+                              <td>
+                                เลขประจำตัวประชาชน:
+                              </td>
+                              <td>{{$show['id_card_Pat']}}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                เพศ:
+                              </td>
                               @if ($show['gender_Pat'] == 'ญ')
-                              <td>{{'หญิง'}}</td>
-                              @else
-                              <td>{{'ชาย'}}</td>
+                                  <td>{{'หญิง'}}</td>
+                                @else
+                                  <td>{{'ชาย'}}</td>
                               @endif
                             </tr>
+                            <tr>
 
                             <tr>
                               <td>เกิดวันที่:</td>
                               <td>{{$show['birthday_Pat']}}</td>
+                            </tr>
+                            <tr>
+                              <td>อายุ:</td>
+                                <td>{{Carbon::parse($show['birthday_Pat'])->diff(Carbon::now()) ->format('%y ปี')}}</td>
+                            </tr>
+                            <tr>
+                              <td>น้ำหนัก:</td>
+                              <td>{{$show['weight_Pat']}} กก</td>
+                            </tr>
+                            <tr>
+                              <td>ส่วนสูง:</td>
+                              <td>{{$show['hight_Pat']}} ซม</td>
                             </tr>
                             <tr>
                               <td>สัญชาติ:</td>
@@ -365,32 +333,79 @@
                               <td>ศาสนา:</td>
                               <td>{{$show['religion_Pat']}}</td>
                             </tr>
-                            <tr>
-                              <td>น้ำหนัก:</td>
-                              <td>{{$show['weight_Pat']}} กก</td>
-                            </tr>
-                            <tr>
-                              <td>ส่วนสูง:</td>
-                              <td>{{$show['hight_Pat']}} ซม</td>
-                            </tr>
+
+
                             <tr>
                               <td>สิ่งที่ชอบ:</td>
                               <td>{{$show['interesting_Pat']}}</td>
                             </tr>
                             <tr>
-                              <td>ข้อมูลโรงพยาบาล:</td>
+                              <td>ข้อมูลโรงพยาบาล</td>
                               <td>{{$show['hospital_pat']}}</td>
                             </tr>
 
+
                           </tbody>
                         </table>
+                        <div class="col-md-12 col-lg-12 col-xs-12">
+                          <table class="table table-user-information">
+                            {{--
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>โรคที่ป่วย</th>
+                              </tr>
+                            </thead> --}}
 
+                            <tr>
 
+                            </tr>
+
+                            <tbody>
+                              <tr>
+                                <td width="30%">โรคที่ป่วย</td>
+                                <td width="70%">
+                                  @foreach ($patsick as $showsick)
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                                            {{$showsick['sick_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
+                                <td width="70%">
+                                  @foreach ($equpment as $showequp)
+
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                                            {{$showequp['equipment_description']}}
+                                          </div>
+
+                                    @endforeach
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">แพ้อาหารและยา</td>
+                                <td width="70%">
+                                  @foreach ($allergy as $showallergy)
+
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                                            {{$showallergy['allergy_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
 
 
                     </div>
 
                   </div>
+
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>

@@ -28,10 +28,10 @@
                           @forelse ($waitselect as $show)
                             <tr class="">
                               <td>{{$show['created_at']}}</td>
-                              <td>ชื่อ: {{$show['name_cus']}} {{$show['lastname_cus']}} <br /> เบอร์โทร: {{$show['mobilephone_cus']}}</td>
+                              <td>ชื่อ: {{$show['name_cus']}} {{$show['lastname_cus']}} <br /> <a href="tel:{{$show['mobilephone_cus']}}">{{$show['mobilephone_cus']}}</a></td>
                               <td>ชื่อ: {{$show['name_Pat']}} {{$show['lastname_Pat']}}</td>
                               <td>ชื่อ: {{$show['name_care']}} {{$show['lastname_care']}}</td>
-                              <td>ดำเนินการ</td>
+                              <td>รอตอบรับ</td>
                               {{Form::open([ 'method'  => 'delete', 'route' => [ 'waitselect.destroy', $show->id_select_care_statuses ] ])}}
                                                 <td>  {{ Form::submit('ลบ', ['class' => 'btn btn-danger btn-sm']) }}</td>
                               {{ Form::close() }}

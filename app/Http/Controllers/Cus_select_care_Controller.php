@@ -39,6 +39,9 @@ public function __construct()
             ->join('caregiver__details','caregivers.id_caregivers','=','caregiver__details.id_caregivers')
             ->get();
              // dd($cus_select);
+             $pat = patient::Where([['id_patients', '=', $id]])
+                        ->get();
+
             $data_cus_select = array();
             $data_skill = array();
             $data_equ = array();
@@ -74,7 +77,8 @@ public function __construct()
 
         $data = array('cusselect'=>$data_cus_select,
                       'careskill'=>$data_skill,
-                      'careequip'=>$data_equ
+                      'careequip'=>$data_equ,
+                      'patient'=>$pat
       );
         // dd($data);
         //เรียกมาจาก DB Select_care_status

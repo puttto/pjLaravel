@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\plan;
 use App\plan_detail;
-use App\Patient;
+use App\patient;
+use App\Pat_sick;
+use App\Pat_Equipment;
+use App\Pat_Allergy;
 use App\Caregiver;
 use App\Select_care_status;
 use Session;
@@ -31,6 +34,38 @@ public function __construct()
           $id_c = Session::get('id_care_sess_care');
 
           $id_p = Session::get('id_pat_sess_care');
+
+          $patient = Patient::where('id_patients','=',$id_p)->get();
+
+
+          $keep_patsick = Pat_sick::Where([['patients.id_patients',$id_p],['pat_sicks.status','=','complete']])
+                ->orWhere([['patients.id_patients',$id_p],['pat_sicks.status','=','wait']])
+                ->orWhere([['patients.id_patients',$id_p],['pat_sicks.status','=','request']])
+                ->join('patients','pat_sicks.id_patients','=','patients.id_patients')
+                //->join('pat_sicks','pat_sicks.id_patients','=','patients.id_patients')
+                ->join('sicknesses','pat_sicks.id_sickness','=','sicknesses.id_sickness')
+                ->select('pat_sicks.id_sickness','pat_sicks.id_patients','sicknesses.id_sickness','sicknesses.sick_name','sicknesses.sick_description')
+                ->get();
+
+          $keep_equpment = Pat_Equipment::Where([['patients.id_patients',$id_p],['pat__equipments.status','=','complete']])
+                ->orWhere([['patients.id_patients',$id_p],['pat__equipments.status','=','wait']])
+                ->orWhere([['patients.id_patients',$id_p],['pat__equipments.status','=','request']])
+                ->join('patients','pat__equipments.id_patients','=','patients.id_patients')
+                //->join('pat__equipments','pat__equipments.id_patients','=','patients.id_patients')
+                ->join('equipment','pat__equipments.id_equipment','=','equipment.id_equipment')
+                ->select('pat__equipments.id_equipment','pat__equipments.id_patients','equipment.id_equipment','equipment.equipment_name','equipment.equipment_description')
+                ->get();
+
+
+          $keep_allergy = Pat_Allergy::Where([['patients.id_patients',$id_p],['pat__allergies.status','=','complete']])
+                ->orWhere([['patients.id_patients',$id_p],['pat__allergies.status','=','wait']])
+                ->orWhere([['patients.id_patients',$id_p],['pat__allergies.status','=','request']])
+                ->join('patients','pat__allergies.id_patients','=','patients.id_patients')
+                //->join('pat__allergies','pat__allergies.id_patients','=','patients.id_patients')
+                ->join('allergies','pat__allergies.id_allergies','=','allergies.id_allergies')
+                ->select('pat__allergies.id_allergies','pat__allergies.id_patients','allergies.id_allergies','allergies.allergy_name','allergies.allergy_description')
+                ->get();
+
  // dd($id_p);
 
       $selectplan= Plan::where([['plans.id_patients',$id_p],['plans.id_caregivers',$id_c],['status_plan','=','use']])
@@ -45,21 +80,27 @@ $selectplan_do= Plan::where([['plans.id_patients',$id_p],['plans.id_caregivers',
       ->select('doing')
 
       ->get();
+      // dd($selectplan_do);
 $hasdata=0;
     foreach ($selectplan_do as $data) {
-      if ($data['doing']=='suction'||$data['doing']=='feeding') {
+
+      if (strpos($data['doing'] , 'suction')!== false || strpos($data['doing'] , 'feeding ')!== false ) {
           $hasdata=1;
-      }else {
-      $hasdata=0;
       }
 
     }
+      // dd($hasdata);
+
 
 
 
 
         $data = array('selectplan'=>$selectplan,
-        'hasdata'=>$hasdata
+        'hasdata'=>$hasdata,
+        'patient'=>$patient,
+        'patsick'=>$keep_patsick,
+        'equpment'=>$keep_equpment,
+        'allergy'=>$keep_allergy,
 
       );
 
@@ -113,11 +154,17 @@ $hasdata=0;
 
         $plandetail->doing = $request->doing;
         $plandetail->id_plans=$id_plan;
+        if ($request->has_time=='ไม่มีช่วงเวลา') {
 
-        if ($request->when_time_allday == 'ตลอดทั้งวัน ทุกๆ :' ) {
+          $plandetail->time = $request->has_time;
+          //
+        }
+        else if ($request->when_time_allday == 'ตลอดทั้งวัน ทุกๆ :' ) {
             $plandetail->time = $request->when_time_allday.$request->time."ชั่วโมง";
         }else {
           //$plandetail->time .= $request->when_time;
+          if ($request->has_time=='มีช่วงเวลา') {
+
           if ($request->when_time_mor != '') {
             $plandetail->time .= $request->when_time_mor.',';
           }
@@ -130,9 +177,8 @@ $hasdata=0;
            if ($request->when_time_night != '') {
             $plandetail->time .= $request->when_time_night.',';
           }
-           if ($request->when_time_night != '') {
-            $plandetail->time .= $request->when_time_night.',';
-          }
+
+        }
         }
 
 

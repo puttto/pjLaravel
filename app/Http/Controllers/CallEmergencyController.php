@@ -18,7 +18,7 @@ class CallEmergencyController extends Controller
      */
     public function index()
     {
-      $emergency = emergency::where('emergencies.status','=','call')
+      $emergency = emergency::where('emergencies.id_emergencies','>',0)
         ->join('caregivers','emergencies.id_caregivers','=','caregivers.id_caregivers')
         ->join('patients','emergencies.id_patients','=','patients.id_patients')
         ->join('customers','patients.id_customer','=','customers.id_customer')
@@ -50,7 +50,7 @@ class CallEmergencyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -61,7 +61,7 @@ class CallEmergencyController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -84,7 +84,10 @@ class CallEmergencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $updateemer = emergency::where('id_emergencies',$id)
+                    ->update(['emergencies.status'=>$request->new_status]);
+
+                  return  redirect('callemergency');
     }
 
     /**

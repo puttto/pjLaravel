@@ -92,7 +92,36 @@
                     </div>
 
                     </div>
-                    <br><br>
+
+                    <br>
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                        @foreach ($patient as $getdata)
+
+                          @if ($show['weight_care']>=$getdata['weight_Pat']-5 && $show['weight_care']<=$getdata['weight_Pat']+5)
+                            {{-- {{dd('แดง')}} --}}
+                            <h6 style="color:green;">น้ำหนัก:  {{$show['weight_care']}} กก</h6>
+                          @else
+                                {{-- {{dd('เขียว')}} --}}
+                              <h6 style="color:red;">น้ำหนัก:  {{$show['weight_care']}} กก</h6>
+                          @endif
+                        @endforeach
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                        @foreach ($patient as $getdata)
+
+                          @if ($show['hight_care']>=$getdata['hight_Pat']-10 && $show['hight_care']<=$getdata['hight_Pat']+10)
+                            {{-- {{dd('แดง')}} --}}
+                            <h6 style="color:green;">ส่วนสูง:  {{$show['hight_care']}} ซม</h6>
+                          @else
+                                {{-- {{dd('เขียว')}} --}}
+                              <h6 style="color:red;">ส่วนสูง:  {{$show['hight_care']}} ซม</h6>
+                          @endif
+                        @endforeach
+                      </div>
+                    </div>
+                    <br>
+                    <br>
                     <div class="row">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="">
@@ -158,68 +187,135 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
 
             </div>
-            <div class="modal-body">
+            <<div class="modal-body">
               <div class="row">
 
-                <div class="col-md-9 col-lg-9 col-xs-9">
+                <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
+
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
 
                       </tr>
                       <tr>
-                        <td>เพศ: </td>
-                        @if ($show['gender_care'] == 'ญ')
-                        <td>{{'หญิง'}}</td>
-                        @else
-                        <td>{{'ชาย'}}</td>
+                        <td>
+                          เลขประจำตัวประชาชน:
+                        </td>
+                        <td>{{$show['id_card_Pat']}}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          เพศ:
+                        </td>
+                        @if ($show['gender_Pat'] == 'ญ')
+                            <td>{{'หญิง'}}</td>
+                          @else
+                            <td>{{'ชาย'}}</td>
                         @endif
                       </tr>
+                      <tr>
 
                       <tr>
                         <td>เกิดวันที่:</td>
-                        <td>{{$show['birthday_care']}}</td>
+                        <td>{{$show['birthday_Pat']}}</td>
                       </tr>
                       <tr>
-                        <td>สัญชาติ:</td>
-                        <td>{{$show['nationality_care']}}</td>
-                      </tr>
-                      <tr>
-                        <td>เชื้อชาติ:</td>
-                        <td>{{$show['race_care']}}</td>
-                      </tr>
-                      <tr>
-                        <td>ศาสนา:</td>
-                        <td>{{$show['religion_care']}}</td>
+                        <td>อายุ:</td>
+                          <td>{{Carbon::parse($show['birthday_Pat'])->diff(Carbon::now()) ->format('%y ปี')}}</td>
                       </tr>
                       <tr>
                         <td>น้ำหนัก:</td>
-                        <td>{{$show['weight_care']}} กก</td>
+                        <td>{{$show['weight_Pat']}} กก</td>
                       </tr>
                       <tr>
                         <td>ส่วนสูง:</td>
-                        <td>{{$show['hight_care']}} ซม</td>
+                        <td>{{$show['hight_Pat']}} ซม</td>
                       </tr>
                       <tr>
-                        <td>เบอร์โทรศัพท์:</td>
-                        <td>{{$show['mobilephone_care']}}</td>
+                        <td>สัญชาติ:</td>
+                        <td>{{$show['nationality_Pat']}}</td>
                       </tr>
                       <tr>
-                        <td>id Line:</td>
-                        <td>{{$show['id_line_care']}}</td>
+                        <td>เชื้อชาติ:</td>
+                        <td>{{$show['race_Pat']}}</td>
                       </tr>
+                      <tr>
+                        <td>ศาสนา:</td>
+                        <td>{{$show['religion_Pat']}}</td>
+                      </tr>
+
+
+                      <tr>
+                        <td>สิ่งที่ชอบ:</td>
+                        <td>{{$show['interesting_Pat']}}</td>
+                      </tr>
+                      <tr>
+                        <td>ข้อมูลโรงพยาบาล</td>
+                        <td>{{$show['hospital_pat']}}</td>
+                      </tr>
+
 
                     </tbody>
                   </table>
+                  <div class="col-md-12 col-lg-12 col-xs-12">
+                    <table class="table table-user-information">
+                      {{--
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>โรคที่ป่วย</th>
+                        </tr>
+                      </thead> --}}
 
-                  {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
-                  <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+                      <tr>
+
+                      </tr>
+
+                      <tbody>
+                        <tr>
+                          <td width="30%">โรคที่ป่วย</td>
+                          <td width="70%">
+                            @foreach ($patsick as $showsick)
+                                    <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                                      {{$showsick['sick_description']}}
+                                    </div>
+                              @endforeach
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
+                          <td width="70%">
+                            @foreach ($equpment as $showequp)
+
+                                    <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                                      {{$showequp['equipment_description']}}
+                                    </div>
+
+                              @endforeach
+                            </td>
+                        </tr>
+                        <tr>
+                          <td width="30%">แพ้อาหารและยา</td>
+                          <td width="70%">
+                            @foreach ($allergy as $showallergy)
+
+                                    <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                                      {{$showallergy['allergy_description']}}
+                                    </div>
+                              @endforeach
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+
+                  </div>
 
 
-                </div>
               </div>
 
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

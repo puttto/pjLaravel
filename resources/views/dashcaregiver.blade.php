@@ -2,7 +2,8 @@
 @section('content')
   <?php
   use Carbon\Carbon;
-  ?>
+
+?>
   <style>
 .dropbtn {
     background-color: #3498DB;
@@ -63,10 +64,11 @@ border-radius: 5px;
 @empty
   <h4>รอดำเนินการ</h4>
 @endforelse --}}
-  <div class="">
+  <div class="container">
+    <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
       <div class="card card-statistics">
-        <div class="card-body mb-4  ">
+        <div class="card-body ">
             <div class="row px-5">
               <h4>คนไข้</h4>
             </div>
@@ -166,13 +168,34 @@ border-radius: 5px;
                               </td>
                               <td>{{$show['id_card_Pat']}}</td>
                             </tr>
+                            <tr>
+                              <td>
+                                เพศ:
+                              </td>
+                              @if ($show['gender_Pat'] == 'ญ')
+                                  <td>{{'หญิง'}}</td>
+                                @else
+                                  <td>{{'ชาย'}}</td>
+                              @endif
+                            </tr>
+                            <tr>
 
                             <tr>
                               <td>เกิดวันที่:</td>
                               <td>{{$show['birthday_Pat']}}</td>
                             </tr>
-
-
+                            <tr>
+                              <td>อายุ:</td>
+                                <td>{{Carbon::parse($show['birthday_Pat'])->diff(Carbon::now()) ->format('%y ปี')}}</td>
+                            </tr>
+                            <tr>
+                              <td>น้ำหนัก:</td>
+                              <td>{{$show['weight_Pat']}} กก</td>
+                            </tr>
+                            <tr>
+                              <td>ส่วนสูง:</td>
+                              <td>{{$show['hight_Pat']}} ซม</td>
+                            </tr>
                             <tr>
                               <td>สัญชาติ:</td>
                               <td>{{$show['nationality_Pat']}}</td>
@@ -199,12 +222,59 @@ border-radius: 5px;
 
                           </tbody>
                         </table>
+                        <div class="col-md-12 col-lg-12 col-xs-12">
+                          <table class="table table-user-information">
+                            {{--
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>โรคที่ป่วย</th>
+                              </tr>
+                            </thead> --}}
 
-                        {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
-                        <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+                            <tr>
 
+                            </tr>
 
+                            <tbody>
+                              <tr>
+                                <td width="30%">โรคที่ป่วย</td>
+                                <td width="70%">
+                                  @foreach ($patsick as $showsick)
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                                            {{$showsick['sick_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
+                                <td width="70%">
+                                  @foreach ($equpment as $showequp)
 
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                                            {{$showequp['equipment_description']}}
+                                          </div>
+
+                                    @endforeach
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">แพ้อาหารและยา</td>
+                                <td width="70%">
+                                  @foreach ($allergy as $showallergy)
+
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                                            {{$showallergy['allergy_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
                     </div>
 
                   </div>
@@ -219,42 +289,43 @@ border-radius: 5px;
             </div>
 
 <br><br>
-          <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                  <div class="">
-                    <h6 class="text-primary2">โรคประจำตัว</h6>
+<div class="row">
+
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="">
+          <h6 class="text-primary2">โรคประจำตัว</h6>
+        </div>
+          @foreach ($patsick as $showsick)
+                  <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                    {{$showsick['sick_description']}}
                   </div>
-                    @foreach ($patsick as $showsick)
-                            <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
-                              {{$showsick['sick_description']}}
-                            </div>
-                      @endforeach
-                </div>
+            @endforeach
+      </div>
 
 
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                  <div class="">
-                    <h6 class="text-primary2">อุปกรณ์ติดตัวคนไข้</h6>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="">
+          <h6 class="text-primary2">อุปกรณ์ติดตัวคนไข้</h6>
+        </div>
+          @foreach ($equpment as $showequp)
+
+                  <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                    {{$showequp['equipment_description']}}
                   </div>
-                    @foreach ($equpment as $showequp)
 
-                            <div class="text-display-box"  style="display:inline-block ; margin: 2.5px ;" title="{{$showequp['equipment_description']}}">
-                              {{$showequp['equipment_description']}}
-                            </div>
+            @endforeach
+      </div>
 
-                      @endforeach
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <h6 class="text-primary2">แพ้</h6>
+        @foreach ($allergy as $showallergy)
+
+                <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                  {{$showallergy['allergy_description']}}
                 </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                  <h6 class="text-primary2">แพ้</h6>
-                  @foreach ($allergy as $showallergy)
-
-                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
-                            {{$showallergy['allergy_description']}}
-                          </div>
-                    @endforeach
-                </div>
-          </div>
+          @endforeach
+      </div>
+</div>
 
                 </div>
               @empty
@@ -264,14 +335,15 @@ border-radius: 5px;
 
           </div>
     </div>
+    </div>
 
 
     {{-- vitalsign --}}
 
-    <div  class="">
-      <div  class="row">
-      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-4">
-        <div  class="">
+
+      <div  class="row ">
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-4 ">
+
         <div class="card card-statistics">
           <div class="card-body">
             <div id="hidevitalmax" class="">
@@ -865,7 +937,7 @@ border-radius: 5px;
                 </div>
               </div>
             </div> --}}
-          </div>
+
           </div>
           <div id="hideother" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-4">
             <div class="card card-statistics">
@@ -909,7 +981,7 @@ border-radius: 5px;
           </div>
 
           </div>
-
+          <div class="row">
           <div id="hidnotediary" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
             <div class="card card-statistics">
               <div class="card-body">
@@ -959,9 +1031,10 @@ border-radius: 5px;
               </div>
             </div>
             </div>
+            </div>
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-            <br><br><br>
+            <br>
             </div>
           <div class="row">
 
@@ -1315,7 +1388,7 @@ border-radius: 5px;
                                                     </div>
 
 
-          </div>
+
         </div>
         </div>
             {{-- <script>

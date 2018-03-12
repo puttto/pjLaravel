@@ -62,7 +62,9 @@ border-radius: 5px;
 @empty
   <h4>รอดำเนินการ</h4>
 @endforelse --}}
-  <div class="">
+  <div class="container">
+    <div class="row">
+
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
       <div class="card card-statistics">
         <div class="card-body mb-4  ">
@@ -165,13 +167,34 @@ border-radius: 5px;
                               </td>
                               <td>{{$show['id_card_Pat']}}</td>
                             </tr>
+                            <tr>
+                              <td>
+                                เพศ:
+                              </td>
+                              @if ($show['gender_Pat'] == 'ญ')
+                                  <td>{{'หญิง'}}</td>
+                                @else
+                                  <td>{{'ชาย'}}</td>
+                              @endif
+                            </tr>
+                            <tr>
 
                             <tr>
                               <td>เกิดวันที่:</td>
                               <td>{{$show['birthday_Pat']}}</td>
                             </tr>
-
-
+                            <tr>
+                              <td>อายุ:</td>
+                                <td>{{Carbon::parse($show['birthday_Pat'])->diff(Carbon::now()) ->format('%y ปี')}}</td>
+                            </tr>
+                            <tr>
+                              <td>น้ำหนัก:</td>
+                              <td>{{$show['weight_Pat']}} กก</td>
+                            </tr>
+                            <tr>
+                              <td>ส่วนสูง:</td>
+                              <td>{{$show['hight_Pat']}} ซม</td>
+                            </tr>
                             <tr>
                               <td>สัญชาติ:</td>
                               <td>{{$show['nationality_Pat']}}</td>
@@ -198,10 +221,59 @@ border-radius: 5px;
 
                           </tbody>
                         </table>
+                        <div class="col-md-12 col-lg-12 col-xs-12">
+                          <table class="table table-user-information">
+                            {{--
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>โรคที่ป่วย</th>
+                              </tr>
+                            </thead> --}}
 
-                        {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
-                        <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+                            <tr>
 
+                            </tr>
+
+                            <tbody>
+                              <tr>
+                                <td width="30%">โรคที่ป่วย</td>
+                                <td width="70%">
+                                  @foreach ($patsick as $showsick)
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                                            {{$showsick['sick_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
+                                <td width="70%">
+                                  @foreach ($equpment as $showequp)
+
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
+                                            {{$showequp['equipment_description']}}
+                                          </div>
+
+                                    @endforeach
+                                  </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">แพ้อาหารและยา</td>
+                                <td width="70%">
+                                  @foreach ($allergy as $showallergy)
+
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
+                                            {{$showallergy['allergy_description']}}
+                                          </div>
+                                    @endforeach
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
 
 
                     </div>
@@ -219,15 +291,7 @@ border-radius: 5px;
 
 <br><br>
           <div class="row">
-                {{-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 
-                <h5 class="text-primary2">โรคประจำตัว</h5>
-                 <h6 class="" >
-                  @foreach ($patsick as $showpat)
-                  &emsp;-{{$showpat['sick_description']}} <br>
-                  @endforeach
-                </h6>
-                </div> --}}
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <div class="">
                     <h6 class="text-primary2">โรคประจำตัว</h6>
@@ -274,9 +338,12 @@ border-radius: 5px;
 
           </div>
     </div>
+    </div>
 
 
-    {{-- caregiver --}}.
+    {{-- caregiver --}}
+    <div class="row">
+
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
       <div class="card card-statistics">
         <div class="card-body mb-4  ">
@@ -400,6 +467,17 @@ border-radius: 5px;
                               </td>
                               <td>{{$show['id_card_care']}}</td>
                             </tr>
+
+
+                            <tr>
+                              <td>เกิดวันที่:</td>
+                              <td>{{$show['birthday_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>อายุ:</td>
+                              <td>{{Carbon::parse($show['birthday_care'])->diff(Carbon::now()) ->format('%y ปี')}}</td>
+                            </tr>
+
                             <tr>
                               <td>
                                 น้ำหนัก:
@@ -412,13 +490,6 @@ border-radius: 5px;
                               </td>
                               <td>{{$show['hight_care']}} ซม.</td>
                             </tr>
-
-                            <tr>
-                              <td>เกิดวันที่:</td>
-                              <td>{{$show['birthday_care']}}</td>
-                            </tr>
-
-
                             <tr>
                               <td>สัญชาติ:</td>
                               <td>{{$show['nationality_care']}}</td>
@@ -431,15 +502,65 @@ border-radius: 5px;
                               <td>ศาสนา:</td>
                               <td>{{$show['religion_care']}}</td>
                             </tr>
+                            <tr>
+                              <td>ที่อยุ่:</td>
+                              <td>{{$show['address_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>เบอร์โทรศัพท์:</td>
+                              <td>{{$show['mobilephone_care']}}</td>
+                            </tr>
+                            <tr>
+                              <td>ไอดีไลน์:</td>
+                              <td>{{$show['id_line_care']}}</td>
+                            </tr>
 
                           </tbody>
                         </table>
+                        <div class="col-md-12 col-lg-12 col-xs-12">
+                          <table class="table table-user-information">
+                            {{--
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>โรคที่ป่วย</th>
+                              </tr>
+                            </thead> --}}
 
-                        {{-- <a href="#" class="btn btn-info">My Sales Performance</a>
-                        <a href="#" class="btn btn-primary">Team Sales Performance</a> --}}
+                            <tr>
+
+                            </tr>
+
+                            <tbody>
+                              <tr>
+                                <td width="30%">ทักษะด้านการดูแล</td>
+                                <td width="70%">
+                                  @foreach ($careskill as $showskill)
+
+                                      @if ($showskill['id_caregivers']==$show['id_caregivers'])
+                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showskill['special_skill_descption']}}">{{$showskill['special_skill_descption']}}</div>
+                                      @endif
+
+                                    @endforeach
+                                </td>
+                              </tr>
+                              <tr>
+                                <td width="30%">เครื่องมือที่เคยใช้</td>
+                                <td width="70%">
+                                  @foreach ($careequip as $showequip)
+                                   @if ($showequip['id_caregivers']==$show['id_caregivers'])
+                                       <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title=" {{$showequip['medical_equipment_description']}}">{{$showequip['medical_equipment_description']}}</div>
+                                   @endif
+
+                                 @endforeach
+                                  </td>
+                              </tr>
 
 
+                            </tbody>
+                          </table>
 
+                        </div>
                     </div>
 
                   </div>
@@ -455,7 +576,7 @@ border-radius: 5px;
 
 <br><br>
   <div class="row">
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="text-primary2">
         <h6>ทักษะด้านการดูแล</h6>
       </div>
@@ -469,7 +590,7 @@ border-radius: 5px;
 
     </div>
     <hr width=100% size=3 style="background-color:#f05f40 ">
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="text-primary2">
         <h6>เครื่องมือที่เคยใช้</h6>
       </div>
@@ -498,6 +619,8 @@ border-radius: 5px;
 
           </div>
     </div>
+
+  </div>
     {{-- caregiver --}}
 
 
@@ -1145,7 +1268,7 @@ border-radius: 5px;
           </div>
 
           </div>
-
+        <div class="row">
           <div id="hidnotediary" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
             <div class="card card-statistics">
               <div class="card-body">
@@ -1196,48 +1319,8 @@ border-radius: 5px;
             </div>
             </div>
 
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-              <div class="card card-statistics">
-                <div class="card-body">
-
-
-
-
-
-               {{-- <div class="form-group"> --}}
-                   <label class="control-label col-md-2">วันที่เริ่มต้นการค้นหา</label>
-                   <div class="col-md-3">
-                       <div class="input-group input-medium date date-picker" data-date-format="yyyy-MM-dd">
-                            <input type="date" name="date_start" Class="form-control" value="">
-                           <span class="input-group-btn">
-                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                           </span>
-                       </div>
-                       <!-- /input-group -->
-                       {{-- <span class="help-block">
-                       </span> --}}
-                   </div>
-
-                   <label class="control-label col-md-2">วันที่สุดท้ายการค้นหา</label>
-                   <di
-                    class="col-md-3">
-                       <div class="input-group input-medium date date-picker" data-date-format="yyyy-MM-dd">
-                          <input type="date" name="date_end" Class="form-control" value="">
-                           <span class="input-group-btn">
-                               <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                           </span>
-                       </div>
-                       <!-- /input-group -->
-                       {{-- <span class="help-block">
-                       </span> --}}
-                   </div>
-               {{-- </div> --}}
-             </div>
-
-         </div>
-
-
            </div>
+
 
 
           <div class="row">
