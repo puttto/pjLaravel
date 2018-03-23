@@ -11,7 +11,9 @@
         {{Form::open(['url'=>'authcare/colostomy'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
-          <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
+          {{-- <input type="datetime-local" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" > --}}
+          <input type="text" class="form-control" data-field="datetime"  maxDateTime readonly id="date" name="date" required autofocus>
+
         </div>
         {{-- <div class="form-check">
           <label>

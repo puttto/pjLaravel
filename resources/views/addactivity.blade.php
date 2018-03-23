@@ -19,7 +19,7 @@
   </style>
 <div class="content-wrapper">
   <div class="container">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+    {{-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
       <div class="card card-statistics">
         <div class="card-body mb-4  ">
             <div class="row px-5">
@@ -50,11 +50,7 @@
                     </h6>
                   </div>
 
-                  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
-                    <h6 class="">
-                        {{$show['birthday_Pat']}}
-                    </h6>
-                  </div> --}}
+
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                     <h6 class="">
 
@@ -85,9 +81,7 @@
                   <h6 class="bold-text">
 
                     <a href="#" class="btn btn-primary" style="width:100px" data-toggle="modal" data-target="#{{$show['id_patients']}}">ดูรายละเอียด</a>
-                    {{-- {{Html::link('detail/'.$show['id_patients'],'แสดงรายละเอียด',array('class'=>'btn btn-danger btn-sm'))}}
-                  <br><br>  {{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary','style'=>'width:100px'))}} --}}
-                  </h6>
+                    </h6>
                 </div>
 
             </div>
@@ -175,13 +169,7 @@
                         </table>
                         <div class="col-md-12 col-lg-12 col-xs-12">
                           <table class="table table-user-information">
-                            {{--
-                            <thead>
-                              <tr>
-                                <th></th>
-                                <th>โรคที่ป่วย</th>
-                              </tr>
-                            </thead> --}}
+
 
                             <tr>
 
@@ -243,15 +231,7 @@
 
 <br><br>
           <div class="row">
-                {{-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 
-                <h5 class="text-primary2">โรคประจำตัว</h5>
-                 <h6 class="" >
-                  @foreach ($patsick as $showpat)
-                  &emsp;-{{$showpat['sick_description']}} <br>
-                  @endforeach
-                </h6>
-                </div> --}}
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <div class="">
                     <h6 class="text-primary2">โรคประจำตัว</h6>
@@ -297,7 +277,7 @@
             </div>
 
           </div>
-    </div>
+    </div> --}}
 
     <div class="row mb-2">
       <div class="col-lg-2">

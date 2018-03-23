@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Customer;
 use App\Patient;
-Use APP\Sickness;
+use APP\Sickness;
+use App\nat_rase;
 use Session;
 use View;
 
@@ -33,8 +33,10 @@ class PatientController extends Controller
         // foreach ($Customer as $id) {
         //     $id_get=$id['id'];
         // }
+        $nat_rase = nat_rase::all();
         $Patient = Patient::all();
         $data = array(
+          'nat_rase'=>$nat_rase,
           'Patient'=>$Patient
         );
 
@@ -42,71 +44,70 @@ class PatientController extends Controller
     }
 
 
-     /*
-     |--------------------------------------------------------------------------
-     | Register Controller
-     |--------------------------------------------------------------------------
-     |
-     | This controller handles the registration of new users as well as their
-     | validation and creation. By default this controller uses a trait to
-     | provide this functionality without requiring any additional code.
-     |
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+    use RegistersUsers;
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
      */
-     use RegistersUsers;
-     /**
-      * Where to redirect users after registration.
-      *
-      * @var string
-      */
-     protected $redirectTo = '';
-     /**
-      * Create a new controller instance.
-      *
-      * @return void
-      */
-     // public function __construct()
-     // {
-     //     $this->middleware('admin.guest');
-     // }
+    protected $redirectTo = '';
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    // public function __construct()
+    // {
+    //     $this->middleware('admin.guest');
+    // }
 
-     /**
-      * Get a validator for an incoming registration request.
-      *
-      * @param  array $data
-      * @return \Illuminate\Contracts\Validation\Validator
-      */
-     protected function validator(array $data)
-     {
-         return Validator::make($data, [
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
               'Name_pat' => 'required|string|max:255',
              'Email' => 'required|string|email|max:255|unique:users',
              'password' => 'required|string|min:6|confirmed',
          ]);
-
-     }
-     /**
-      * Create a new user instance after a valid registration.
-      *
-      * @param  array $data
-      * @return User
-      */
-     protected function create(array $data)
-     {
-       dd($data);
-         return User_customer::create([
+    }
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array $data
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        dd($data);
+        return User_customer::create([
              'name' => $data['Name_pat'],
              'email' => $data['Email'],
              'password' => bcrypt($data['password']),
          ]);
-     }
-     // public function showRegistrationForm()
-     // {
-     //     return view('admin.auth.register');
-     // }
-     protected function guard()
-     {
-         return Auth::guard('caregiver');
-     }
+    }
+    // public function showRegistrationForm()
+    // {
+    //     return view('admin.auth.register');
+    // }
+    protected function guard()
+    {
+        return Auth::guard('caregiver');
+    }
 
 
 
@@ -118,14 +119,7 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->validate($request,[
-        //   'Name_pat'=> 'required|max:100',
-        //   'Lastname_pat'=> 'required|max:100',
-        //   'Nickname_pat'=> 'required|max:100',
-        // ]);
-
-        $this->validate($request,[
+        $this->validate($request, [
           'Name'=> 'required|string|max:255',
           'Lastname'=> 'required|max:100',
           'Telephone'=> 'required|max:15',
@@ -139,17 +133,17 @@ class PatientController extends Controller
           'password' => 'required|min:6',
         ]);
 
-$user_customer = new User_customer;
-  $user_customer ->name = $request->Name;
-    $user_customer ->email = $request->Email;
+        $user_customer = new User_customer;
+        $user_customer ->name = $request->Name;
+        $user_customer ->email = $request->Email;
 
-    $password=$request->password;
-    $bcryptpass=bcrypt($password);
+        $password=$request->password;
+        $bcryptpass=bcrypt($password);
 
-      $user_customer ->password = $bcryptpass;
+        $user_customer ->password = $bcryptpass;
         $user_customer->save();
 
-     $Customer = new Customer;
+        $Customer = new Customer;
 
         //$Customer ->name_cus = $request->Name.$request->Lastname;
         $Customer ->name_cus = $request->Name;
@@ -165,17 +159,16 @@ $user_customer = new User_customer;
         $data_ID_card_cus = $request->ID_card_cus;
 
         $data_ID_card_cus_all='';
-      //$iCount = count($data_ID_card_cus);
+        //$iCount = count($data_ID_card_cus);
         for ($i=0; $i < count($data_ID_card_cus) ; $i++) {
-          if(($i+1)===count($data_ID_card_cus)){
-            $data_ID_card_cus_all .= $data_ID_card_cus[$i];
-              $Customer->id_card_cus =$data_ID_card_cus_all;
-          }
-          else{
-              $data_ID_card_cus_all .= $data_ID_card_cus[$i]."-";
-          }
+            if (($i+1)===count($data_ID_card_cus)) {
+                $data_ID_card_cus_all .= $data_ID_card_cus[$i];
+                $Customer->id_card_cus =$data_ID_card_cus_all;
+            } else {
+                $data_ID_card_cus_all .= $data_ID_card_cus[$i]."-";
+            }
 
-          // $Customer->id_card_cus =$data_ID_card_cus[$i];
+            // $Customer->id_card_cus =$data_ID_card_cus[$i];
               //dd($keepid_card);
         }
 
@@ -186,35 +179,36 @@ $user_customer = new User_customer;
 
 
 
-        Session::put('customer_id',$Customer->id);
-     //    //session(['customer' => '$data->id']);
-     //
-     //     // session(['customer' => '1']);
-     //    // Session::put('customer',$Customer->id_customer);
-     //  }
-     //  else {
-     //    $Patient = new Patient;
-     //
-     //    $id_cus= Session::get('customer_id');
-     //
-     //    $Patient->gender_Pat = $request->gender;
-     //    $Patient ->name_Pat = $request->Name_pat;
-     //    $Patient->lastname_Pat = $request->Lastname_pat;
-     //    $Patient->nickname_Pat = $request->Nickname_pat;
-     //    $Patient->nationality_Pat = $request->Nationality;
-     //    $Patient->race_Pat = $request->Race;
-     //    $Patient->religion_Pat = $request->Religion;
-     //    $Patient->id_card_Pat = $request->ID_Card_pat;
-     //    $Patient->birthday_Pat = $request->Birthday;
-     //    $Patient->weight_Pat = $request->Weight;
-     //    $Patient->hight_Pat = $request->Hight;
-     //    $Patient->interesting_Pat = $request->interesting;
-     //    $Patient->id_customer = $id_cus;
-     //
-     //    $Patient->save();
-     //  }
-     //
-         return redirect('patient');
+        Session::put('customer_id', $Customer->id);
+
+        //    //session(['customer' => '$data->id']);
+        //
+        //     // session(['customer' => '1']);
+        //    // Session::put('customer',$Customer->id_customer);
+        //  }
+        //  else {
+        //    $Patient = new Patient;
+        //
+        //    $id_cus= Session::get('customer_id');
+        //
+        //    $Patient->gender_Pat = $request->gender;
+        //    $Patient ->name_Pat = $request->Name_pat;
+        //    $Patient->lastname_Pat = $request->Lastname_pat;
+        //    $Patient->nickname_Pat = $request->Nickname_pat;
+        //    $Patient->nationality_Pat = $request->Nationality;
+        //    $Patient->race_Pat = $request->Race;
+        //    $Patient->religion_Pat = $request->Religion;
+        //    $Patient->id_card_Pat = $request->ID_Card_pat;
+        //    $Patient->birthday_Pat = $request->Birthday;
+        //    $Patient->weight_Pat = $request->Weight;
+        //    $Patient->hight_Pat = $request->Hight;
+        //    $Patient->interesting_Pat = $request->interesting;
+        //    $Patient->id_customer = $id_cus;
+        //
+        //    $Patient->save();
+        //  }
+        //
+        return redirect('patient');
     }
 
 
@@ -239,15 +233,17 @@ $user_customer = new User_customer;
      */
     public function edit($id)
     {
-      if ($id !== '') {
-      //  $patient = new Patient;
-        $patient = Patient::Where('id_patients',$id)->get();
-        //dd($patient);
-        $data = array(
+        if ($id !== '') {
+            //  $patient = new Patient;
+            $nat_rase = nat_rase::all();
+            $patient = Patient::Where('id_patients', $id)->get();
+            //dd($patient);
+            $data = array(
+          'nat_rase'=>$nat_rase,
           'pat'=>$patient
         );
-        return view('updatepat',$data);
-      }
+            return view('updatepat', $data);
+        }
     }
 
     /**
@@ -259,9 +255,9 @@ $user_customer = new User_customer;
      */
     public function update(Request $request, $id)
     {
-      if ($id !== '') {
-      //dd($request->ID_Card_pat);
-      $this->validate($request,[
+        if ($id !== '') {
+            //dd($request->ID_Card_pat);
+            $this->validate($request, [
         'Name_pat'=> 'required|max:50',
         'Lastname_pat'=> 'required|max:50',
         'Nickname_pat'=> 'required|max:50',
@@ -275,19 +271,19 @@ $user_customer = new User_customer;
         'interesting'=> 'max:200',
         'hospital_pat'=> 'max:100',
       ]);
-      $data_id_card_Pat = $request->ID_Card_pat;
-      $data_ID_card_pat_all='';
-      for ($i=0; $i < count($data_id_card_Pat) ; $i++) {
-        if(($i+1)===count($data_id_card_Pat)){
-          $data_ID_card_pat_all .= $data_id_card_Pat[$i];
-             //$Patient->id_card_Pat =$data_ID_card_pat_all;
-        }
-        else{
-            $data_ID_card_pat_all .= $data_id_card_Pat[$i]."-";
-        }
-      }
-         $Patient = Patient::Where('id_patients',$id)
-                    ->update(['lastname_Pat'=>$request->Lastname_pat,
+            $data_id_card_Pat = $request->ID_Card_pat;
+            $data_ID_card_pat_all='';
+            for ($i=0; $i < count($data_id_card_Pat) ; $i++) {
+                if (($i+1)===count($data_id_card_Pat)) {
+                    $data_ID_card_pat_all .= $data_id_card_Pat[$i];
+                    //$Patient->id_card_Pat =$data_ID_card_pat_all;
+                } else {
+                    $data_ID_card_pat_all .= $data_id_card_Pat[$i]."-";
+                }
+            }
+            $Patient = Patient::Where('id_patients', $id)
+                    ->update(
+                        ['lastname_Pat'=>$request->Lastname_pat,
                     'name_Pat'=>$request->Name_pat,
                     'lastname_Pat'=>$request->Lastname_pat,
                     'nickname_Pat'=>$request->Nickname_pat,
@@ -301,49 +297,47 @@ $user_customer = new User_customer;
                     'hospital_pat'=>$request->Hospital,
                     'id_card_Pat'=>$data_ID_card_pat_all]
                       );
-         //$Patient = Patient::find($id);
-         //$Patient = new Patient;
+            //$Patient = Patient::find($id);
+            //$Patient = new Patient;
 
-         //$id_cus= Session::get('customer_id');
-        //
-        //  $Patient->gender_Pat = $request->gender;
-        //  $Patient ->name_Pat = $request->Name_pat;
-        //  $Patient->lastname_Pat = $request->Lastname_pat;
-        //  $Patient->nickname_Pat = $request->Nickname_pat;
-        //  $Patient->nationality_Pat = $request->Nationality;
-        //  $Patient->race_Pat = $request->Race;
-        //  $Patient->religion_Pat = $request->Religion;
-        // // $Patient->id_card_Pat = $request->ID_Card_pat;
-        //  $Patient->birthday_Pat = $request->Birthday;
-        //  $Patient->weight_Pat = $request->Weight;
-        //  $Patient->hight_Pat = $request->Hight;
-        //  $Patient->interesting_Pat = $request->interesting;
-        //  $Patient->hospital_pat = $request->Hospital;
-        //  //$Patient->id_customer = $id_cus;
-        //
-        //
-        //  $data_id_card_Pat = $request->ID_Card_pat;
-        //  $data_ID_card_pat_all='';
-        //  for ($i=0; $i < count($data_id_card_Pat) ; $i++) {
-        //    if(($i+1)===count($data_id_card_Pat)){
-        //      $data_ID_card_pat_all .= $data_id_card_Pat[$i];
-        //         $Patient->id_card_Pat =$data_ID_card_pat_all;
-        //    }
-        //    else{
-        //        $data_ID_card_pat_all .= $data_id_card_Pat[$i]."-";
-        //    }
-        //  }
-        //
-        //
-        // $Patient->save();
+            //$id_cus= Session::get('customer_id');
+            //
+            //  $Patient->gender_Pat = $request->gender;
+            //  $Patient ->name_Pat = $request->Name_pat;
+            //  $Patient->lastname_Pat = $request->Lastname_pat;
+            //  $Patient->nickname_Pat = $request->Nickname_pat;
+            //  $Patient->nationality_Pat = $request->Nationality;
+            //  $Patient->race_Pat = $request->Race;
+            //  $Patient->religion_Pat = $request->Religion;
+            // // $Patient->id_card_Pat = $request->ID_Card_pat;
+            //  $Patient->birthday_Pat = $request->Birthday;
+            //  $Patient->weight_Pat = $request->Weight;
+            //  $Patient->hight_Pat = $request->Hight;
+            //  $Patient->interesting_Pat = $request->interesting;
+            //  $Patient->hospital_pat = $request->Hospital;
+            //  //$Patient->id_customer = $id_cus;
+            //
+            //
+            //  $data_id_card_Pat = $request->ID_Card_pat;
+            //  $data_ID_card_pat_all='';
+            //  for ($i=0; $i < count($data_id_card_Pat) ; $i++) {
+            //    if(($i+1)===count($data_id_card_Pat)){
+            //      $data_ID_card_pat_all .= $data_id_card_Pat[$i];
+            //         $Patient->id_card_Pat =$data_ID_card_pat_all;
+            //    }
+            //    else{
+            //        $data_ID_card_pat_all .= $data_id_card_Pat[$i]."-";
+            //    }
+            //  }
+            //
+            //
+            // $Patient->save();
 
-         //Session::put('id_patient',$Patient->id);
+            //Session::put('id_patient',$Patient->id);
 
-        // Session::flash('message', 'Successfully updated ');
+            // Session::flash('message', 'Successfully updated ');
             return redirect('updatesick/'.$id.'/edit');
-       }
-         // return redirect('updatesick/'.$id.'/edit');
-
+        }
     }
 
     /**
@@ -356,9 +350,4 @@ $user_customer = new User_customer;
     {
         //
     }
-
-
-
-
-
 }

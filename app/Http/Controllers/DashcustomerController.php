@@ -132,12 +132,12 @@ $id_care=0;
               ->join('special__skills','caregiver_skills.id_special_skills','=','special__skills.id_special_skills')
               ->select('caregiver_skills.id_caregivers','special__skills.id_special_skills','special__skills.special_skill_name','special__skills.special_skill_descption')
               ->get();
-          // dd($keep_careskill);
+           // dd($keep_careskill);
         $keep_careequip = Caregiver_Equipment::where('caregiver__equipments.id_caregivers',$id_care)
               ->join('medical_equipments','caregiver__equipments.id_medical_equipments','=','medical_equipments.id_medical_equipments')
               ->select('caregiver__equipments.id_caregivers','medical_equipments.id_medical_equipments','medical_equipments.medical_equipment_name','medical_equipments.medical_equipment_description')
               ->get();
-               // dd($keep_careequip);
+                // dd($keep_careequip);
 
 
 

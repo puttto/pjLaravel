@@ -391,14 +391,14 @@ border-radius: 5px;
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                     <h6 class="">
-                    ใบรับรอง:   @if ($show['edu_caregiver'] == 0)
+                    ใบรับรอง:   @if ($show['edu_caregiver'] == 1)
                           {{'ไม่มี แต่มีประสบการณ์'}}
-                        @elseif ($show['edu_caregiver'] == 1)
+                        @elseif ($show['edu_caregiver'] == 2)
                               {{'พนักงานผู้ช่วยพยาบาล (Nurse Aide)'}}
-                            @elseif ($show['edu_caregiver'] == 2)
+                            @elseif ($show['edu_caregiver'] == 3)
                                   {{'ผู้ช่วยพยาบาล (Practical Nurse)'}}
                         @else
-                          {{'ผู้ช่วยพยาบาล (Registered Nurse)'}}
+                          {{'พยาบาล (Registered Nurse)'}}
                       @endif
                     </h6>
                   </div>

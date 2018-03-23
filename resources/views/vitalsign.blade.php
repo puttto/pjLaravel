@@ -20,27 +20,29 @@
           {{Form::open(['url'=>'authcare/vitalsign'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
-          <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
+          {{-- <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly> --}}
+          <input type="text" class="form-control" data-field="datetime"  maxDateTime readonly id="date" name="date" required autofocus>
+
         </div>
           <div class="form-group">
             <label for="sys_lb">Systolic (ค่าแรก)</label>
-            <input type="number" min="1" class="form-control p-input" name="sys" value="100" >
+            <input type="number" min="1" max="200" class="form-control p-input" name="sys"  >
           </div>
           <div class="form-group">
             <label for="dia_lb">Diastolic (ค่าหลัง)</label>
-            <input type="number" min="1" name="dia" class="form-control p-input" value="90">
+            <input type="number" min="1" max="200" name="dia" class="form-control p-input">
           </div>
           <div class="form-group">
             <label for="heart_rate_lb">อัตราการเต้นของหัวใจ (ครั้ง/นาที)</label>
-            <input type="number" min="1" name="heart_rate" class="form-control p-input" value="85">
+            <input type="number" min="1" max="200" name="heart_rate" class="form-control p-input" >
           </div>
           <div class="form-group">
             <label for="temp_lb">อุณหภูมิร่างกาย (°c)</label>
-            <input type="number" min="1" step="0.1" name="temp" class="form-control p-input" value="36.5" >
+            <input type="number" min="1" max="50" step="0.1" name="temp" class="form-control p-input"  >
           </div>
           <div class="form-group">
             <label for="spo2_lb">Spo2 (%)</label>
-            <input type="number" min="1" name="spo2" class="form-control p-input" value="95">
+            <input type="number" min="1" max="150" name="spo2" class="form-control p-input" >
           </div>
           {{-- <div class="form-group">
             <label for="temp_lb">ความคิดเห็น(ถ้ามี)</label>

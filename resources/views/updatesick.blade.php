@@ -12,7 +12,9 @@
    <div class="form-group">
      <label for="sickness_lb">โรคประจำตัวและอาการผู้ป่วย</label>
      <select class="form-control selectpicker"   data-style="btn-info" multiple data-max-options="" data-live-search="true" size="auto" name="sickness[]">
-
+@foreach ($iterable as $key => $value)
+  value="{{$test->id_sickness}}"
+@endforeach
 
 
 <optgroup label="โรค">
@@ -64,8 +66,6 @@
        {{-- <option value="">ไม่มีอุปกรณ์ติดตัวคนไข้</option> --}}
        @forelse ($equipment as $data)
          <option value="{{$data['id_equipment']}}">{{$data['equipment_description']}}</option>
-
-
 
        @empty
         <option value="0">no data!</option>

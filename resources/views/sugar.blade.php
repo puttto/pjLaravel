@@ -11,11 +11,13 @@
           {{Form::open(['url'=>'authcare/sugar'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
-          <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
+          {{-- <input type="datetime-local" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}"> --}}
+          <input type="text" class="form-control" data-field="datetime"  maxDateTime readonly id="date" name="date" required autofocus>
+
         </div>
         <div class="form-group">
           <label for="sugar_lb">ระดับน้ำตาล (mg/dL)</label>
-          <input type="text" class="form-control p-input" name="sugar_lv" value="100" >
+          <input type="text" min="1" max="150" class="form-control p-input" name="sugar_lv" >
         </div>
           {{-- <div class="form-group">
             <label for="comment_lb">ความคิดเห็น (ถ้ามี)</label>

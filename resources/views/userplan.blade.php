@@ -15,7 +15,7 @@
                         {{-- <th>#</th> --}}
                         <th>คนไข้</th>
                         <th>ผู้ดูแล</th>
-                        <th style="text-align: center">action</th>
+                        <th style="text-align: center">จัดการ</th>
                       </tr>
                     </thead>
                     <tbody>

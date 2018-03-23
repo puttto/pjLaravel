@@ -11,8 +11,21 @@
           {{Form::open(['url'=>'authcare/suction'])}}
         <div class="form-group">
           <label for="date_lb">วัน เวลา</label>
-          <input type="text" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" readonly>
+          {{-- <input type="datetime-local" class="form-control p-input" name="date" value="{{date('Y-m-d  H:i:s')}}" > --}}
+
+          <input type="text" class="form-control" data-field="datetime"  maxDateTime readonly id="date" name="date" required autofocus>
+
         </div>
+        <!-- <input type="text" data-field="date" readonly> -->
+        <div id="dtBox" ></div>
+        <script type="text/javascript">
+          $(document).ready(function() {
+
+             $("#dtBox").DateTimePicker();
+
+          });
+        </script>
+
           <div class="form-group">
             <label for="vol_lb">ปริมาณ</label>
             <select class="form-control p-input" name="vol">
@@ -35,7 +48,7 @@
           </div>
           <div class="form-group">
             <label for="spo2_lb">Spo2 หลังการดูดเสมหะ(%)</label>
-            <input type="number" min="1" name="spo2" class="form-control p-input" value="95">
+            <input type="number" min="1" name="spo2" max="150" class="form-control p-input" >
           </div>
           {{-- <div class="form-group">
             <label for="temp_lb">ความคิดเห็น (ถ้ามี)</label>

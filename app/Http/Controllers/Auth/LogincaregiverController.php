@@ -41,6 +41,6 @@ class LogincaregiverController extends Controller
      public function logout()
      {
          Auth::guard('caregiver')->logout();
-         return redirect('/index');
+         return redirect('/authcare/login');
      }
  }

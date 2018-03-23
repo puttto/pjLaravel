@@ -191,6 +191,9 @@ public function __construct()
 
 
         $plandetail->save();
+
+        $update_planning = Select_care_status ::Where([['id_select_care_statuses','=',$id],['status_care','=','planning']])
+                   ->update(['status_care'=>'complete']);
         return redirect('createplan');
     }
 

@@ -52,8 +52,6 @@ public function __construct()
               $id_care = $datacusselect['id_caregivers'];
 
 
-
-
 // dd($data_cus_select);
               $getcaregiverskill  = Caregiver_skill::Where('caregiver_skills.id_caregivers','=',$id_care)
                           ->join('special__skills','caregiver_skills.id_special_skills','=','special__skills.id_special_skills')

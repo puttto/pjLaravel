@@ -29,6 +29,10 @@
   {{Html::script (('dashboard/js/hoverable-collapse.js'))}}
   {{Html::script (('dashboard/js/chart.js'))}}
   {{Html::script (('dashboard/js/maps.js'))}}
+
+  {{Html::style (('src\DateTimePicker.css'))}}
+  {{Html::script (('src\DateTimePicker.js'))}}
+  {{Html::script (('src\i18n\DateTimePicker-i18n.js'))}}
 </head>
 
 <body>

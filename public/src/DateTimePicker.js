@@ -45,17 +45,17 @@ $.DateTimePicker = $.DateTimePicker || {
 		dateTimeSeparator: " ",
 		monthYearSeparator: " ",
 
-		dateTimeFormat: "dd-MM-yyyy HH:mm",
+		dateTimeFormat: "yyyy-MM-dd HH:mm",
 		dateFormat: "yyyy-MM-dd",
 		timeFormat: "HH:mm",
 
-		maxDate: null,
+		maxDate: new Date(),
 		minDate:  null,
 
 		maxTime: null,
 		minTime: null,
 
-		maxDateTime: null,
+		maxDateTime: new Date(),
 		minDateTime: null,
 
 		shortDayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],

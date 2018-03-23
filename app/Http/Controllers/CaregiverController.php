@@ -10,7 +10,9 @@ use App\Caregiver_skill;
 use App\Caregiver_Equipment;
 use App\Medical_equipment;
 use App\User_caregiver;
+use App\nat_rase;
 use Session;
+use Image;
 
 class CaregiverController extends Controller
 {
@@ -22,9 +24,11 @@ class CaregiverController extends Controller
     public function index()
     {
         //
+        $nat_rase = nat_rase::all();
         $special_skill = Special_Skill::all();
         $medical_equipment = Medical_equipment::all();
         $data = array(
+          'nat_rase'=>$nat_rase,
           'special__skills'=>$special_skill,
           'medical_equipments'=>$medical_equipment
         );
@@ -51,6 +55,7 @@ class CaregiverController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+          'care_img'=>'required',
         'Name_care'=> 'required|max:50',
         'Lastname_care'=> 'required|max:50',
         'Nickname_care'=> 'required|max:50',
@@ -103,6 +108,27 @@ class CaregiverController extends Controller
         $caregiver ->id_line_care = $request->Lineid;
         $caregiver ->mobilephone_care = $request->Mobilephone_care;
 
+        if ($request->hasFile('care_img')) {
+          $image = $request->file('care_img');
+          // dd($image);
+          $filename = time().'.'.$image->getClientOriginalExtension(); //time.jpeg
+          // $filename = time().'.'.$image->encode('png'); //time.png
+          $location = public_path('images/'.$filename);
+          $img = Image::make($image);
+          // dd($filename);
+
+          $img->resize(null, 400, function ($constraint) {
+              $constraint->aspectRatio();
+              $constraint->upsize();
+          });
+          $img->save($location);
+
+
+            $caregiver ->img_name = $filename;
+        }
+
+
+
 
       $data_ID_card_care = $request->ID_Card_care;
 
@@ -122,7 +148,7 @@ class CaregiverController extends Controller
 
         $caregiver ->address_care = $request->Address_care;
         $caregiver ->caregiver_status ='not_work';
-        $caregiver ->img_name = $request->img_name;
+
 
         $caregiver->id_user_caregivers= $User_caregiver->id;
 

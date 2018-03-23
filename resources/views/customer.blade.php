@@ -61,7 +61,7 @@
         </div>
 
         <div class="form-group  {{ $errors->has('Lineid') ? ' has-error' : '' }}">
-          <label for="Lineid_lb">ID-Lind:</label>
+          <label for="Lineid_lb">ไอดีไลน์:</label>
           <input type="text" class="form-control" id="Lineid" name="Lineid" required autofocus>
           @if ($errors->has('Lineid'))
               <span class="help-block">
@@ -122,7 +122,7 @@
           @endif
         </div>
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label for="password" class="col-md-4 control-label">Password</label>
+            <label for="password">Password</label>
                 <input id="password" type="password" class="form-control" name="password" required>
 
                 @if ($errors->has('password'))

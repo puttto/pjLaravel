@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/index', function () {
     return view('index');
 });
 
-Route::get('/index', 'testconroller@index');
+// Route::get('/index', 'testconroller@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('authcare')->group(function() {
@@ -38,7 +38,6 @@ Route::prefix('authcare')->group(function() {
   // Route::resource('/dashcaregiver','DashcaregiverController');
 });
 
-
 Route::prefix('authcus')->group(function() {
   Route::get('/login', 'Auth\LogincustomerController@showLoginForm')->name('customer.login');
   Route::post('/login', 'Auth\LogincustomerController@login')->name('customer.login.submit');
@@ -52,8 +51,9 @@ Route::prefix('authcus')->group(function() {
 
 Auth::routes();
 
- Route::get('/', 'HomeController@index')->name('index');
-Route::resource('index','testconroller');
+ Route::get('/', 'HomeController@index');
+// Route::resource('index','HomeController');
+// Route::resource('/index','testconroller');
 Route::resource ('search','searchcontroller');
 Route::resource('customer','CustomerController');
 //Route::get('/customer','patient')->name('customer');
@@ -85,6 +85,7 @@ Route::resource('waitselect','WaitselectController');
 Route::resource('callemergency','CallEmergencyController');
 // Route::resource('otheractivity','OtheractivityController');
 // Route::resource('notediary','NotediaryController');
+Route::resource('updateuserpat','UserCusController');
 Route::resource('','');
 // Route::get('/dash',function(){
 //   return view('dash');

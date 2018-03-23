@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\caregiver;
+use App\customer;
 
 class UserCaregiverController extends Controller
 {/**
@@ -24,9 +25,12 @@ public function __construct()
     {
       $usercare = caregiver::where('caregiver_status','=','work')
                             ->orWhere('caregiver_status','=','not_work')
+                            
                             ->orderBy('id_caregivers', 'desc')
                             ->get();
-                            // dd($usercare);
+                             // dd($usercare);
+
+    $usercare_work = caregiver::where('caregiver_status','=','work')->get();
 
                             $data = array('usercare'=>$usercare);
       return view('usercaregiver',$data);

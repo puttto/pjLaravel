@@ -9,7 +9,12 @@
     </ul>
       <h2>ข้อมูลส่วนตัวผู้ดูแล</h2>
       <p>กรุณากรอกข้อมูล</p>
-      {{Form::open(['url'=>'caregiver'])}}
+      {{Form::open(['url'=>'caregiver','files'=>true])}}
+
+      <div class="form-group">
+        <label for="care_img_lb">อัพโหลดรูปภาพ:</label>
+        {{Form::file('care_img')}}
+      </div>
 
         <div class="form-group">
           <label for="gender_lb">เพศ:</label>
@@ -50,7 +55,7 @@
         <div class="form-group {{ $errors->has('Birthday_care') ? ' has-error' : '' }} ">
 
           <label for="Birthday_lb">วัน-เดือน-ปีเกิด:</label>
-          <input type="text" class="form-control" data-field="date" readonly id="Birthday_care" name="Birthday_care" required autofocus>
+          <input type="text" class="form-control" data-field="date" maxDate readonly id="Birthday_care" name="Birthday_care" required autofocus>
           @if ($errors->has('Birthday_care'))
               <span class="help-block">
                   <strong>{{ $errors->first('Birthday_care') }}</strong>
@@ -62,10 +67,7 @@
         <script type="text/javascript">
           $(document).ready(function() {
 
-             $("#dtBox").DateTimePicker();
-
-
-
+             $("#dtBox").DateTimePicker(maxDate:'0');
 
           });
         </script>
@@ -87,9 +89,13 @@
               </span>
           @endif
         </div>
-        <div class="form-group {{ $errors->has('Hight_care') ? ' has-error' : '' }}">
+        <div class="form-group {{ $errors->has('Nationality_care') ? ' has-error' : '' }}">
           <label for="Nationality_lb">สัญชาติ:</label>
-          <input type="text" class="form-control" id="Nationality_care" name="Nationality_care" required autofocus>
+          <select class="form-control" name="Nationality_care" equired autofocus>
+            @foreach ($nat_rase as $n_r)
+              <option value="{{$n_r['national_race']}}">{{$n_r['national_race']}}</option>
+            @endforeach
+          </select>
           @if ($errors->has('Nationality_care'))
               <span class="help-block">
                   <strong>{{ $errors->first('Nationality_care') }}</strong>
@@ -98,7 +104,11 @@
         </div>
         <div class="form-group {{ $errors->has('Race_care') ? ' has-error' : '' }}">
           <label for="Race_lb">เชื้อชาติ:</label>
-          <input type="text" class="form-control" id="Race_care" name="Race_care" required autofocus>
+          <select class="form-control" name="Race_care" equired autofocus>
+            @foreach ($nat_rase as $n_r)
+              <option value="{{$n_r['national_race']}}">{{$n_r['national_race']}}</option>
+            @endforeach
+          </select>
           @if ($errors->has('Race_care'))
               <span class="help-block">
                   <strong>{{ $errors->first('Race_care') }}</strong>
@@ -107,7 +117,15 @@
         </div>
         <div class="form-group">
           <label for="Religion_lb">ศาสนา:</label>
-          <input type="text" class="form-control" id="Religion_care" name="Religion_care" required autofocus>
+          <select class="form-control" name="Religion_care" equired autofocus>
+            <option value="พุทธ">พุทธ</option>
+            <option value="อิสลาม">อิสลาม</option>
+            <option value="คริสต์">คริสต์</option>
+            <option value="ฮินดู">ฮินดู</option>
+            <option value="ขงจื๊อ">ขงจื๊อ</option>
+            <option value="ไม่มีศาสนา">ไม่มีศาสนา</option>
+          </select>
+
           @if ($errors->has('Religion_care'))
               <span class="help-block">
                   <strong>{{ $errors->first('Religion_care') }}</strong>
@@ -178,7 +196,7 @@
           @endif
         </div>
         <div class="form-group {{ $errors->has('Lineid') ? ' has-error' : '' }}">
-          <label for="Lineid_lb">ID-Lind:</label>
+          <label for="Lineid_lb">ไอดีไลน์:</label>
           <input type="text" class="form-control" id="Lineid" name="Lineid" required autofocus>
           @if ($errors->has('Lineid'))
               <span class="help-block">
@@ -229,7 +247,7 @@
 </div>
 
 <div class="form-group">
-  <label for="type_of_living_lb">ระดับการศึกษา</label>
+  <label for="type_of_living_lb">ประเภทการพักอาศัย</label>
   <select class="form-control" size="auto" name="Type_of_living">
             <option value="1">พักที่บ้านนายจ้าง</option>
             <option value="2">เดินทางไป-กลับ</option>

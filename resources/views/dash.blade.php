@@ -27,7 +27,7 @@
 
 
           <br>
-          <h1>รายชื่อผู้ป่วย รอการค้นหาผู้ดูแล</h1>
+          <h4 class="text-primary">รายชื่อผู้ป่วย รอการค้นหาผู้ดูแล</h4>
           {{-- <div class="row">
           <div class="form-group">
           <br>
@@ -165,6 +165,13 @@
                   <h6 class="bold-text">
 
                     <a href="#" class="btn btn-primary" style="width:100px ;text-align:right;" data-toggle="modal" data-target="#{{$show['id_patients']}}">ดูรายละเอียด</a>
+                      <a href="#" class="btn btn-primary" style="width:100px ;text-align:right;" data-toggle="modal"
+                      @foreach ($customer as $showcus)
+                        @if ($show['id_customer']==$showcus['id_customer'])
+                          data-target="#{{$showcus['id_customer']}}"
+                        @endif
+                      @endforeach
+                       >ข้อมูลลูกค้า</a>
                     {{-- {{Html::link('detail/'.$show['id_patients'],'แสดงรายละเอียด',array('class'=>'btn btn-danger btn-sm'))}} --}}
                   <br><br>
                   {{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary','style'=>'width:100px; text-align:right;'))}}
@@ -279,7 +286,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="row">
-                    
+
                       <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
 
                         <table class="table table-user-information">
@@ -287,12 +294,12 @@
                             <tr>
 
                             </tr>
-                            <tr>
+                            {{-- <tr>
                               <td>
                                 เลขประจำตัวประชาชน:
                               </td>
                               <td>{{$show['id_card_Pat']}}</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                               <td>
                                 เพศ:
@@ -366,9 +373,12 @@
                                 <td width="30%">โรคที่ป่วย</td>
                                 <td width="70%">
                                   @foreach ($patsick as $showsick)
-                                          <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
-                                            {{$showsick['sick_description']}}
-                                          </div>
+                                          @if ($showsick['id_patients']==$show['id_patients'])
+                                            <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showsick['sick_description']}}">
+                                              {{$showsick['sick_description']}}
+                                            </div>
+                                          @endif
+
                                     @endforeach
                                 </td>
                               </tr>
@@ -376,11 +386,11 @@
                                 <td width="30%">อุปกรณ์ติดตัวคนไข้</td>
                                 <td width="70%">
                                   @foreach ($equpment as $showequp)
-
+                                    @if ($showequp['id_patients']==$show['id_patients'])
                                           <div class="text-display-box"  style="display:inline-block ; margin: 2.5px;" title="{{$showequp['equipment_description']}}">
                                             {{$showequp['equipment_description']}}
                                           </div>
-
+                                          @endif
                                     @endforeach
                                   </td>
                               </tr>
@@ -388,10 +398,11 @@
                                 <td width="30%">แพ้อาหารและยา</td>
                                 <td width="70%">
                                   @foreach ($allergy as $showallergy)
-
+                                      @if ($showallergy['id_patients']==$show['id_patients'])
                                           <div class="text-display-box"  style="display:inline-block ; margin: 2.5px" title="{{$showallergy['allergy_description']}}">
                                             {{$showallergy['allergy_description']}}
                                           </div>
+                                          @endif
                                     @endforeach
                                 </td>
                               </tr>
@@ -416,8 +427,71 @@
 
 
 </div>
+@foreach ($customer as $cus)
+
+<!-- Modal -->
+<div class="modal fade" id="{{$cus['id_customer']}}" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">คุณลูกค้า ชื่อ{{$cus['name_cus']}}  {{$cus['lastname_cus']}} </h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <div class=" col-md-12 col-lg-12 col-xs-12 px-12 ">
+
+            <table class="table table-user-information">
+              <tbody>
+                <tr>
+
+                </tr>
+
+                <tr>
+                  <td>เบอร์โทรศัพท์บ้าน:</td>
+                  <td>{{$cus['telephone_cus']}}</td>
+                </tr>
+                <tr>
+                  <td>เบอร์โทรศัพท์มือถือ:</td>
+                    <td>{{$cus['mobilephone_cus']}}</td>
+                </tr>
+                <tr>
+                  <td>ไอดีไลน์:</td>
+                    <td>{{$cus['lineid_cus']}}</td>
+                </tr>
+                <tr>
+                  <td>ที่อยุ่:</td>
+                  <td>{{$cus['address_cus']}} </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+@endforeach
+
 @empty
-  <h1>no data!!</h1>
+  <br>
+  <h5>ไม่มีคำขอ ให้จัดหาผู้ดูแล</h5>
 @endforelse
 </div>
 </div>

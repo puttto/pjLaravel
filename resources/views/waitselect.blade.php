@@ -12,7 +12,7 @@
                       <table class="table center-aligned-table">
                         <thead>
                           <tr class="text-primary">
-                            <th>วันเวลา</th>
+
                             <th>ลูกค้า</th>
                             <th>คนไข้</th>
                             <th>ผู้ดูแล</th>
@@ -27,13 +27,13 @@
 
                           @forelse ($waitselect as $show)
                             <tr class="">
-                              <td>{{$show['created_at']}}</td>
+
                               <td>ชื่อ: {{$show['name_cus']}} {{$show['lastname_cus']}} <br /> <a href="tel:{{$show['mobilephone_cus']}}">{{$show['mobilephone_cus']}}</a></td>
                               <td>ชื่อ: {{$show['name_Pat']}} {{$show['lastname_Pat']}}</td>
                               <td>ชื่อ: {{$show['name_care']}} {{$show['lastname_care']}}</td>
                               <td>รอตอบรับ</td>
                               {{Form::open([ 'method'  => 'delete', 'route' => [ 'waitselect.destroy', $show->id_select_care_statuses ] ])}}
-                                                <td>  {{ Form::submit('ลบ', ['class' => 'btn btn-danger btn-sm']) }}</td>
+                                                <td>  {{ Form::submit('ยกเลิก', ['class' => 'btn btn-danger btn-sm']) }}</td>
                               {{ Form::close() }}
                               <td>{{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary'))}}
 </td>

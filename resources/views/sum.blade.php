@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center">
                   {{-- <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> --}}
-                  <img alt="User Pic" src="img/testt.png" class="img-circle img-responsive">
+                  {{-- <img alt="User Pic" src="img/testt.png" class="img-circle img-responsive"> --}}
                  </div>
 
                 <!--div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>

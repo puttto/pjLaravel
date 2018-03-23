@@ -18,7 +18,8 @@ class CallEmergencyController extends Controller
      */
     public function index()
     {
-      $emergency = emergency::where('emergencies.id_emergencies','>',0)
+      $emergency = emergency::take(100)
+      // where('emergencies.id_emergencies','>',0)
         ->join('caregivers','emergencies.id_caregivers','=','caregivers.id_caregivers')
         ->join('patients','emergencies.id_patients','=','patients.id_patients')
         ->join('customers','patients.id_customer','=','customers.id_customer')

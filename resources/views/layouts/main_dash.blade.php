@@ -99,10 +99,10 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             {{-- <img src={{asset('dashboard/images/face.jpg')}} alt=""> --}}
-            <br><br><br>
+            <br>
             <p class="name">Admin : &nbsp;&nbsp;{{ Auth::user()->name }}</p>
             {{-- <p class="designation">Manager</p> --}}
-            <br><br><br> <span class="online"></span>
+            <br> <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item active">

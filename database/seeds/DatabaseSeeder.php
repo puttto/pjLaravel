@@ -10,15 +10,16 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-{
-  $this->call([
-       Sickness::class,
-       Equipment::class,
-       Medical_equipment::class,
-       Special_skill::class,
-       Aller::class,
+    {
+        $this->call([
+       // Sickness::class,
+       // Equipment::class,
+       // Medical_equipment::class,
+       // Special_skill::class,
+       // Aller::class,
+        Nat_rases::class,
 
 
    ]);
-}
+    }
 }

@@ -42,8 +42,8 @@ public function __construct()
          // ->groupBy('pat_sicks.id_patients')
          ->orderBy('patients.id_patients', 'desc')
          ->get();
-// dd($Patient);
-
+ // dd($Patient);
+           $data_cus = array();
           $data_pat = array();
           $data_pat_sick = array();
           $data_pat_equpment = array();
@@ -60,9 +60,18 @@ public function __construct()
 
            foreach ($data_pat as $getidpat) {
                $idpat = $getidpat['id_patients'];
+               $idcus =$getidpat['id_customer'];
            }
 
-// dd($data_pat);
+           $getdata_cus = Customer::where('id_customer', $idcus)->get();
+
+           foreach ($getdata_cus as $datacustomer ) {
+
+               array_push($data_cus,$datacustomer);
+
+               }
+
+
          $keep_patsick = Pat_sick::Where([['patients.status','=','request'],['pat_sicks.id_patients',$idpat],['pat_sicks.status','=','request']])
                ->join('patients','pat_sicks.id_patients','=','patients.id_patients')
                //->join('pat_sicks','pat_sicks.id_patients','=','patients.id_patients')
@@ -101,9 +110,10 @@ public function __construct()
              }
 
                       //  $show = [Carbon::parse($get_age)->diff(Carbon::now()) ->format('%y ปี')];
-
+// dd($data_cus);
         $data = array(
                       'display'=>$data_pat,
+                      'customer'=>$data_cus,
                       'patsick'=>$data_pat_sick,
                       'equpment'=>$data_pat_equpment,
                       'allergy'=>$data_pat_allergy,

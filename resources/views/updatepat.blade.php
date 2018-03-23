@@ -87,7 +87,7 @@
 
         <div class="form-group {{ $errors->has('Birthday') ? ' has-error' : '' }}">
           <label for="Birthday">วัน-เดือน-ปีเกิด:</label>
-          <input value="{{$test->birthday_Pat}}" type="text" class="form-control" data-field="date" readonly id="Birthday" name="Birthday" required autofocus>
+          <input value="{{$test->birthday_Pat}}" type="text" class="form-control" data-field="date" maxDateTime readonly id="Birthday" name="Birthday" required autofocus>
           @if ($errors->has('Birthday'))
               <span class="help-block">
                   <strong>{{ $errors->first('Birthday') }}</strong>
@@ -125,7 +125,14 @@
 
         <div class="form-group {{ $errors->has('Nationality') ? ' has-error' : '' }}" >
           <label for="Nationality">สัญชาติ:</label>
-          <input value="{{$test->nationality_Pat}}" type="text" class="form-control" id="Nationality" name="Nationality" required autofocus>
+          <select class="form-control" name="Nationality" value="{{$test->nationality_Pat}}" selected equired autofocus>
+            @foreach ($nat_rase as $n_r)
+              <option value="{{$n_r['national_race'] }}">{{$n_r['national_race']}}</option>
+            @endforeach
+          </select>
+
+
+          {{-- <input value="{{$test->nationality_Pat}}" type="text" class="form-control" id="Nationality" name="Nationality" required autofocus> --}}
           @if ($errors->has('Nationality'))
               <span class="help-block">
                   <strong>{{ $errors->first('Nationality') }}</strong>
@@ -134,7 +141,13 @@
         </div>
         <div class="form-group {{ $errors->has('Race') ? ' has-error' : '' }}">
           <label for="Race">เชื้อชาติ:</label>
-          <input value="{{$test->race_Pat}}" type="text" class="form-control" id="Race" name="Race" required autofocus>
+
+            <select class="form-control" name="Race" value="{{$test->race_Pat}}" selected equired autofocus>
+              @foreach ($nat_rase as $n_r)
+                <option value="{{$n_r['national_race']}}">{{$n_r['national_race']}}</option>
+              @endforeach
+              </select>
+          {{-- <input value="{{$test->race_Pat}}" type="text" class="form-control" id="Race" name="Race" required autofocus> --}}
           @if ($errors->has('Race'))
               <span class="help-block">
                   <strong>{{ $errors->first('Race') }}</strong>
@@ -143,7 +156,15 @@
         </div>
         <div class="form-group {{ $errors->has('Religion') ? ' has-error' : '' }}">
           <label for="Religion">ศาสนา:</label>
-          <input value="{{$test->religion_Pat}}" type="text" class="form-control" id="Religion" name="Religion" required autofocus>
+          {{-- <input value="{{$test->religion_Pat}}" type="text" class="form-control" id="Religion" name="Religion" required autofocus> --}}
+          <select class="form-control" name="Religion" value="{{$test->religion_Pat}}" selected equired autofocus>
+            <option value="พุทธ">พุทธ</option>
+            <option value="อิสลาม">อิสลาม</option>
+            <option value="คริสต์">คริสต์</option>
+            <option value="ฮินดู">ฮินดู</option>
+            <option value="ขงจื๊อ">ขงจื๊อ</option>
+            <option value="ไม่มีศาสนา">ไม่มีศาสนา</option>
+          </select>
           @if ($errors->has('Religion'))
               <span class="help-block">
                   <strong>{{ $errors->first('Religion') }}</strong>

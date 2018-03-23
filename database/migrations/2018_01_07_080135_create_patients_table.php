@@ -35,7 +35,7 @@ class CreatePatientsTable extends Migration
 
 
             $table->integer('id_customer')->unsigned();
-            //$table->foreign('id_customer')->references('id_customer')->on('customers');
+            $table->foreign('id_customer')->references('id_customer')->on('customers');
 
 
         });

@@ -11,14 +11,14 @@
                     <table class="table center-aligned-table">
                       <thead>
                         <tr class="text-primary">
-                          <th>วันเวลา</th>
+                          {{-- <th>วันเวลา</th> --}}
                           <th>ชื่อลูกค้า</th>
                           {{-- <th>เบอร์โทร</th> --}}
                           <th>ชื่อผู้ป่วย</th>
                           <th>สถานะ</th>
-                          <th></th>
+
                           <th>จัดการ</th>
-                          <th></th>
+
 
                         </tr>
                       </thead>
@@ -26,22 +26,31 @@
 
                         @forelse ($usercus as $show)
                           <tr class="">
-                            <td>{{$show['created_at']}}</td>
+                            {{-- <td>{{$show['created_at']}}</td> --}}
                             <td>ชื่อ: {{$show['name_cus']}} {{$show['lastname_cus']}} <br /> เบอร์โทร: <a href="tel:{{$show['mobilephone_cus']}}">{{$show['mobilephone_cus']}}</a></td>
                             <td>ชื่อ: {{$show['name_Pat']}} {{$show['lastname_Pat']}}</td>
                             {{-- <td>ชื่อ: {{$show['name_care']}} {{$show['lastname_care']}}</td> --}}
 
                             @if ($show['status']=='request')
-                              <td style="color:red;">{{'ส่งเรื่องขอผู้ดูแล'}}</td>
+                              <td style="color:#e0650c;">{{'ส่งเรื่องขอผู้ดูแล'}}</td>
                             @elseif ($show['status']=='wait')
-                              <td style="color:#e2cf2a;">{{'ดำเนินการ'}}</td>
+                              <td style="color:#e2cf2a;">{{'รอเลือกผู้ดูแล'}}</td>
+                            @elseif ($show['status']=='close')
+                              <td style="color:red;">{{'ปิดงาน'}}</td>
                               @else
                                 <td style="color:#00a866;">{{'อยู่ในการดูแล'}}</td>
                             @endif
 
-                              <td>{{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary btn-sm','style'=>'width:100px'))}}</td>
-                              <td><a href="#" class="btn btn-info btn-sm">แก้ไข</a></td>
-                            <td><a href="#" class="btn btn-danger btn-sm">ลบ</a></td>
+                              {{-- <td>{{Html::link('search/'.$show['id_patients'],'ค้นหาผู้ดูแล',array('class'=>'btn btn-primary btn-sm','style'=>'width:100px'))}}</td> --}}
+                              <td>{{Html::link('updateuserpat/'.$show['id_patients'].'/edit','แก้ไขข้อมูล',array('class'=>'btn btn-info btn-sm'))}}</td>
+                            @if ($show['status']=='complete' || $show['status']=='close')
+
+                            {{Form::open([ 'method'  => 'delete', 'route' => [ 'usercustomer.destroy', $show->id_patients ] ])}}
+                                              <td>  {{ Form::submit('ปิดงาน', ['class' => 'btn btn-danger btn-sm']) }}</td>
+                            {{ Form::close() }}
+
+                          <td><a class="btn btn-primary btn-sm" href="{{ route('usercustomer.show',$show->id_patients) }}">ส่งคำขอผู้ดูแล</a></td>
+                            @endif
                             {{-- <td><a href="#" class="btn btn-danger btn-sm">Remove</a></td> --}}
                            </tr>
                         @empty
